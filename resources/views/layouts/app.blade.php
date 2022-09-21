@@ -19,6 +19,7 @@
 
     <!-- Scripts -->
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <script src="{{ asset('js/jquery-3.6.1.slim.js') }}"></script>
 </head>
 <body>
     {{-- <div id="app"> --}}
