@@ -24,7 +24,7 @@ class Note extends Model
         return $this->belongsTo('App\Models\User');
     }
 
-    public function category() {
+    public function product() {
         return $this->belongsTo('App\Models\Product', 'product_id');
     }
 

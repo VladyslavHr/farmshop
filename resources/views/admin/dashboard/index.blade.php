@@ -1,6 +1,6 @@
 @extends('admin.layouts.adminapp')
 
-@section('page-title', 'Administrace')
+@section('page-title', 'Адміністрація')
 
 @section('content')
 
@@ -17,7 +17,7 @@
     <hr class="mt-0 mb-5" />
     <!-- Profile content row-->
     <div class="row gx-5">
-        <h1>Vítejte v administraci</h1>
+        <h1>Ласкаво просимо до Адміністрації</h1>
     </div>
 </div>
 

@@ -20,6 +20,7 @@ class Product extends Model
         'description',
         'main_image',
         'status',
+        'quantity',
         'public',
         'seo_keywords',
         'seo_description',
@@ -40,7 +41,7 @@ class Product extends Model
     }
 
     public function notes() {
-        return $this->hasMany('App\Models\NoteCategory');
+        return $this->hasMany(Note::class)->orderByDesc('created_at');
     }
 
     // public function images()

@@ -20,6 +20,14 @@ class ProductCategoryController extends Controller
         ]);
     }
 
+    public function productsListToCategory(ProductCategory $product_category)
+    {
+        // $product_categories = ProductCategory::orderBy('created_at', 'desc')->get();
+        return view('admin.products.products-list-to-category', [
+            'product_category' => $product_category,
+        ]);
+    }
+
     public function create()
     {
         $product_types = ProductType::get(['id', 'name']);

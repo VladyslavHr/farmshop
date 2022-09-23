@@ -22,9 +22,10 @@ return new class extends Migration
             $table->double('price', 10, 2);
             $table->double('old_price', 10, 2)->default(0);
             $table->longText('description')->nullable();
-            $table->string('main_img')->default(asset('default/no-image.png'));
+            $table->string('main_img');
             $table->string('price_type')->nullable();
             $table->string('status')->default('in_stock');
+            $table->integer('quantity')->default(0);
             $table->string('seo_title');
             $table->string('seo_keywords');
             $table->text('seo_description');

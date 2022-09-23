@@ -5,6 +5,14 @@
 @section('content')
 @include('admin.layouts.blocks.errors')
 <div class="container py-3">
+    <div class="row py-3">
+        <div class="col-md-2">
+            <a class="btn " href="{{ route('admin.productCategories.index') }}">
+                <i class="bi bi-arrow-left-square me-2"></i>
+                Повернутись
+            </a>
+        </div>
+    </div>
     <form class="mt-3" action="{{ route('admin.productCategories.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">

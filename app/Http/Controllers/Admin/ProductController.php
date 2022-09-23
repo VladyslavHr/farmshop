@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Product,ProductCategory};
+use App\Models\{Product,ProductCategory,Note};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -22,9 +22,9 @@ class ProductController extends Controller
     public function create()
     {
         $product_categories = ProductCategory::get(['id', 'name']);
-       return view('admin.products.create', [
-        'product_categories' => $product_categories,
-       ]);
+        return view('admin.products.create', [
+            'product_categories' => $product_categories,
+        ]);
     }
 
     public function store(Request $request)
@@ -36,6 +36,7 @@ class ProductController extends Controller
             'price' => '',
             'old_price' => '',
             'price_type' => '',
+            'quantity' => '',
             'main_img' => 'image',
             'logo' => 'image',
             'status' => '',
@@ -81,16 +82,22 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        // $product = Product::with('notes.author:id,name,last_name')->findOrFail($product);
+        $product_notes = Note::where('id', $product)->orderBy('created_at', 'desc')->get();
         return view('admin.products.show', [
             'product' => $product,
+            'product_notes' => $product_notes,
+            // 'note' => $product->note,
         ]);
     }
 
 
     public function edit(Product $product)
     {
+        $product_categories = ProductCategory::get(['id', 'name']);
         return view('admin.products.edit', [
             'product' => $product,
+            'product_categories' => $product_categories,
         ]);
     }
 
@@ -103,6 +110,7 @@ class ProductController extends Controller
             'price' => '',
             'old_price' => '',
             'price_type' => '',
+            'quantity' => '',
             'main_img' => 'image',
             'logo' => 'image',
             'status' => '',

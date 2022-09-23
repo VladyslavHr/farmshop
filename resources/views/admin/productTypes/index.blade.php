@@ -5,6 +5,14 @@
 @section('content')
 
 <div class="container py-3">
+    <div class="row py-3">
+        <div class="col-md-2">
+            <a class="btn " href="{{ route('admin.productTypes.create') }}">
+                <i class="bi bi-plus-lg me-2"></i>
+                Створити
+            </a>
+        </div>
+    </div>
     <table class="table">
         <thead>
           <tr>
@@ -24,7 +32,11 @@
                 <th class="text-center" scope="row">{{ $product_type->name }}</th>
                 <td class="text-center">{{ $product_type->slug }}</td>
                 <td class="text-center">{{ $product_type->user->name }}</td>
-                <td class="text-center">{{ count($product_type->categories) }}</td>
+                <td class="text-center">
+                    <a href="{{ route('admin.productCategories.categoriesListToType', $product_type) }}">
+                        {{ count($product_type->categories) }}
+                    </a>
+                </td>
                 <td class="text-center">{{ $product_type->updated_at }}</td>
                 <td class="text-center">{{ $product_type->created_at }}</td>
                 <td class="text-center">

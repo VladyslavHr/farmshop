@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'description',
+        'image',
+        'page',
+    ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
 }

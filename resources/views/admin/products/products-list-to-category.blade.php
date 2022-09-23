@@ -1,11 +1,18 @@
 @extends('admin.layouts.adminapp')
 
-@section('page-title', 'Список товарів')
+@section('page-title', 'Список товарів у категорії')
+{{-- @section('description', $service->seo_description) --}}
 
 @section('content')
 
 <div class="container py-3">
     <div class="row py-3">
+        <div class="col-md-2">
+            <a class="btn " href="{{ route('admin.productCategories.index') }}">
+                <i class="bi bi-arrow-left-square me-2"></i>
+                Повернутись
+            </a>
+        </div>
         <div class="col-md-2">
             <a class="btn " href="{{ route('admin.products.create') }}">
                 <i class="bi bi-plus-lg me-2"></i>
@@ -31,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-            @foreach ($products as $product)
+            @foreach ($product_category->products as $product)
             <tr>
                 <th class="text-center" scope="row">{{ $product->name }}</th>
                 <td class="text-center">{{ $product->user->name }}</td>

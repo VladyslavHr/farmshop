@@ -1,11 +1,17 @@
 @extends('admin.layouts.adminapp')
 
-@section('page-title', 'Список категорій')
+@section('page-title', 'Список категорій у виді')
 
 @section('content')
-
+@include('admin.layouts.blocks.errors')
 <div class="container py-3">
     <div class="row py-3">
+        <div class="col-md-2">
+            <a class="btn " href="{{ route('admin.productTypes.index') }}">
+                <i class="bi bi-arrow-left-square me-2"></i>
+                Повернутись
+            </a>
+        </div>
         <div class="col-md-2">
             <a class="btn " href="{{ route('admin.productCategories.create') }}">
                 <i class="bi bi-plus-lg me-2"></i>
@@ -15,7 +21,7 @@
     </div>
     <table class="table">
         <thead>
-          <tr>
+        <tr>
             <th class="text-center" scope="col">Назва</th>
             <th class="text-center" scope="col">Вид товару</th>
             <th class="text-center" scope="col">Slug</th>
@@ -25,7 +31,7 @@
             <th class="text-center" scope="col">Створено</th>
             <th class="text-center" scope="col">Редагувати</th>
             <th class="text-center" scope="col">Видалити</th>
-          </tr>
+        </tr>
         </thead>
         <tbody>
             @foreach ($product_categories as $product_category)
@@ -53,10 +59,10 @@
                     </form>
 
                 </td>
-              </tr>
+            </tr>
             @endforeach
         </tbody>
-      </table>
+    </table>
 </div>
 
 @endsection

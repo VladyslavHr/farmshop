@@ -5,6 +5,28 @@
 @section('content')
 @include('admin.layouts.blocks.errors')
 <div class="container py-3">
+    <div class="row py-3">
+        <div class="col-md-2">
+            <a class="btn " href="{{ route('admin.productTypes.index') }}">
+                <i class="bi bi-arrow-left-square me-2"></i>
+                Повернутись
+            </a>
+        </div>
+        <div class="col-md-2">
+            <a class="btn " href="{{ route('admin.productTypes.create') }}">
+                <i class="bi bi-plus-lg me-2"></i>
+                Створити
+            </a>
+        </div>
+        <div class="col-md-2">
+            <form class="text-center" action="{{ route('admin.productTypes.delete', $product_type) }}" method="POST"
+            onsubmit="if(!confirm('Видалити?')) return false">
+            @method('DELETE')
+            @csrf
+            <button type="submit" class="btn"><i class="bi bi-trash me-2"></i> Видалити</button>
+        </form>
+        </div>
+    </div>
     <form class="mt-3" action="{{ route('admin.productTypes.update', $product_type) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="row">

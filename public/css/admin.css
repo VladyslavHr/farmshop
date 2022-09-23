@@ -1,0 +1,13 @@
+.devider{
+    width: 100%;
+    border: 1px solid #9d9999;
+}
+
+.product-info-page-info-list{
+    list-style: none;
+    padding: 0;
+}
+
+.product-info-page-info-list li{
+    margin: 5px 0;
+}

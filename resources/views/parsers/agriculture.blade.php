@@ -17,14 +17,8 @@
                     </div>
                 </div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+                <div class="card-body" id="logger">
 
-                    {{ __('You are logged in!') }}
                 </div>
             </div>
         </div>
@@ -32,16 +26,38 @@
 </div>
 
 <script>
+    let parserStarted = false
+    let page = 1
+    const startedAt = null;
     function ac_start() {
-
+        if (parserStarted) {
+            return false
+        }
+        parserStarted = true
+        ac_parse_page(page)
     }
 
     function ac_stop() {
-
+        parserStarted = false
     }
 
-    function ac_parse_page(pageNumber = 1) {
-        name
+    function ac_parse_page(pageNumber) {
+        if (!parserStarted) return false
+            $.post(`/parsers/agriculture/parsePage/${pageNumber}`, function (data) {
+                started_at: startedAt
+        },
+
+        function (data) {
+            if (data.status == 'ok') {
+                $('#logger').prepend(`<div>Page: ${pageNumber}. Title: ${data.title}</div>`)
+                $('#logger div:nth-child(n + 11)').remove()
+                ac_parse_page(++page)
+            }
+            if (data.status === 'finish') {
+                $('#logger').prepend(`<div>Finish</div>`)
+
+            }
+        })
     }
 </script>
 @endsection

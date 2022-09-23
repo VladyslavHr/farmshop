@@ -19,11 +19,11 @@
                         <!-- Divider-->
                         <div class="drawer-menu-divider d-sm-none"></div>
                         <!-- Drawer section heading (Interface)-->
-                        <div class="drawer-menu-heading">HLAVNÍ MENU</div>
+                        <div class="drawer-menu-heading">ГОЛОВНЕ МЕНЮ</div>
                         <!-- Drawer link (Overview)-->
                         <a class="nav-link" href="{{ route('admin.dashboard.index') }}">
                             <div class="nav-link-icon"><i class="material-icons">dashboard</i></div>
-                            Dashboard
+                            Дошка
                         </a>
                         <!-- Drawer link (Dashboards)-->
                         {{-- <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">
@@ -43,11 +43,11 @@
                             </nav>
                         </div>
                         <!-- Drawer link (Layouts)-->
-                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                        {{-- <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="nav-link-icon"><i class="material-icons">mail</i></div>
                             Zprávy
                             <div class="drawer-collapse-arrow"><i class="material-icons">expand_more</i></div>
-                        </a>
+                        </a> --}}
                         <!-- Nested drawer nav (Layouts)-->
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
                             <nav class="drawer-menu-nested nav">
@@ -134,7 +134,7 @@
                         <!-- Divider-->
                         <div class="drawer-menu-divider"></div>
                         <!-- Drawer section heading (UI Toolkit)-->
-                        <div class="drawer-menu-heading">WEBOVÉ STRÁNKY</div>
+                        <div class="drawer-menu-heading">КРАМНИЦЯ</div>
                         <!-- Drawer link (Components)-->
                         <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseComponents" aria-expanded="false" aria-controls="collapseComponents">
                             <div class="nav-link-icon"><i class="material-icons">widgets</i></div>
@@ -180,11 +180,11 @@
                             </nav>
                         </div>
                         <!-- Drawer link (Utilities)-->
-                        <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
+                        {{-- <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
                             <div class="nav-link-icon"><i class="material-icons">price_change</i></div>
                             Ceny
                             <div class="drawer-collapse-arrow"><i class="material-icons">expand_more</i></div>
-                        </a>
+                        </a> --}}
                         <!-- Nested drawer nav (Utilities)-->
                         <div class="collapse" id="collapseUtilities" aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
                             <nav class="drawer-menu-nested nav">
@@ -195,17 +195,17 @@
                         <!-- Divider-->
                         <div class="drawer-menu-divider"></div>
                         <!-- Drawer section heading (Plugins)-->
-                        <div class="drawer-menu-heading">NASTAVENÍ</div>
+                        <div class="drawer-menu-heading">НАЛАШТУВАННЯ</div>
                         <!-- Drawer link (Charts)-->
                         <a class="nav-link collapsed" href="javascript:void(0);"  data-bs-toggle="collapse" data-bs-target="#collapseUzers" aria-expanded="false" aria-controls="collapseUzers">
                             <div class="nav-link-icon"><i class="material-icons">person</i></div>
-                            Uživatelé
+                            Користувачі
                             <div class="drawer-collapse-arrow"><i class="material-icons">expand_more</i></div>
                         </a>
                         <div class="collapse" id="collapseUzers" aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
                             <nav class="drawer-menu-nested nav">
-                                {{-- <a class="nav-link" href="{{ route('admin.users.index') }}">Uživatelé seznam</a>
-                                <a class="nav-link" href="{{ route('admin.users.create') }}">Vytvořit Uživatelé</a> --}}
+                                <a class="nav-link" href="{{ route('admin.users.index') }}">Список користувачів</a>
+                                <a class="nav-link" href="{{ route('admin.users.create') }}">Створити нового користувача</a>
                             </nav>
                         </div>
                         {{-- <!-- Drawer link (Code Blocks)-->

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\ProductType;
+use App\Models\{ProductType,ProductCategory};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -16,6 +16,15 @@ class ProductTypeController extends Controller
         $product_types = ProductType::orderBy('created_at', 'desc')->get();
         return view('admin.productTypes.index',[
             'product_types' => $product_types,
+        ]);
+    }
+
+    public function categoriesListToType(ProductType $product_type)
+    {
+
+        $product_categories = ProductCategory::where('product_type_id', '=', $product_type->id)->orderBy('created_at', 'desc')->get();
+        return view('admin.productCategories.categories-list-to-type',[
+            'product_categories' => $product_categories,
         ]);
     }
 

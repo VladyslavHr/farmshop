@@ -17,40 +17,58 @@ class ArticleController extends Controller
 
     public function ac_parsePage($page_num)
     {
-        // dd($page_num);
-        // Load the page into memory
-        $doc = new HtmlWeb();
-        $html = $doc->load('https://www.agriculture.com/news?page=' . $page_num);
 
-        // echo $html->innertext;
+        try{
+            $doc = new HtmlWeb();
+            $html = $doc->load('https://www.agriculture.com/news?page=' . $page_num);
 
-        $articles = $html->find('article.views-row');
 
-        foreach ($articles as $key => $article) {
-            if (in_array($key, [0,1,2])) {
-                continue;
+
+            $articles = $html->find('article.views-row');
+
+            $returnTitle = '';
+
+            foreach ($articles as $key => $article) {
+                if (in_array($key, [0,1,2])) {
+                    continue;
+                }
+                $title = $article->find('h3 .field-content', 0)?->plaintext ?? '';
+                if ($title) {
+
+                    $articleModel = Article::firstOrNew(['title' => $title]);
+
+                    $articleModel->description = $article->find('.field-body', 0)?->plaintext ?? '';
+                    $articleModel->image = $article->find('.lazyload', 0)?->getAttribute('data-srcset') ?? '';
+                    $articleModel->page = $page_num;
+                    // $articleModel-> = $page_num;
+                    $articleModel->save();
+                    $returnTitle = $title;
+
+                }
+
             }
-            $title = $article->find('h3 .field-content', 0)->plaintext ?? '';
-            if ($title) {
-                $description = $article->find('.field-body', 0)->plaintext ?? '';
-                $image = $article->find('.lazyload', 0)->getAttribute('data-srcset') ?? '';
-                dump($image);
-                echo '<img src="'.$image.'">';
+
+            if ($returnTitle) {
+                return [
+                    'status' => 'ok',
+                    'title' => $returnTitle,
+                ];
+            }else{
+                return [
+                    'status' => 'finish',
+                ];
             }
+
+
+
+        } catch (Exeption $e) {
+            return response([
+                'status' => 'error',
+                'title' => $e->getMessage(),
+            ], 400);
 
         }
 
-
-        // $response = Http::withBody()->post('https://www.agriculture.com/views/ajax?page=6',[
-        //     'view_name' => 'category_content',
-        //     'view_display_id' => 'category_recent_content_three',
-        //     'view_path' => 'taxonomy/term/69',
-        //     'page'
-        // ]);
-
-        // $result = $response->json($key = null);
-
-        // dd($result);
 
     }
     /**
