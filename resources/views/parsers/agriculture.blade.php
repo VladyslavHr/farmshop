@@ -14,7 +14,18 @@
                         <button type="button" class="btn btn-outline-dark"
                         onclick="ac_stop()"
                         >Stop</button>
+
+                        <select name="" id="parser_sessions" class="form-select">
+                            <option value="0">Начать с начала</option>
+                            @foreach ($parserSessions as $parserSession)
+                                <option value="{{ $parserSession->started_at }}">
+                                    {{ $parserSession->started_at }} - {{ $parserSession->page  }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
+
+
                 </div>
 
                 <div class="card-body" id="logger">
@@ -27,31 +38,35 @@
 
 <script>
     let parserStarted = false
-    let page = 1
-    const startedAt = null;
+    let page = 0
     function ac_start() {
         if (parserStarted) {
             return false
         }
         parserStarted = true
-        ac_parse_page(page)
+
+        const startedAt = $('#parser_sessions').val()
+
+        ac_parse_page(startedAt, page)
     }
 
     function ac_stop() {
         parserStarted = false
     }
 
-    function ac_parse_page(pageNumber) {
+    function ac_parse_page(startedAt, page) {
         if (!parserStarted) return false
-            $.post(`/parsers/agriculture/parsePage/${pageNumber}`, function (data) {
-                started_at: startedAt
+        $.get(`/parsers/agriculture/parsePage`, {
+            started_at: startedAt,
+            page: page,
         },
 
         function (data) {
             if (data.status == 'ok') {
-                $('#logger').prepend(`<div>Page: ${pageNumber}. Title: ${data.title}</div>`)
+                page = ++data.page
+                $('#logger').prepend(`<div>Page: ${data.page}. Title: ${data.title}</div>`)
                 $('#logger div:nth-child(n + 11)').remove()
-                ac_parse_page(++page)
+                ac_parse_page(data.started_at, page)
             }
             if (data.status === 'finish') {
                 $('#logger').prepend(`<div>Finish</div>`)

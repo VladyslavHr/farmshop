@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('last_name')->nullable()->after('name');
+            $table->string('last_name')->nullable()->after('remember_token');
             $table->string('phone')->nullable()->after('last_name');
             $table->tinyInteger('public')->default(0)->after('phone');
         });

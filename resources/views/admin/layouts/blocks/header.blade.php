@@ -9,10 +9,10 @@
             <!-- Navbar items-->
             <div class="d-flex align-items-center mx-3 me-lg-0">
                 <!-- Navbar-->
-                {{-- <ul class="navbar-nav d-none d-lg-flex">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Overview</a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://docs.startbootstrap.com/material-admin-pro" target="_blank">Documentation</a></li>
-                </ul> --}}
+                <ul class="navbar-nav d-none d-lg-flex">
+                    <li class="nav-item"><a class="nav-link" href="{{route('home')}}">На веб</a></li>
+                    {{-- <li class="nav-item"><a class="nav-link" href="https://docs.startbootstrap.com/material-admin-pro" target="_blank">Documentation</a></li> --}}
+                </ul>
                 <!-- Navbar buttons-->
                 {{-- <form class="d-flex me-5 position-relative" role="search" action="{{ route('admin.dashboard.search_result') }}">
                     <input class="form-control me-2" name="query" value="{{ request('query') }}" type="search" placeholder="Search" aria-label="Search" autocomplete="off">

@@ -31,7 +31,7 @@ require __DIR__.'/auth.php';
 
 
 Route::get('/parsers/agriculture', [\App\Http\Controllers\ArticleController::class, 'agriculture'])->name('parsers.agriculture');
-Route::any('/parsers/agriculture/parsePage/{page_num}', [\App\Http\Controllers\ArticleController::class, 'ac_parsePage']);
+Route::any('/parsers/agriculture/parsePage', [\App\Http\Controllers\ArticleController::class, 'ac_parsePage']);
 
 
 
@@ -93,3 +93,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('/user/updatePassword/{user}', [AdminUserController::class, 'updatePassword'])->name('admin.users.updatePassword');
     Route::delete('/user/{id}', [AdminUserController::class, 'delete'])->name('admin.users.delete');
 });
+
+

@@ -7,6 +7,7 @@ use App\Models\{Product,ProductCategory,Note};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use \Gumlet\ImageResize;
 
 class ProductController extends Controller
 {
@@ -57,22 +58,48 @@ class ProductController extends Controller
             'seo_description.required' => 'Напишіть будь ласка опис для SEO.',
         ];
 
-        $data = $request->validate($rules, $message, );
+        $data = $request->validate($rules, $message);
         $data['slug'] = Str::slug($data['name']);
         $data['user_id'] = auth()->user()->id;
 
 		if ($request->hasfile('main_img')) {
 			$path = $request->file('main_img')->store('product-img', 'public');
 			$data['main_img'] = '/storage/' . $path;
+
+            $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-small', $path));
+
+            $image = new ImageResize($request->file('main_img'));
+            $image->resizeToShortSide(500);
+            $image->save($resized_url);
+
+
+            $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-medium', $path));
+
+            $image = new ImageResize($request->file('main_img'));
+            $image->resizeToShortSide(1000);
+            $image->save($resized_url);
 		}else{
-			$data['main_img'] = '/default/no-image.png';
+			$data['main_img'] = '/images/no-image.png';
 		}
 
         if ($request->hasfile('logo')) {
-			$path = $request->file('logo')->store('product-img', 'public');
+			$path = $request->file('logo')->store('product-logo', 'public');
 			$data['logo'] = '/storage/' . $path;
+
+            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
+
+            $image = new ImageResize($request->file('logo'));
+            $image->resizeToShortSide(500);
+            $image->save($resized_url);
+
+
+            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
+
+            $image = new ImageResize($request->file('logo'));
+            $image->resizeToShortSide(1000);
+            $image->save($resized_url);
 		}else{
-			$data['logo'] = '/default/no-image.png';
+			$data['logo'] = '/images/no-image.png';
 		}
 
         Product::create($data);
@@ -138,20 +165,62 @@ class ProductController extends Controller
 			$path = $request->file('main_img')->store('product-img', 'public');
 			$data['main_img'] = '/storage/' . $path;
 
+            $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-small', $path));
+
+            $image = new ImageResize($request->file('main_img'));
+            $image->resizeToShortSide(500);
+            $image->save($resized_url);
+
+
+            $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-medium', $path));
+
+            $image = new ImageResize($request->file('main_img'));
+            $image->resizeToShortSide(1000);
+            $image->save($resized_url);
+
 	        $path = public_path($product->main_img);
 	        if (file_exists($path) && strpos($path, '/images/') === false) {
 	            unlink($path);
 	        }
+            $small_path = str_replace('product-img', 'product-img-small', $path);
+            if (file_exists($small_path) && strpos($small_path, '/images/') === false) {
+                unlink($small_path);
+            }
+            $medium_path = str_replace('product-img', 'product-img-medium', $path);
+            if (file_exists($medium_path) && strpos($medium_path, '/images/') === false) {
+                unlink($medium_path);
+            }
 		}
 
         if ($request->hasfile('logo')) {
-			$path = $request->file('logo')->store('product-img', 'public');
+			$path = $request->file('logo')->store('product-logo', 'public');
 			$data['logo'] = '/storage/' . $path;
+
+            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
+
+            $image = new ImageResize($request->file('logo'));
+            $image->resizeToShortSide(500);
+            $image->save($resized_url);
+
+
+            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
+
+            $image = new ImageResize($request->file('logo'));
+            $image->resizeToShortSide(1000);
+            $image->save($resized_url);
 
 	        $path = public_path($product->logo);
 	        if (file_exists($path) && strpos($path, '/images/') === false) {
 	            unlink($path);
 	        }
+            $small_path = str_replace('product-logo', 'product-logo-small', $path);
+            if (file_exists($small_path) && strpos($small_path, '/images/') === false) {
+                unlink($small_path);
+            }
+            $medium_path = str_replace('product-logo', 'product-logo-medium', $path);
+            if (file_exists($medium_path) && strpos($medium_path, '/images/') === false) {
+                unlink($medium_path);
+            }
 		}
 
 

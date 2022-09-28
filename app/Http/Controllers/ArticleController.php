@@ -12,11 +12,29 @@ class ArticleController extends Controller
 
     public function agriculture()
     {
-        return view('parsers.agriculture');
+
+        $parserSessions = Article::selectRaw('started_at, max(page) as page ')->groupBy('started_at')->get();
+
+        // dd($parserSessions);
+        return view('parsers.agriculture', [
+            'parserSessions' => $parserSessions,
+        ]);
     }
 
-    public function ac_parsePage($page_num)
+    public function ac_parsePage()
     {
+
+        $started_at = request('started_at') ? request('started_at') : date('Y-m-d H:i:s');
+
+        if (request('started_at') && request('page') == 0) {
+            $lastParsedPage = Article::where('started_at', $started_at)->orderBy('id', 'desc')->value('page');
+            $page_num = $lastParsedPage + 1;
+        }elseif (request('started_at') == 0 && request('page') == 0) {
+            $page_num = 1;
+        }else{
+            $page_num = request('page');
+        }
+
 
         try{
             $doc = new HtmlWeb();
@@ -40,7 +58,7 @@ class ArticleController extends Controller
                     $articleModel->description = $article->find('.field-body', 0)?->plaintext ?? '';
                     $articleModel->image = $article->find('.lazyload', 0)?->getAttribute('data-srcset') ?? '';
                     $articleModel->page = $page_num;
-                    // $articleModel-> = $page_num;
+                    $articleModel->started_at = $started_at;
                     $articleModel->save();
                     $returnTitle = $title;
 
@@ -52,6 +70,8 @@ class ArticleController extends Controller
                 return [
                     'status' => 'ok',
                     'title' => $returnTitle,
+                    'page' => $page_num,
+                    'started_at' => $started_at,
                 ];
             }else{
                 return [
