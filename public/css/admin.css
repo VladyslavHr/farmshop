@@ -11,3 +11,13 @@
 .product-info-page-info-list li{
     margin: 5px 0;
 }
+
+.admin-product-show-image img{
+    width: 100%;
+}
+
+.tabel-responsive{
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+}

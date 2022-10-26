@@ -6,12 +6,17 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>@yield('title') | {{ config('app.name', 'Wildfarm.com.ua') }}</title>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <meta name="keywords" content="@yield('keywords', 'ферма', 'мясо', 'органіка', 'томати', 'яйця')">
+    <meta name="description" content="@yield('description', 'Oblíbená půjčovna obytných vozů Praha. Pronájem obytných aut rok výroby 2021 - 2022 s neomezeným nájezdem km. Jsme top půjčovna obytných vozů Praha. TopObytneVozy.cz - Praha')">
+    {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Playfair+Display" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
     <!-- CSS only -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset ('css/bootstrap-icons.css') }}">
@@ -21,7 +26,18 @@
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     {{-- <script src="{{ asset('js/jquery-3.6.1.slim.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHBMB7QLQ9"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PHBMB7QLQ9');
+    </script>
 </head>
+
 <body>
     {{-- <div id="app"> --}}
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -79,7 +95,7 @@
         </nav> --}}
 
         @include('layouts.blocks.header')
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
         @include('layouts.blocks.footer')

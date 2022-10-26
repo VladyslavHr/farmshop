@@ -22,7 +22,7 @@ return new class extends Migration
             $table->double('price', 10, 2);
             $table->double('old_price', 10, 2)->default(0);
             $table->longText('description')->nullable();
-            $table->string('main_img');
+            $table->string('main_img')->nullable();
             $table->string('price_type')->nullable();
             $table->string('status')->default('in_stock');
             $table->integer('quantity')->default(0);
@@ -31,6 +31,7 @@ return new class extends Migration
             $table->text('seo_description');
             $table->tinyInteger('public')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('products', function($table) {

@@ -20,7 +20,8 @@
             </a>
         </div>
     </div>
-    <table class="table">
+    <div class="tabel-responsive">
+        <table class="table">
         <thead>
           <tr>
             <th class="text-center" scope="col">Назва</th>
@@ -76,6 +77,7 @@
             @endforeach
         </tbody>
       </table>
+    </div>
 </div>
 
 @endsection

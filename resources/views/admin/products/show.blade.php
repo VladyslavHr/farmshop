@@ -34,8 +34,8 @@
         </form>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-6">
+    <div class="row py-3">
+        <div class="col-md-9">
             <ul class="product-info-page-info-list">
                 <li>
                     <span>
@@ -113,15 +113,12 @@
                 </li>
             </ul>
         </div>
-        <div class="col-dm-6">
-            <div class="row">
-                <div class="col-md-6">
-                    <img src="{{ $product->logo }}" alt="">
-                </div>
-                <div class="col-md-6">
-                    <img src="{{ $product->main_img }}" alt="">
-                </div>
-            </div>
+        <div class="col-md-3 admin-product-show-image">
+            {{-- <div class="row">
+                <div class="col-md-6"> --}}
+                    <img style="width: 100%" src="{{ $product->main_img }}" alt="">
+                {{-- </div>
+            </div> --}}
         </div>
     </div>
 

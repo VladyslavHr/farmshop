@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\ProductTypeController as AdminProductTypeControll
 use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategoryController;
 use App\Http\Controllers\Admin\NoteController as AdminNoteController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-
+use App\Http\Controllers\{ProductController,CartController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +35,22 @@ Route::any('/parsers/agriculture/parsePage', [\App\Http\Controllers\ArticleContr
 
 
 
+Route::get('/tovary', [\App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+Route::get('/tovary/{slug}', [\App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
+
+
+// Cart
+// Route::post('/tovary/addToCart/{id}', [App\Http\Controllers\ProductController::class, 'addToCart'])->name('products.addToCart');
+
+Route::post('/tovary/addToCart/{product}', [ProductController::class, 'addToCart'])->name('addToCart');
+Route::post('/tovary/removeFromCart/{product}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
+
+
+Route::get('/kosik', [CartController::class, 'index'])->name('carts.index');
+Route::get('/zamovlennya', [CartController::class, 'checkout'])->name('carts.checkout');
+
+
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
@@ -51,6 +67,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get('/products/edit/{product}', [AdminProductController::class, 'edit'])->name('admin.products.edit');
     Route::post('/products/update/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/products/{id}', [AdminProductController::class, 'delete'])->name('admin.products.delete');
+
+
+
 
     // PriductTypes
     Route::get('/products-types', [AdminProductTypeController::class, 'index'])->name('admin.productTypes.index');

@@ -82,7 +82,7 @@ class ProductCategoryController extends Controller
             $image->resizeToShortSide(1000);
             $image->save($resized_url);
 		}else{
-			$data['main_img'] = '/images/no-image.png';
+			$data['main_img'] = '/images/no-thumb-r.jpg';
 		}
 
         if ($request->hasfile('logo')) {
@@ -103,7 +103,7 @@ class ProductCategoryController extends Controller
             $image->resizeToShortSide(1000);
             $image->save($resized_url);
 		}else{
-			$data['logo'] = '/images/no-image.png';
+			$data['logo'] = '/images/no-thumb-r.jpg';
 		}
 
         ProductCategory::create($data);

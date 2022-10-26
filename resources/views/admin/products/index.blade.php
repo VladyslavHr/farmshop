@@ -13,7 +13,8 @@
             </a>
         </div>
     </div>
-    <table class="table">
+    <div class="tabel-responsive">
+        <table class="table">
         <thead>
           <tr>
             <th class="text-center" scope="col">Назва</th>
@@ -57,7 +58,7 @@
                     <a href="{{ route('admin.products.edit', $product) }}"><i class="bi bi-pencil-fill"></i></a>
                 </td>
                 <td class="text-center">
-                    <form class="text-center" action="{{ route('admin.products.delete', $product) }}" method="POST"
+                    <form class="text-center" action="{{ route('admin.products.delete', $product->id) }}" method="POST"
                         onsubmit="if(!confirm('Видалити?')) return false">
                         @method('DELETE')
                         @csrf
@@ -69,6 +70,8 @@
             @endforeach
         </tbody>
       </table>
+
+    </div>
 </div>
 
 @endsection

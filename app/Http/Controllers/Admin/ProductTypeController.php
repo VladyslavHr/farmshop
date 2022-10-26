@@ -77,7 +77,7 @@ class ProductTypeController extends Controller
             $image->resizeToShortSide(1000);
             $image->save($resized_url);
 		}else{
-			$data['main_img'] = '/images/no-image.png';
+			$data['main_img'] = '/images/no-thumb-r.jpg';
 		}
 
         if ($request->hasfile('logo')) {
@@ -97,7 +97,7 @@ class ProductTypeController extends Controller
             $image->resizeToShortSide(1000);
             $image->save($resized_url);
 		}else{
-			$data['logo'] = '/images/no-image.png';
+			$data['logo'] = '/images/no-thumb-r.jpg';
 		}
 
         ProductType::create($data);
@@ -136,7 +136,6 @@ class ProductTypeController extends Controller
         $data = $request->validate($rules, $message, );
         $data['slug'] = Str::slug($data['name']);
         $data['user_id'] = auth()->user()->id;
-
 
         if ($request->hasfile('main_img')) {
 			$path = $request->file('main_img')->store('product-type-img', 'public');

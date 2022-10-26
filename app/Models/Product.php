@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'user_id',
@@ -18,7 +19,7 @@ class Product extends Model
         'old_price',
         'price_type',
         'description',
-        'main_image',
+        'main_img',
         'status',
         'quantity',
         'public',
@@ -48,4 +49,9 @@ class Product extends Model
     // {
     //    return $this->hasMany(ProductImage::class)->limit(10);
     // }
+
+
+
+
+
 }

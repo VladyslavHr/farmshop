@@ -37,7 +37,7 @@
             </div>
             <div class="mb-3 col-md-6">
                 <label for="" class="form-label">Ціна до знижки</label>
-                <input type="num" name="old_price" value="{{ old('old_price') }}" class="form-control">
+                <input type="num" name="old_price" value="{{ old('old_price') ?? 0 }}" class="form-control">
                 <span class="form-text">Будь ласка напишіть ціну яка є перед знижкою</span>
             </div>
             <div class="mb-3 col-md-4">
@@ -79,10 +79,6 @@
                 <label for="" class="form-label">SEO опис</label>
                 <input name="seo_description" value="{{ old('seo_description') }}" type="text" class="form-control" id="" placeholder="">
                 <span class="form-text">Будь ласка напишіть SEO опис.(обов'язково)</span>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label for="inputLogoFile" class="form-label">Логотип</label>
-                <input name="logo" type="file" class="form-control" id="inputLogoFile">
             </div>
             <div class="col-md-6 mb-3">
                 <label for="" class="form-label">Картинка</label>

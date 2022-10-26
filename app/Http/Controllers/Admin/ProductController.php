@@ -41,9 +41,9 @@ class ProductController extends Controller
             'main_img' => 'image',
             'logo' => 'image',
             'status' => '',
-            'seo_title' => 'required',
-            'seo_keywords' => 'required',
-            'seo_description' => 'required',
+            'seo_title' => '',
+            'seo_keywords' => '',
+            'seo_description' => '',
 		];
 
         $message =         [
@@ -69,38 +69,38 @@ class ProductController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-small', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(500);
+            $image->resizeToShortSide(200);
             $image->save($resized_url);
 
 
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-medium', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(1000);
+            $image->resizeToShortSide(750);
             $image->save($resized_url);
 		}else{
-			$data['main_img'] = '/images/no-image.png';
+			$data['main_img'] = '/images/no-thumb-r.jpg';
 		}
 
-        if ($request->hasfile('logo')) {
-			$path = $request->file('logo')->store('product-logo', 'public');
-			$data['logo'] = '/storage/' . $path;
+        // if ($request->hasfile('logo')) {
+		// 	$path = $request->file('logo')->store('product-logo', 'public');
+		// 	$data['logo'] = '/storage/' . $path;
 
-            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
+        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
 
-            $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(500);
-            $image->save($resized_url);
+        //     $image = new ImageResize($request->file('logo'));
+        //     $image->resizeToShortSide(500);
+        //     $image->save($resized_url);
 
 
-            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
+        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
 
-            $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(1000);
-            $image->save($resized_url);
-		}else{
-			$data['logo'] = '/images/no-image.png';
-		}
+        //     $image = new ImageResize($request->file('logo'));
+        //     $image->resizeToShortSide(1000);
+        //     $image->save($resized_url);
+		// }else{
+		// 	$data['logo'] = '/images/no-thumb-r.jpg';
+		// }
 
         Product::create($data);
 
@@ -134,10 +134,10 @@ class ProductController extends Controller
             'name' => 'required',
             'product_category_id' => 'required',
             'description' => '',
-            'price' => '',
+            'price' => 'required',
             'old_price' => '',
             'price_type' => '',
-            'quantity' => '',
+            'quantity' => 'required',
             'main_img' => 'image',
             'logo' => 'image',
             'status' => '',
@@ -151,6 +151,8 @@ class ProductController extends Controller
             'product_type_id' => 'Виберіть будь ласка вид товару',
             'main_img' => 'Картинка має бути у форматі (jpg,png,webp).',
             'logo' => 'Логотип має бути у форматі (jpg,png,webp).',
+            'price.required' => 'Напишіть будь ласка ціну .',
+            'quantity.required' => 'Напишіть будь ласка кількість .',
             'seo_title.required' => 'Напишіть будь ласка заголовок для SEO .',
             'seo_keywords.required' => 'Напишіть будь ласка ключові слова для SEO.',
             'seo_description.required' => 'Напишіть будь ласка опис для SEO.',
@@ -168,14 +170,14 @@ class ProductController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-small', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(500);
+            $image->resizeToShortSide(200);
             $image->save($resized_url);
 
 
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-medium', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(1000);
+            $image->resizeToShortSide(750);
             $image->save($resized_url);
 
 	        $path = public_path($product->main_img);
@@ -192,36 +194,36 @@ class ProductController extends Controller
             }
 		}
 
-        if ($request->hasfile('logo')) {
-			$path = $request->file('logo')->store('product-logo', 'public');
-			$data['logo'] = '/storage/' . $path;
+        // if ($request->hasfile('logo')) {
+		// 	$path = $request->file('logo')->store('product-logo', 'public');
+		// 	$data['logo'] = '/storage/' . $path;
 
-            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
+        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
 
-            $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(500);
-            $image->save($resized_url);
+        //     $image = new ImageResize($request->file('logo'));
+        //     $image->resizeToShortSide(500);
+        //     $image->save($resized_url);
 
 
-            $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
+        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
 
-            $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(1000);
-            $image->save($resized_url);
+        //     $image = new ImageResize($request->file('logo'));
+        //     $image->resizeToShortSide(1000);
+        //     $image->save($resized_url);
 
-	        $path = public_path($product->logo);
-	        if (file_exists($path) && strpos($path, '/images/') === false) {
-	            unlink($path);
-	        }
-            $small_path = str_replace('product-logo', 'product-logo-small', $path);
-            if (file_exists($small_path) && strpos($small_path, '/images/') === false) {
-                unlink($small_path);
-            }
-            $medium_path = str_replace('product-logo', 'product-logo-medium', $path);
-            if (file_exists($medium_path) && strpos($medium_path, '/images/') === false) {
-                unlink($medium_path);
-            }
-		}
+	    //     $path = public_path($product->logo);
+	    //     if (file_exists($path) && strpos($path, '/images/') === false) {
+	    //         unlink($path);
+	    //     }
+        //     $small_path = str_replace('product-logo', 'product-logo-small', $path);
+        //     if (file_exists($small_path) && strpos($small_path, '/images/') === false) {
+        //         unlink($small_path);
+        //     }
+        //     $medium_path = str_replace('product-logo', 'product-logo-medium', $path);
+        //     if (file_exists($medium_path) && strpos($medium_path, '/images/') === false) {
+        //         unlink($medium_path);
+        //     }
+		// }
 
 
         $saved = $product->update($data);
@@ -237,10 +239,13 @@ class ProductController extends Controller
         if (file_exists($path) && strpos($path, '/images/') === false) {
             unlink($path);
         }
-
-        $path = public_path($product->logo);
-        if (file_exists($path) && strpos($path, '/images/') === false) {
-            unlink($path);
+        $small_path_image = str_replace('product-img', 'product-img-small', $path);
+        if (file_exists($small_path_image) && strpos($small_path_image, '/images/') === false) {
+            unlink($small_path_image);
+        }
+        $medium_path_medium = str_replace('product-img', 'product-img-medium', $path);
+        if (file_exists($medium_path_medium) && strpos($medium_path_medium, '/images/') === false) {
+            unlink($medium_path_medium);
         }
 
 		$product->delete();

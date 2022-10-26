@@ -98,16 +98,8 @@
                 <span class="form-text">Будь ласка напишіть SEO опис.(обов'язково)</span>
             </div>
             <div class="col-md-6 mb-3">
-                <label for="inputLogoFile" class="form-label">Логотип</label>
-                <input name="logo" type="file" class="form-control" id="inputLogoFile">
-            </div>
-            <div class="col-md-6 mb-3">
                 <label for="" class="form-label">Картинка</label>
                 <input name="main_img" type="file" class="form-control" id="inputMainImgFile">
-            </div>
-            <div class="mb-3 col-md-3">
-                <span>Логотип</span>
-                <img style="width: 100%" src="{{ $product->logo }}" alt="">
             </div>
             <div class="mb-3 col-md-3">
                 <span>Картинка</span>

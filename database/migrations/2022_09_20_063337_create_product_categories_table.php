@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('slug');
             $table->string('name');
             $table->longText('description')->nullable();
-            $table->string('main_img')->default(asset('default/no-image.png'));
-            $table->string('logo')->default(asset('default/no-image.png'));
+            $table->string('main_img')->nullable();
+            $table->string('logo')->nullable();
             $table->string('seo_title');
             $table->string('seo_keywords');
             $table->text('seo_description');
