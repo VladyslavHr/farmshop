@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\{Product,ProductCategory};
 use Illuminate\Http\Request;
+use Cart;
+// use App\Http\Classes\Cart;
 
 class ProductController extends Controller
 {
@@ -116,57 +118,45 @@ class ProductController extends Controller
     // 	return back()->with('status', 'Товар добавлен в корзину.');
     // }
 
-    public function addToCart(Request $request, $product_id)
+    public function addToCart(Request $request, $productId)
     {
-        // session()->push(['compare' => [$id]]);
-
-        // $request->session()->put('key', 'value');
-        $cart = session('cart', []);
-
-        if ($cart) {
-			if (isset($cart[$product_id])) {
-				$cart[$product_id]++;
-			}else{
-				$cart[$product_id] = 1;
-			}
-		}else{
-			$cart = [$product_id => 1];
-		}
-
-
-        session(['cart' => $cart]);
+        $cart = Cart::addProduct($productId);
 
         return [
             'status' => 'ok',
             'added' => true,
+            'count' => $cart[$productId],
+            'cart_total_count' => Cart::getTotalCount(),
         ];
 
-        // return redirect()->back();
     }
 
 
-    public function removeFromCart(Request $request, $product_id)
+    public function removeFromCart(Request $request, $productId)
     {
 
         if ($request->has('remove_all_cart')) {
-            session()->forget('cart');
+            Cart::clear();
             return[
                 'status' => 'ok',
             ];
         }
 
-        $cart_arr = session('cart', []);
-
-        unset($cart_arr[$product_id]);
-
-        session(['cart' => $cart_arr]);
-
-
-        // $value = $request->session()->pull('compare', $caravan);
+        Cart::removeProduct($productId);
 
         return [
             'status' => 'ok',
-            'added' => false,
+            'cart_total_count' => Cart::getTotalCount(),
+        ];
+    }
+
+
+    public function clearCart()
+    {
+        Cart::clear();
+
+        return [
+            'status' => 'ok',
         ];
     }
 }

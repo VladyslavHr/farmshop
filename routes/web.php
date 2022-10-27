@@ -44,6 +44,7 @@ Route::get('/tovary/{slug}', [\App\Http\Controllers\ProductController::class, 's
 
 Route::post('/tovary/addToCart/{product}', [ProductController::class, 'addToCart'])->name('addToCart');
 Route::post('/tovary/removeFromCart/{product}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
+Route::post('/tovary/clearCart/', [ProductController::class, 'clearCart'])->name('clearCart');
 
 
 Route::get('/kosik', [CartController::class, 'index'])->name('carts.index');

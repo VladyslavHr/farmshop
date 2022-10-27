@@ -45,9 +45,9 @@ class ProductCategoryController extends Controller
             'description' => '',
             'main_img' => 'image',
             'logo' => 'image',
-            'seo_title' => 'required',
-            'seo_keywords' => 'required',
-            'seo_description' => 'required',
+            'seo_title' => '',
+            'seo_keywords' => '',
+            'seo_description' => '',
 		];
 
 
@@ -128,9 +128,9 @@ class ProductCategoryController extends Controller
             'description' => '',
             'main_img' => 'image',
             'logo' => 'image',
-            'seo_title' => 'required',
-            'seo_keywords' => 'required',
-            'seo_description' => 'required',
+            'seo_title' => '',
+            'seo_keywords' => '',
+            'seo_description' => '',
 		];
 
 

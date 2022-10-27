@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('slug');
             $table->string('logo')->nullable();
             $table->string('main_img')->nullable();
-            $table->string('seo_title');
-            $table->string('seo_keywords');
-            $table->text('seo_description');
+            $table->string('seo_title')->nullable();
+            $table->string('seo_keywords')->nullable();
+            $table->text('seo_description')->nullable();
             $table->tinyInteger('public')->default(1);
             $table->timestamps();
         });

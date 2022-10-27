@@ -18,10 +18,15 @@ class CartController extends Controller
         $cart = session('cart', []);
         $products = Product::whereIn('id', array_keys($cart))->get();
 
+        $product_sum = 0;
         foreach ($products as $product) {
-            $total_sum_product = $product->price * $cart[$product->id];
+            // dd($cart[$product->id]);
+
+            $product_sum = $product->price * $cart[$product->id];
+            // dd($total_sum_product);
             // $total_sum += $total_sum_product;
         }
+
 
 
 
@@ -29,7 +34,7 @@ class CartController extends Controller
             'cart' => $cart,
             'products' => $products,
             // 'total_sum_product' => $total_sum_product,
-            // 'total_sum' => $total_sum,
+            'product_sum' => $product_sum,
         ]);
     }
 

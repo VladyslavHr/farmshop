@@ -26,9 +26,9 @@ return new class extends Migration
             $table->string('price_type')->nullable();
             $table->string('status')->default('in_stock');
             $table->integer('quantity')->default(0);
-            $table->string('seo_title');
-            $table->string('seo_keywords');
-            $table->text('seo_description');
+            $table->string('seo_title')->nullable();
+            $table->string('seo_keywords')->nullable();
+            $table->text('seo_description')->nullable();
             $table->tinyInteger('public')->default(1);
             $table->timestamps();
             $table->softDeletes();

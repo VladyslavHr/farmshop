@@ -26,7 +26,7 @@
                         <a class="nav-link" href="{{ route('products.index') }}">Крамниця</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('carts.index') }}">Кошик</a>
+                        <a class="nav-link" href="{{ route('carts.index') }}" >Кошик<b id="cart_total_count">({{ Cart::getTotalCount() }})</b></a>
                     </li>
             </ul>
             <!-- Right Side Of Navbar -->

@@ -30,10 +30,23 @@
                     {{$product->description}}
                 </div>
 
-                <form class="product-show-add-to-cart pt-4">
+                <div class="product-show-add-to-cart pt-4">
+                    <input class="product-show-input-quantity" inputmode="numeric" type="number">
+                    <button class="product-show-link-to-card" type="submit"
+                    onclick="add_button_cart(this, {{ $product->id }})">
+                        Додати до кошика
+                        <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
+                    </button>
+                    <form class="product-btn-add-to-cart-index" action="{{ route('addToCart', $product) }}"
+                    method="POST">
+                        @csrf
+                    </form>
+                </div>
+
+                {{-- <form class="product-show-add-to-cart pt-4">
                     <input class="product-show-input-quantity" inputmode="numeric" type="number">
                     <button type="submit" class="product-show-link-to-card">Додати до кошика</button>
-                </form>
+                </form> --}}
 
                 <form action="" class="pt-5">
                     <a href="#" class="product-show-favorite-link-add">

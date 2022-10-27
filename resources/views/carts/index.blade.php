@@ -5,7 +5,10 @@
 @section('content')
 
 <div class="container py-3">
-    <h1 class="cart-title py-2">Кошик</h1>
+    <h1 class="cart-title py-2">Кошик
+
+        <button onclick="clearCart(this)" class="btn btn-danger" name="{{ route('clearCart') }}">Cleare cart</button>
+    </h1>
     <div class="row mt-3 cart-product-titles">
         <div class="col-lg-1"></div>
         <div class="col-lg-1"></div>
@@ -14,6 +17,7 @@
         <div class="col-lg-2 text-center"> Кількість </div>
         <div class="col-lg-1 text-center"> Сума </div>
     </div>
+
     @foreach ($products as $product)
     <div class="row mt-1 cart-product-item">
         <form class="col-lg-1" action="{{ route('removeFromCart', $product) }}" method="POST"
@@ -34,11 +38,10 @@
             {{ $product->price }} ₴
         </div>
         <div class="col-lg-2 text-center">
-            <input type="number" class="cart-product-show-input-quantity" value="{{ $cart[$product->id] }}">
+            <input id="cart_quantity" type="number" class="cart-product-show-input-quantity" value="{{ $cart[$product->id] }}">
         </div>
         <div class="col-lg-1">
-            {{-- {{ $total_sum_product }} ₴ --}}
-            {{$product->price * $cart[$product->id]}} ₴
+            {{ $product_sum }} ₴
         </div>
     </div>
 
@@ -70,15 +73,23 @@
         </div>
     </div> --}}
     @endforeach
-</div>
-<div class="row">
-    <div class="col-lg-6">
-        Разом: 10000 ₴
+    <div class="row mt-1 cart-product-sum">
+        <div class="col-lg-8">
+        </div>
+        <div class="col-lg-1">
+            <strong>
+                Разом
+            </strong>
+        </div>
+        <div class="col-lg-1">
+            10000 ₴
+        </div>
+        <div class="col-lg-2">
+            <a href="{{ route('carts.checkout') }}" class="btn btn-warning">Оформити замовлення</a>
+        </div>
     </div>
-    <div class="col-lg-6">
-        <a href="{{ route('carts.checkout') }}" class="btn btn-warning">Оформити замовлення</a>
-    </div>
 </div>
+
 
 
 @endsection

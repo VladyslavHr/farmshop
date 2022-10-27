@@ -141,9 +141,9 @@ class ProductController extends Controller
             'main_img' => 'image',
             'logo' => 'image',
             'status' => '',
-            'seo_title' => 'required',
-            'seo_keywords' => 'required',
-            'seo_description' => 'required',
+            'seo_title' => '',
+            'seo_keywords' => '',
+            'seo_description' => '',
 		];
 
         $message =         [
