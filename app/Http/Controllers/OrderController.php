@@ -3,10 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\{Order,Product};
+use App\Http\Requests\{CartStoreRequest};
+use App\Http\Classes\Cart;
+
 
 class OrderController extends Controller
 {
-    public function store()
+    public function index()
+    {
+        return view('orders.index', [
+            // 'cart' => $cart,
+            // 'products' => $products,
+            'products' => Cart::getProducts(),
+            'total_sum_product' => Cart::getTotalSum(),
+            // 'total_sum_product' => $total_sum_product,
+            // 'total_sum' => $total_sum,
+        ]);
+    }
+
+
+    public function store(Request $request, Product $product)
     {
         $rules = [
             'product_id' => 'required',
@@ -27,22 +44,24 @@ class OrderController extends Controller
 		];
 
         $message =         [
-            'name.required' => 'Напишіть будь ласка назву.',
-            'product_category_id' => 'Виберіть будь ласка категорію товару',
-            'price' => 'Напишіть будь ласка ціну товару',
-            'price_type' => 'Напишіть будь ласка вид ціни',
-            'main_img' => 'Картинка має бути у форматі (jpg,png,webp).',
-            'logo' => 'Логотип має бути у форматі (jpg,png,webp).',
-            'seo_title.required' => 'Напишіть будь ласка заголовок для SEO .',
-            'seo_keywords.required' => 'Напишіть будь ласка ключові слова для SEO.',
-            'seo_description.required' => 'Напишіть будь ласка опис для SEO.',
+            'name.required' => 'Напишіть будь ласка Імя.',
+            'last_name.required' => 'Напишіть будь ласка Прізвище.',
+            'email.required' => 'Напишіть будь ласка Мейл.',
+            'phone.required' => 'Напишіть будь ласка телефон.',
         ];
 
         $data = $request->validate($rules, $message);
-
+        // $data['slug'] = Str::slug($data['name']);
+        // $data['user_id'] = auth()->user()->id;
 
         Order::create($data);
 
-        return view('carts.thanks');
+        session()->forget('cart');
+        return view('orders.thanks');
+    }
+
+    public function thanks(CartStoreRequest $request)
+    {
+        return view('orders.thanks');
     }
 }

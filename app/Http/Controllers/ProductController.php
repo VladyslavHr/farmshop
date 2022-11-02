@@ -62,7 +62,8 @@ class ProductController extends Controller
     {
 
         $product = Product::where('slug', $slug)->first();
-
+        $cart = session('cart', []);
+        $cart_products = Product::whereIn('id', array_keys($cart))->get();
         // if ( $product->status === 'in_stock') {
         //     'В наявності';
         // } elseif ($product->status === 'out_of_stock') {
@@ -75,9 +76,24 @@ class ProductController extends Controller
 
         return view('products.show',[
             'product' => $product,
+            'product_quantity' => Cart::getProducts(),
+            'cart' => $cart,
+            // 'cart_products' => $cart_products,
+            'user' => auth()->user(),
         ]);
     }
 
+    public function showCartAdd(Request $request, $product)
+    {
+        $product = Product::where('slug', $slug)->first();
+        $cart = Cart::addProduct($product);
+        $count = $cart[$product->id];
+
+        return view('carts.approve', [
+            'product' => $product,
+        ]);
+
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -154,6 +170,15 @@ class ProductController extends Controller
     public function clearCart()
     {
         Cart::clear();
+
+        return [
+            'status' => 'ok',
+        ];
+    }
+
+    public function updateCart(Request $request)
+    {
+        Cart::updateProduct($request->productId, $request->quantity);
 
         return [
             'status' => 'ok',

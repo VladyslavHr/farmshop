@@ -57,8 +57,9 @@
                             <i class="bi bi-bag-heart"></i>
                         </button>
                     </form>
-                    <button class="btn index-product-btn" type="submit"
-                    onclick="add_button_cart(this, {{ $product->id }})">
+                    <button class="btn index-product-btn js-btn-add-to-cart" type="submit"
+                    onclick="add_button_cart(this, {{ $product->id }})"
+                    max="{{ $product->quantity }}">
                         <i class="bi bi-bag-plus"></i>
                         <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
                     </button>

@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\ProductTypeController as AdminProductTypeControll
 use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategoryController;
 use App\Http\Controllers\Admin\NoteController as AdminNoteController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\{ProductController,CartController};
+use App\Http\Controllers\{ProductController,CartController,OrderController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,12 +45,18 @@ Route::get('/tovary/{slug}', [\App\Http\Controllers\ProductController::class, 's
 Route::post('/tovary/addToCart/{product}', [ProductController::class, 'addToCart'])->name('addToCart');
 Route::post('/tovary/removeFromCart/{product}', [ProductController::class, 'removeFromCart'])->name('removeFromCart');
 Route::post('/tovary/clearCart/', [ProductController::class, 'clearCart'])->name('clearCart');
+Route::post('/tovary/updateCart/', [ProductController::class, 'updateCart'])->name('updateCart');
 
 
 Route::get('/kosik', [CartController::class, 'index'])->name('carts.index');
-Route::get('/zamovlennya', [CartController::class, 'checkout'])->name('carts.checkout');
+Route::post('/kosik-dodano', [CartController::class, 'approve'])->name('carts.approve');
 
 
+// Route::get('/zamovlennya', [CartController::class, 'cartStore'])->name('carts.cartStore');
+
+Route::get('/dyakujemo', [OrderController::class, 'thanks'])->name('orders.thanks');
+Route::get('/zamovlennya', [OrderController::class, 'index'])->name('orders.index');
+Route::post('/zamovlennya/store', [OrderController::class, 'store'])->name('orders.store');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {

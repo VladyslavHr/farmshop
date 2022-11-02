@@ -30,18 +30,39 @@
                     {{$product->description}}
                 </div>
 
-                <div class="product-show-add-to-cart pt-4">
-                    <input class="product-show-input-quantity" inputmode="numeric" type="number">
+                <form action="{{ route('carts.approve', $product) }}" method="POST" class="product-show-add-to-cart pt-4">
+                    @csrf
+                    <input class="product-show-input-quantity" type="number"
+                    value="{{ $cart[$product->id] ?? 1 }}"
+                    max="{{ $product->quantity }}">
+                    <button class="product-show-link-to-card" type="submit">
+                        Додати до кошика
+                        <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
+                    </button>
+                </form>
+                {{-- <div class="product-show-add-to-cart pt-4">
+                    <input class="product-show-input-quantity" inputmode="numeric" type="number"
+                    value="{{ $product->cart_quantity }}"
+                    max="{{ $product->quantity }}"
+                    data-productid="{{ $product->id }}"
+                    oninput="cart_item_quantity_change(this)">
+
+
+
                     <button class="product-show-link-to-card" type="submit"
                     onclick="add_button_cart(this, {{ $product->id }})">
                         Додати до кошика
                         <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
                     </button>
+
+
+
                     <form class="product-btn-add-to-cart-index" action="{{ route('addToCart', $product) }}"
                     method="POST">
                         @csrf
                     </form>
-                </div>
+                </div> --}}
+
 
                 {{-- <form class="product-show-add-to-cart pt-4">
                     <input class="product-show-input-quantity" inputmode="numeric" type="number">
@@ -65,67 +86,7 @@
                         {{ $product->category->name }}
                     </span>
                 </div>
-                {{-- <div class="product-show-devide-line"></div> --}}
 
-                {{-- <div class="row pt-5"> --}}
-                    {{-- @if ( $product->status === 'in_stock' )
-                        <div class="col-md-3">
-                            В наявності
-                        </div>
-                    @elseif ($product->status === 'out_of_stock')
-                        <div class="col-md-3">
-                            Немає в наявності
-                        </div>
-                    @elseif ($product->status === 'for_order')
-                        <div class="col-md-3">
-                            Під замовлення
-                        </div>
-                    @endif --}}
-                    {{-- @if ($product->old_price != 0)
-                        <div class="col-md-3">
-                            {{ $product->old_price }} грн.
-                        </div>
-                    @endif
-                    <div class="col-md-3">
-                        {{ $product->price }} грн.
-                    </div>
-                    <div class="col-md-3">
-                        /{{ $product->price_type }}
-                    </div> --}}
-                {{-- </div> --}}
-                {{-- <div class="adding-to-cart-show pt-5">
-                    <div class="adding-to-cart-title">
-                        Оберіть кількість
-                    </div>
-                    <div class="adding-to-cart-count-minus">
-                        <button class="btn">
-                            <i class="bi bi-dash-square"></i>
-                        </button>
-                    </div>
-                    <div class="adding-to-cart-count">
-                        <input class="cart-count-input" type="text" value="1">
-                    </div>
-                    <div class="adding-to-cart-count-plus">
-                        <button class="btn">
-                            <i class="bi bi-plus-square"></i>
-                        </button>
-                    </div>
-                    <div class="adding-to-cart-action">
-                        <button class="btn">
-                            <i class="bi bi-bag-plus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="col-lg-12 pt-5">
-                    <button class="btn btn-warning">
-                        Додати до бажанного
-                        <i class="bi bi-bag-heart"></i>
-                    </button>
-                    <button class="btn btn-primary">
-                        Додати до кошика
-                        <i class="bi bi-bag-plus"></i>
-                    </button>
-                </div> --}}
             </div>
         </div>
 

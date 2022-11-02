@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Cart,Order};
+use App\Models\{Order,Product};
+use App\Http\Requests\{CartStoreRequest};
 use Illuminate\Http\Request;
-use App\Models\{Product};
+use App\Http\Classes\Cart;
 
 class CartController extends Controller
 {
@@ -15,114 +16,28 @@ class CartController extends Controller
      */
     public function index(Request $request, Product $product)
     {
-        $cart = session('cart', []);
-        $products = Product::whereIn('id', array_keys($cart))->get();
-
-        $product_sum = 0;
-        foreach ($products as $product) {
-            // dd($cart[$product->id]);
-
-            $product_sum = $product->price * $cart[$product->id];
-            // dd($total_sum_product);
-            // $total_sum += $total_sum_product;
-        }
-
-
-
 
         return view('carts.index', [
-            'cart' => $cart,
-            'products' => $products,
-            // 'total_sum_product' => $total_sum_product,
-            'product_sum' => $product_sum,
+            'products' => Cart::getProducts(),
+            'total_sum_product' => Cart::getTotalSum(),
         ]);
     }
 
-    public function checkout(Request $request, Product $product)
+    public function approve(Product $product)
     {
-        $cart = session('cart', []);
-        $products = Product::whereIn('id', array_keys($cart))->get();
+        $product = Product::where('slug', $slug)->first();
+        $cart = Cart::addProduct($product);
+        $count = $cart[$product->id];
 
-        foreach ($products as $product) {
-            $total_sum_product = $product->price * $cart[$product->id];
-            // $total_sum += $total_sum_product;
-        }
-
-
-
-        return view('carts.checkout', [
+        return view('carts.approve', [
             'cart' => $cart,
-            'products' => $products,
+            'count' => $count,
+            'product' => $product,
+            'total_sum_product' => Cart::getTotalSum(),
             // 'total_sum_product' => $total_sum_product,
             // 'total_sum' => $total_sum,
         ]);
     }
 
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cart $cart)
-    {
-        //
-    }
 }

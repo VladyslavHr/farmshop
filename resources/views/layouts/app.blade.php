@@ -20,6 +20,7 @@
     <!-- CSS only -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset ('css/bootstrap-icons.css') }}">
+    <link href="{{ asset("css/toastr.min.css") }}" rel="stylesheet"/>
     <link rel="stylesheet" href="{{ asset ('css/main.css?v=' . filemtime(public_path('css/main.css')) ) }}">
 
     <!-- Scripts -->
@@ -103,6 +104,7 @@
 
     <!-- JavaScript Bundle with Popper -->
     <script src="{{ asset("js/bootstrap.bundle.min.js") }}"></script>
+    <script src="{{ asset("js/toastr.min.js") }}"></script>
     <script src="{{ asset ('js/main.js?v=' . filemtime(public_path('js/main.js')) ) }}"></script>
 
 </body>

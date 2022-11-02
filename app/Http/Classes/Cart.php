@@ -3,17 +3,46 @@
 namespace  App\Http\Classes;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\{Product};
 
 
 class Cart extends ServiceProvider
 {
+    private static $products = [];
 
-    // private static $cartArr;
+    public static function getProducts()
+    {
+        $cart = session('cart', []);
+        $products = Product::whereIn('id', array_keys($cart))->get();
+
+        foreach ($products as $product) {
+            $product->sum = $product->price * $cart[$product->id];
+            $product->cart_quantity = $cart[$product->id];
+        }
+
+        self::$products = $products;
+
+        return $products;
+    }
+
+    public static function getTotalSum()
+    {
+        if (!self::$products) {
+            self::getProducts();
+        }
+
+        $total = 0;
+
+        foreach (self::$products as $product) {
+            $total += $product->sum;
+        }
+
+        return $total;
+    }
 
     public static function addProduct($productId)
     {
         $cart = session('cart', []);
-
         if ($cart) {
 			if (isset($cart[$productId])) {
 				$cart[$productId]++;
@@ -23,14 +52,19 @@ class Cart extends ServiceProvider
 		}else{
 			$cart = [$productId => 1];
 		}
+        session(['cart' => $cart]);
+        return $cart;
+    }
 
+    public static function updateProduct($productId, $quantity)
+    {
+        $cart = session('cart', []);
+
+		$cart[$productId] = $quantity;
 
         session(['cart' => $cart]);
 
-        // self::$cartArr = $cart;
-
         return $cart;
-
     }
 
     public static function removeProduct($productId)
@@ -62,6 +96,8 @@ class Cart extends ServiceProvider
 
         return $total;
     }
+
+
 
 
 

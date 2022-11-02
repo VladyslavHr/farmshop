@@ -1,7 +1,29 @@
 function add_button_cart (button, product_id) {
 
     var form = $(button).closest('.buttons-group-index-product').find('.product-btn-add-to-cart-index')
-
+    // var $quantityInput = $(button).parent().find('.js-btn-add-to-cart')
+    // var quantity = $quantityInput.val()
+    // var maxValue = $quantityInput.attr('max')
+    // var resultValue = Math.min(++quantity,maxValue)
+    // $quantityInput.val(resultValue)
+    // var productId = $quantityInput.data('productid')
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
     $.post(form.attr('action'),
         $(form).serialize(),
         function (data) {
@@ -9,10 +31,18 @@ function add_button_cart (button, product_id) {
                 // find('.cart-count-porduct').$(++product_id)
                 $(button).find('.cart-count-porduct').text(data.count)
                 $('#cart_total_count').text(data.cart_total_count)
+                toastr.success('Товар додано до кошика!')
             }
 
         }, 'json')
     }
+
+
+
+
+
+
+
 
 function remove_button_cart(form, event) {
     event.preventDefault()
@@ -22,19 +52,20 @@ function remove_button_cart(form, event) {
         if (data.status === 'ok') {
             $(form).closest('.cart-product-item').remove()
             $('#cart_total_count').text(data.cart_total_count)
+            toastr.warning('Товар видалено з кошика!')
         }
 
     }, 'json')
 }
 function clearCart(button) {
-
         var url = button.name
         $.post(url, {
             _token: $('meta[name="csrf-token"]').attr('content'),
         }, function (data) {
-            if (data.dtatus === 'ok') {
-                $('cart-product-item').remove()
+            if (data.status === 'ok') {
+                $('.cart-product-item').remove()
                 $('#cart_total_count').text(0)
+                toastr.warning('Кошик спорожнено!')
             }
         })
 
@@ -57,6 +88,48 @@ function cart_input_quantity() {
     }, function function_name(data) {
         if (data.status === 'ok') {
             $('#destination_result').html(data.destination_view)
+            toastr.success('Кількість товару вдало змінено!')
+
         }
     }, 'json')
+}
+
+
+function cart_item_minus(button) {
+    var $quantityInput = $(button).parent().find('.js-cart-item-quantity')
+    var quantity = $quantityInput.val()
+    var resultValue = Math.max(--quantity, 1)
+    $quantityInput.val(resultValue)
+    var productId = $quantityInput.data('productid')
+    update_cart(productId, quantity)
+}
+function cart_item_plus(button) {
+    var $quantityInput = $(button).parent().find('.js-cart-item-quantity')
+    var quantity = $quantityInput.val()
+    var maxValue = $quantityInput.attr('max')
+    var resultValue = Math.min(++quantity,maxValue)
+    $quantityInput.val(resultValue)
+    var productId = $quantityInput.data('productid')
+    update_cart(productId, quantity)
+}
+
+function cart_item_quantity_change(input) {
+    var $quantityInput = $(input)
+    var quantity = $quantityInput.val()
+    var maxValue =  $quantityInput.attr('max')
+    var resultValue = Math.max(quantity, 1)
+    resultValue = Math.min(resultValue,maxValue)
+    $quantityInput.val(resultValue)
+    var productId = $quantityInput.data('productid')
+    update_cart(productId, resultValue)
+}
+
+function update_cart(productId, quantity) {
+    $.post('/tovary/updateCart', {
+        _token: $('meta[name="csrf-token"]').attr('content'),
+        productId,
+        quantity,
+    }), function (data) {
+
+    }
 }

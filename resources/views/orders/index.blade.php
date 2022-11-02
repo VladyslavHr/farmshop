@@ -5,7 +5,11 @@
 @section('content')
 
 <div class="container">
-    <form action="" class="row">
+    <form action="{{ route('orders.store') }}" method="POST" enctype="multipart/form-data" class="row">
+        @csrf
+        {{-- <input type="hidden" value="{{ $product->id }}"> --}}
+        @foreach ($products as $product)
+        @endforeach
         <div class="col-md-6">
             <h2 class="pt-2">Платіжні реквізити</h2>
             <div class="row">
@@ -110,8 +114,13 @@
 
             <div class="row">
                 @foreach ($products as $product)
+                <input type="hidden" name="product_id" value="{{  $product->id }}">
+                <input type="hidden" name="price_per_one" value="{{  $product->price }}">
+                <input type="hidden" name="total" value="{{  $total_sum_product }}">
+                <input type="hidden" name="product_quantity" value="{{  $product->cart_quantity }}">
+
                     <div class="col-lg-6">
-                        {{ $product->name }} x {{ $cart[$product->id] }}
+                        {{ $product->name }} x {{ $product->cart_quantity }}
                     </div>
                     <div class="col-lg-6">
                         {{ $product->price }}
@@ -122,7 +131,7 @@
 
             <div class="row">
                 <div class="col-lg-6">До салти</div>
-                <div class="col-lg-6">1000 ₴</div>
+                <div class="col-lg-6"> {{ $total_sum_product }} ₴</div>
             </div>
 
             <div class="row">

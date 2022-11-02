@@ -409,8 +409,31 @@ body{
     padding-top: 25px;
 }
 
+.cart-quantity-control{
+    background: #fff;
+    color: #000;
+    border: 0;
+    font-size: 20px;
+}
 
+.cart-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
 
+.empty-cart{
+    font-size: 18px;
+}
+
+.empty-cart a{
+    text-decoration: none;
+    color: #678199;
+}
+
+.empty-cart a:hover{
+    color: #f61010;
+}
 
 
 
