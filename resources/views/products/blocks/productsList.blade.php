@@ -60,7 +60,7 @@
                     <button class="btn index-product-btn js-btn-add-to-cart" type="submit"
                     onclick="add_button_cart(this, {{ $product->id }})"
                     max="{{ $product->quantity }}">
-                        <i class="bi bi-bag-plus"></i>
+                        <i class="bi bi-cart-plus"></i>
                         <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
                     </button>
                     <form class="product-btn-add-to-cart-index" action="{{ route('addToCart', $product) }}"

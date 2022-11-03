@@ -180,8 +180,12 @@ class ProductController extends Controller
     {
         Cart::updateProduct($request->productId, $request->quantity);
 
+        Cart::getproductSum($request->productId);
+
         return [
             'status' => 'ok',
+            'sum' => number_format(Cart::getproductSum($request->productId), 2),
+            'cart_total_sum' => number_format(Cart::getTotalSum(), 2),
         ];
     }
 }

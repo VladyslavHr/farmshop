@@ -49,7 +49,7 @@ Route::post('/tovary/updateCart/', [ProductController::class, 'updateCart'])->na
 
 
 Route::get('/kosik', [CartController::class, 'index'])->name('carts.index');
-Route::post('/kosik-dodano', [CartController::class, 'approve'])->name('carts.approve');
+Route::post('/kosik-dodano/{product}', [CartController::class, 'approve'])->name('carts.approve');
 
 
 // Route::get('/zamovlennya', [CartController::class, 'cartStore'])->name('carts.cartStore');

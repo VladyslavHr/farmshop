@@ -20,20 +20,23 @@ class CartController extends Controller
         return view('carts.index', [
             'products' => Cart::getProducts(),
             'total_sum_product' => Cart::getTotalSum(),
+            'total_sum_product_formated' => number_format(Cart::getTotalSum(), 2),
         ]);
     }
 
-    public function approve(Product $product)
+    public function approve($id)
     {
-        $product = Product::where('slug', $slug)->first();
-        $cart = Cart::addProduct($product);
-        $count = $cart[$product->id];
+        $product = Product::where('id', $id)->first();
+        $cart = Cart::addProduct($product->id);
+        $sudgests = Product::where('id', '!=', $product->id)->where('product_category_id', $product->product_category_id)->inRandomOrder()->limit(6)->get(['id', 'main_img', 'name']);
+        // $count = $cart[$product->id];
 
         return view('carts.approve', [
             'cart' => $cart,
-            'count' => $count,
+            // 'count' => $count,
             'product' => $product,
-            'total_sum_product' => Cart::getTotalSum(),
+            'sudgests' => $sudgests,
+            // 'total_sum_product' => Cart::getTotalSum(),
             // 'total_sum_product' => $total_sum_product,
             // 'total_sum' => $total_sum,
         ]);

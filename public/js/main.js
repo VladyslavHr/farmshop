@@ -1,4 +1,28 @@
+var log = console.log
+
+toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
+
+
+
 function add_button_cart (button, product_id) {
+
+    $(button).attr('disabled', true)
 
     var form = $(button).closest('.buttons-group-index-product').find('.product-btn-add-to-cart-index')
     // var $quantityInput = $(button).parent().find('.js-btn-add-to-cart')
@@ -7,28 +31,25 @@ function add_button_cart (button, product_id) {
     // var resultValue = Math.min(++quantity,maxValue)
     // $quantityInput.val(resultValue)
     // var productId = $quantityInput.data('productid')
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "newestOnTop": false,
-        "progressBar": true,
-        "positionClass": "toast-top-right",
-        "preventDuplicates": false,
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-      }
+
+    var cart_product_count = +$(button).find('.cart-count-porduct').text()
+
+
+    var maxValue = +$(button).attr('max')
+
+    if (cart_product_count >= maxValue) {
+        log(cart_product_count, maxValue)
+        return false
+    }
+
+
+
     $.post(form.attr('action'),
         $(form).serialize(),
         function (data) {
             if (data.added) {
-                // find('.cart-count-porduct').$(++product_id)
+                $(button).attr('disabled', false)
+
                 $(button).find('.cart-count-porduct').text(data.count)
                 $('#cart_total_count').text(data.cart_total_count)
                 toastr.success('Товар додано до кошика!')
@@ -36,10 +57,6 @@ function add_button_cart (button, product_id) {
 
         }, 'json')
     }
-
-
-
-
 
 
 
@@ -63,7 +80,9 @@ function clearCart(button) {
             _token: $('meta[name="csrf-token"]').attr('content'),
         }, function (data) {
             if (data.status === 'ok') {
-                $('.cart-product-item').remove()
+                $('.full-cart').remove()
+                $('.empty-cart').show()
+                $(button).hide()
                 $('#cart_total_count').text(0)
                 toastr.warning('Кошик спорожнено!')
             }
@@ -129,7 +148,11 @@ function update_cart(productId, quantity) {
         _token: $('meta[name="csrf-token"]').attr('content'),
         productId,
         quantity,
-    }), function (data) {
-
-    }
+    }, function (data) {
+        if (data.status === 'ok') {
+            log()
+            $('.product-' +productId).find('.js-cart-product-sum').text(data.sum)
+            $('.js-cart-total-sum').text(data.cart_total_sum)
+        }
+    }, 'json')
 }

@@ -13,10 +13,11 @@ class Cart extends ServiceProvider
     public static function getProducts()
     {
         $cart = session('cart', []);
-        $products = Product::whereIn('id', array_keys($cart))->get();
+        $products = Product::whereIn('id', array_keys($cart))->get(['id', 'name', 'price', 'old_price', 'main_img', 'quantity']);
 
         foreach ($products as $product) {
             $product->sum = $product->price * $cart[$product->id];
+            $product->sum_formated = number_format($product->price * $cart[$product->id], 2);
             $product->cart_quantity = $cart[$product->id];
         }
 
@@ -77,6 +78,15 @@ class Cart extends ServiceProvider
 
         return $cart_arr;
 
+    }
+
+    public static function getproductSum($productId)
+    {
+        $cart_arr = session('cart', []);
+
+        $price = Product::findOrFail($productId)->price;
+
+        return $cart_arr[$productId] * $price;
     }
 
     public static function clear()
