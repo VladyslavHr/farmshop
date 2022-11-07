@@ -33,7 +33,7 @@
         @foreach ($products as $product)
         <div class="row mt-1 cart-product-item product-{{ $product->id }}">
             <form class="col-lg-1" action="{{ route('removeFromCart', $product) }}" method="POST"
-                onsubmit="remove_button_cart(this, event)">
+                onsubmit="remove_cart_item(this, event)">
                 @csrf
                 <button class="cart-item-remove-btn" type="submit">
                     {{-- <i class="bi bi-x-lg"></i> --}}
@@ -41,10 +41,14 @@
                 </button>
             </form>
             <div class="col-lg-1 cart-product-img">
-                <img src="{{ $product->main_img }}" alt="{{ $product->name }}">
+                <a href="{{ route('products.show', $product->slug) }}">
+                    <img src="{{ $product->main_img }}" alt="{{ $product->name }}">
+                </a>
             </div>
             <div class="col-lg-5 cart-product-name">
-                {{ $product->name }}
+                <a href="{{ route('products.show', $product->slug) }}">
+                    {{ $product->name }}
+                </a>
             </div>
             <div class="col-lg-1">
                 {{ $product->price }} ₴

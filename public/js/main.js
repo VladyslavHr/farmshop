@@ -18,7 +18,9 @@ toastr.options = {
     "hideMethod": "fadeOut"
   }
 
-
+  Livewire.on('cartTotalCountUpdated', cartTotalCount => {
+    $('#cart_total_count').text(cartTotalCount)
+})
 
 function add_button_cart (button, product_id) {
 
@@ -61,7 +63,7 @@ function add_button_cart (button, product_id) {
 
 
 
-function remove_button_cart(form, event) {
+function remove_cart_item(form, event) {
     event.preventDefault()
     $.post($(form).attr('action'),
     $(form).serialize(),
@@ -69,11 +71,13 @@ function remove_button_cart(form, event) {
         if (data.status === 'ok') {
             $(form).closest('.cart-product-item').remove()
             $('#cart_total_count').text(data.cart_total_count)
+            $('.js-cart-total-sum').text(data.cart_total_sum)
             toastr.warning('Товар видалено з кошика!')
         }
 
     }, 'json')
 }
+
 function clearCart(button) {
         var url = button.name
         $.post(url, {
@@ -120,7 +124,7 @@ function cart_item_minus(button) {
     var resultValue = Math.max(--quantity, 1)
     $quantityInput.val(resultValue)
     var productId = $quantityInput.data('productid')
-    update_cart(productId, quantity)
+    update_cart(productId, resultValue)
 }
 function cart_item_plus(button) {
     var $quantityInput = $(button).parent().find('.js-cart-item-quantity')
@@ -129,7 +133,7 @@ function cart_item_plus(button) {
     var resultValue = Math.min(++quantity,maxValue)
     $quantityInput.val(resultValue)
     var productId = $quantityInput.data('productid')
-    update_cart(productId, quantity)
+    update_cart(productId, resultValue)
 }
 
 function cart_item_quantity_change(input) {

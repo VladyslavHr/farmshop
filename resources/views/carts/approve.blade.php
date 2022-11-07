@@ -41,7 +41,7 @@
     </div>
 
 
-    @if (isset($sugests))
+    {{-- @if (isset($sugests)) --}}
     <div class="row">
         <h2>Вас також може зацікавити</h2>
         @foreach ($sudgests as $sudgest)
@@ -53,7 +53,7 @@
         </div>
         @endforeach
     </div>
-    @endif
+    {{-- @endif --}}
 </div>
 
 @endsection

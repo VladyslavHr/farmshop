@@ -30,4 +30,9 @@ class Order extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function orderItem() {
+        return $this->hasMany(OrderItem::class)->orderByDesc('created_at');
+    }
+
 }

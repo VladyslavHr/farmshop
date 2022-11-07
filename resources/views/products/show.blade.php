@@ -29,17 +29,22 @@
                 <div class="product-show-describtion py-5">
                     {{$product->description}}
                 </div>
-
-                <form action="{{ route('carts.approve', $product) }}" method="POST" class="product-show-add-to-cart pt-4">
+                <livewire:product-add-to-cart-button :product="$product">
+                {{-- <form action="{{ route('carts.approve', $product) }}" method="POST" class="product-show-add-to-cart pt-4">
                     @csrf
-                    <input class="product-show-input-quantity" type="number"
-                    value="{{ $cart[$product->id] ?? 1 }}"
-                    max="{{ $product->quantity }}">
-                    <button class="product-show-link-to-card" type="submit">
-                        Додати до кошика
-                        <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
-                    </button>
-                </form>
+
+
+
+
+
+                </form> --}}
+
+
+                {{-- <button class="product-show-link-to-card mt-3" type="submit">
+                    Додати до кошика
+                    <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
+                </button> --}}
+
                 {{-- <div class="product-show-add-to-cart pt-4">
                     <input class="product-show-input-quantity" inputmode="numeric" type="number"
                     value="{{ $product->cart_quantity }}"

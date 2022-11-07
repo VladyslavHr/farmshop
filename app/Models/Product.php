@@ -45,6 +45,10 @@ class Product extends Model
         return $this->hasMany(Note::class)->orderByDesc('created_at');
     }
 
+    public function orderItem() {
+        return $this->hasMany(OrderItem::class)->orderByDesc('created_at');
+    }
+
     // public function images()
     // {
     //    return $this->hasMany(ProductImage::class)->limit(10);

@@ -10,10 +10,18 @@ class Cart extends ServiceProvider
 {
     private static $products = [];
 
+    public static function getProductCount($productId)
+    {
+        $cart = session('cart', []);
+
+        return $cart[$productId] ?? null;
+    }
+
     public static function getProducts()
     {
         $cart = session('cart', []);
-        $products = Product::whereIn('id', array_keys($cart))->get(['id', 'name', 'price', 'old_price', 'main_img', 'quantity']);
+        $products = Product::whereIn('id', array_keys($cart))
+        ->get(['id', 'name', 'price', 'old_price', 'main_img', 'quantity', 'slug']);
 
         foreach ($products as $product) {
             $product->sum = $product->price * $cart[$product->id];
@@ -41,17 +49,17 @@ class Cart extends ServiceProvider
         return $total;
     }
 
-    public static function addProduct($productId)
+    public static function addProduct($productId, $quantity = 1)
     {
         $cart = session('cart', []);
         if ($cart) {
 			if (isset($cart[$productId])) {
-				$cart[$productId]++;
+				$cart[$productId] += $quantity;
 			}else{
-				$cart[$productId] = 1;
+				$cart[$productId] = $quantity;
 			}
 		}else{
-			$cart = [$productId => 1];
+			$cart = [$productId => $quantity];
 		}
         session(['cart' => $cart]);
         return $cart;

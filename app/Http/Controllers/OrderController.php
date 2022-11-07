@@ -25,6 +25,8 @@ class OrderController extends Controller
 
     public function store(Request $request, Product $product)
     {
+        $total_sum_product = Cart::getTotalSum();
+
         $rules = [
             'product_id' => 'required',
             'price_per_one' => 'required',
@@ -51,16 +53,25 @@ class OrderController extends Controller
         ];
 
         $data = $request->validate($rules, $message);
-        // $data['slug'] = Str::slug($data['name']);
+        $data['total'] =  $total_sum_product;
         // $data['user_id'] = auth()->user()->id;
 
         Order::create($data);
 
+        $products = Cart::getProducts();
+
+        foreach ($products as $product) {
+            OrderItem::create(['order_id', 'product_id', 'nameprod', 'product_price',  'product_count']);
+        }
+
+
+
         session()->forget('cart');
-        return view('orders.thanks');
+
+        return redirect()->route('orders.thanks');
     }
 
-    public function thanks(CartStoreRequest $request)
+    public function thanks()
     {
         return view('orders.thanks');
     }

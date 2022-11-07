@@ -83,17 +83,17 @@ class ProductController extends Controller
         ]);
     }
 
-    public function showCartAdd(Request $request, $product)
-    {
-        $product = Product::where('slug', $slug)->first();
-        $cart = Cart::addProduct($product);
-        $count = $cart[$product->id];
+    // public function showCartAdd(Request $request, $product)
+    // {
+    //     $product = Product::where('slug', $slug)->first();
+    //     $cart = Cart::addProduct($product);
+    //     $count = $cart[$product->id];
 
-        return view('carts.approve', [
-            'product' => $product,
-        ]);
+    //     return view('carts.approve', [
+    //         'product' => $product,
+    //     ]);
 
-    }
+    // }
     /**
      * Show the form for editing the specified resource.
      *
@@ -151,18 +151,19 @@ class ProductController extends Controller
     public function removeFromCart(Request $request, $productId)
     {
 
-        if ($request->has('remove_all_cart')) {
-            Cart::clear();
-            return[
-                'status' => 'ok',
-            ];
-        }
+        // if ($request->has('remove_all_cart')) {
+        //     Cart::clear();
+        //     return[
+        //         'status' => 'ok',
+        //     ];
+        // }
 
         Cart::removeProduct($productId);
 
         return [
             'status' => 'ok',
             'cart_total_count' => Cart::getTotalCount(),
+            'cart_total_sum' =>  number_format(Cart::getTotalSum(), 2),
         ];
     }
 
