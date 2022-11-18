@@ -18,9 +18,14 @@ toastr.options = {
     "hideMethod": "fadeOut"
   }
 
-  Livewire.on('cartTotalCountUpdated', cartTotalCount => {
-    $('#cart_total_count').text(cartTotalCount)
-})
+    Livewire.on('urlChange', param => {
+        history.pushState(null, null, param);
+    })
+
+    Livewire.on('cartTotalCountUpdated', cartTotalCount => {
+        $('#cart_total_count').text(cartTotalCount)
+    })
+
 
 function add_button_cart (button, product_id) {
 

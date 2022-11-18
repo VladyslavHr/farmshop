@@ -16,17 +16,17 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
+        // $products = Product::get();
         $cart = session('cart', []);
-        $cart_products = Product::whereIn('id', array_keys($cart))->get();
+        // $cart_products = Product::whereIn('id', array_keys($cart))->get();
 
-        $categories = ProductCategory::get();
+        // $categories = ProductCategory::get();
 
         return view('products.index', [
-            'products' => $products,
+            // 'products' => $products,
             'cart' => $cart,
-            'cart_products' => $cart_products,
-            'categories' => $categories,
+            // 'cart_products' => $cart_products,
+            // 'categories' => $categories,
             'user' => auth()->user(),
         ]);
     }

@@ -46,8 +46,8 @@
             </div>
 
             <div class="form-check self-shipping-check">
-                <input class="form-check-input self-shipping-input" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label" for="flexCheckDefault">
+                <input class="form-check-input self-shipping-input" type="checkbox" name="self_shipping" value="1" id="check_self_shipping">
+                <label class="form-check-label" for="check_self_shipping">
                   Самовивіз
                 </label>
               </div>
@@ -114,10 +114,10 @@
 
             <div class="row">
                 @foreach ($products as $product)
-                <input type="hidden" name="product_id" value="{{  $product->id }}">
-                <input type="hidden" name="price_per_one" value="{{  $product->price }}">
-                <input type="hidden" name="total" value="{{  $total_sum_product }}">
-                <input type="hidden" name="product_quantity" value="{{  $product->cart_quantity }}">
+                {{-- <input type="hidden" name="product_id" value="{{  $product->id }}">
+                <input type="hidden" name="price_per_one" value="{{  $product->price }}">--}}
+                {{-- <input type="hidden" name="total" value="{{  $total_sum_product }}">
+                <input type="hidden" name="product_quantity" value="{{  $product->cart_quantity }}"> --}}
 
                     <div class="col-lg-6">
                         {{ $product->name }} x {{ $product->cart_quantity }}

@@ -101,12 +101,34 @@
                 <label for="" class="form-label">Картинка</label>
                 <input name="main_img" type="file" class="form-control" id="inputMainImgFile">
             </div>
-            <div class="mb-3 col-md-3">
+            <div class="col-md-6 mb-3">
+                <div class="input-group">
+                    <input name="gallery[]" type="file" class="form-control" id="create_product_gallery_input" multiple>
+                    <label class="input-group-text" for="create_product_gallery_input">Галерея</label>
+                    <div class="pt-3">
+                        <span class="">Картинка</span>
+                        <img style="width: 100%" src="{{ $product->main_img }}" alt="">
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    @foreach ($product->gallery as $gallery)
+                        <div class="col-md-4 position-relative" id="gallery_product_item_img">
+                            <img class="img-thumbnail " src="{{ $gallery->image }}" alt="">
+                            <button  onclick="galleryItemDelete(this, event)" type="button" class="gallery-item-delete"><i class="bi bi-x-lg"></i></button>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+            {{-- <div class="mb-3 col-md-6">
                 <span>Картинка</span>
                 <img style="width: 100%" src="{{ $product->main_img }}" alt="">
-            </div>
+            </div> --}}
         </div>
-        <button type="submit" class="btn btn-primary col-md-1" >Створити</button>
+        <button type="submit" class="btn btn-primary col-md-1" >Змінити</button>
     </form>
 </div>
 

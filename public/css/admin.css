@@ -21,3 +21,13 @@
     overflow-x: auto;
     width: 100%;
 }
+
+.gallery-item-delete{
+    position: absolute;
+    top: 0;
+    right: 11px;
+    background: red;
+    color: #fff;
+    padding: 4px;
+    border-radius: 3px;
+}

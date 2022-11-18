@@ -9,7 +9,7 @@
     <title>@yield('title') | {{ config('app.name', 'Wildfarm.com.ua') }}</title>
 
     <meta name="keywords" content="@yield('keywords', 'ферма', 'мясо', 'органіка', 'томати', 'яйця')">
-    <meta name="description" content="@yield('description', 'Oblíbená půjčovna obytných vozů Praha. Pronájem obytných aut rok výroby 2021 - 2022 s neomezeným nájezdem km. Jsme top půjčovna obytných vozů Praha. TopObytneVozy.cz - Praha')">
+    <meta name="description" content="@yield('description', '')">
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
     <!-- Fonts -->

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\ProductTypeController as AdminProductTypeController;
 use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategoryController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\NoteController as AdminNoteController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\{ProductController,CartController,OrderController};
@@ -64,6 +65,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     // Dashboard
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index');
 
+    // Orders
+    Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
+    Route::get('/order/show/{order}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
 
 
     // Products

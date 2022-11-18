@@ -136,6 +136,12 @@
                         <!-- Drawer section heading (UI Toolkit)-->
                         <div class="drawer-menu-heading">КРАМНИЦЯ</div>
                         <!-- Drawer link (Components)-->
+                        {{-- <a class="nav-link" href="{{ route('admin.orders.index') }}"></a> --}}
+                        <a class="nav-link" href="{{ route('admin.orders.index') }}"><i class="bi bi-journal-bookmark-fill"></i>
+                            <div class="nav-link-icon"></div>
+                            Замовлення
+                        </a>
+
                         <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseComponents" aria-expanded="false" aria-controls="collapseComponents">
                             <div class="nav-link-icon"><i class="material-icons">widgets</i></div>
                             Види товарів

@@ -4,7 +4,7 @@
             <div class="products-card-inside">
                 <div class="prod-image">
                     <a href="{{ route('products.show', $product->slug) }}">
-                        <img style="width: 100%" src="{{str_replace('product-img', 'product-img-small', $product->main_img)}}" alt="{{ $product->name }}">
+                        <img style="width: 100%" src="{{str_replace('product-img', 'product-img-medium', $product->main_img)}}" alt="{{ $product->name }}">
                         @if ($product->old_price != 0)
                             <div class="sale-at">
                                 Знижка!

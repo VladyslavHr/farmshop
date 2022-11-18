@@ -72,7 +72,7 @@
                 <img style="width: 100%" src="{{ $product_type->main_img }}" alt="">
             </div>
         </div>
-        <button type="submit" class="btn btn-primary col-md-1" >Створити</button>
+        <button type="submit" class="btn btn-primary col-md-1" >Змінити</button>
     </form>
 </div>
 

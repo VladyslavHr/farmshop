@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Product,ProductCategory,Note};
+use App\Models\{Product,ProductCategory,Note,ProductGallery};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -69,40 +69,49 @@ class ProductController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-small', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(200);
+            $image->resizeToShortSide(500);
             $image->save($resized_url);
 
 
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-medium', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(750);
+            $image->resizeToShortSide(1000);
             $image->save($resized_url);
 		}else{
 			$data['main_img'] = '/images/no-thumb-r.jpg';
 		}
 
-        // if ($request->hasfile('logo')) {
-		// 	$path = $request->file('logo')->store('product-logo', 'public');
-		// 	$data['logo'] = '/storage/' . $path;
+        $product = Product::create($data);
 
-        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
+        if($request->hasfile('gallery'))
+        {
+            if(count($request->file('gallery')) > 10){
+                return redirect()->back()->withErrors('Максимум 10 зображення!')->withInput($request->all());
+            }
+            foreach($request->file('gallery') as $key => $file)
+            {
+                $path = $file->store('product-gallery', 'public');
+                $product_image = new ProductGallery();
+                $product_image->product_id = $product->id;
+                // $product_image->product_id = $request->get('product_id');
+                $product_image->image = '/storage/'.$path;
+                $product_image->save();
 
-        //     $image = new ImageResize($request->file('logo'));
-        //     $image->resizeToShortSide(500);
-        //     $image->save($resized_url);
+                $resized_url = public_path('/storage/'.str_replace('product-gallery', 'product-gallery-small', $path));
 
+                $image = new ImageResize($file);
+                $image->resizeToShortSide(500);
+                $image->save($resized_url);
 
-        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
+                $resized_url = public_path('/storage/'.str_replace('product-gallery', 'product-gallery-medium', $path));
 
-        //     $image = new ImageResize($request->file('logo'));
-        //     $image->resizeToShortSide(1000);
-        //     $image->save($resized_url);
-		// }else{
-		// 	$data['logo'] = '/images/no-thumb-r.jpg';
-		// }
+                $image = new ImageResize($file);
+                $image->resizeToShortSide(1000);
+                $image->save($resized_url);
 
-        Product::create($data);
+            }
+        }
 
         return redirect()->route('admin.products.index');
     }
@@ -170,14 +179,14 @@ class ProductController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-small', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(200);
+            $image->resizeToShortSide(500);
             $image->save($resized_url);
 
 
             $resized_url = public_path('/storage/'.str_replace('product-img', 'product-img-medium', $path));
 
             $image = new ImageResize($request->file('main_img'));
-            $image->resizeToShortSide(750);
+            $image->resizeToShortSide(1000);
             $image->save($resized_url);
 
 	        $path = public_path($product->main_img);
@@ -194,36 +203,49 @@ class ProductController extends Controller
             }
 		}
 
-        // if ($request->hasfile('logo')) {
-		// 	$path = $request->file('logo')->store('product-logo', 'public');
-		// 	$data['logo'] = '/storage/' . $path;
+        if($request->hasfile('gallery'))
+        {
+            if(count($request->file('gallery')) > 10){
+                return redirect()->back()->withErrors('Максимум 10 зображення!')->withInput($request->all());
+            }
+            foreach($request->file('gallery') as $key => $file)
+            {
+                $path = $file->store('product-gallery', 'public');
+                $product_image = new ProductGallery();
+                $product_image->product_id = $product->id;
+                // $product_image->product_id = $request->get('product_id');
+                $product_image->image = '/storage/'.$path;
+                $product_image->save();
 
-        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-small', $path));
+                $resized_url = public_path('/storage/'.str_replace('product-gallery', 'product-gallery-small', $path));
 
-        //     $image = new ImageResize($request->file('logo'));
-        //     $image->resizeToShortSide(500);
-        //     $image->save($resized_url);
+                $image = new ImageResize($file);
+                $image->resizeToShortSide(500);
+                $image->save($resized_url);
 
+                $resized_url = public_path('/storage/'.str_replace('product-gallery', 'product-gallery-medium', $path));
 
-        //     $resized_url = public_path('/storage/'.str_replace('product-logo', 'product-logo-medium', $path));
+                $image = new ImageResize($file);
+                $image->resizeToShortSide(1000);
+                $image->save($resized_url);
 
-        //     $image = new ImageResize($request->file('logo'));
-        //     $image->resizeToShortSide(1000);
-        //     $image->save($resized_url);
-
-	    //     $path = public_path($product->logo);
-	    //     if (file_exists($path) && strpos($path, '/images/') === false) {
-	    //         unlink($path);
-	    //     }
-        //     $small_path = str_replace('product-logo', 'product-logo-small', $path);
-        //     if (file_exists($small_path) && strpos($small_path, '/images/') === false) {
-        //         unlink($small_path);
-        //     }
-        //     $medium_path = str_replace('product-logo', 'product-logo-medium', $path);
-        //     if (file_exists($medium_path) && strpos($medium_path, '/images/') === false) {
-        //         unlink($medium_path);
-        //     }
-		// }
+                foreach ($product->gallery as $gallery) {
+                    $path = public_path($gallery->image);
+                    if (file_exists($path) && strpos($path, '/images/') === false) {
+                        unlink($path);
+                    }
+                    $small_path_image = str_replace('product-gallery', 'product-gallery-small', $path);
+                    if (file_exists($small_path_image) && strpos($small_path_image, '/images/') === false) {
+                        unlink($small_path_image);
+                    }
+                    $medium_path_medium = str_replace('product-gallery', 'product-gallery-medium', $path);
+                    if (file_exists($medium_path_medium) && strpos($medium_path_medium, '/images/') === false) {
+                        unlink($medium_path_medium);
+                    }
+                    // $gallery->delete();
+                }
+            }
+        }
 
 
         $saved = $product->update($data);
@@ -248,8 +270,49 @@ class ProductController extends Controller
             unlink($medium_path_medium);
         }
 
+
+        foreach ($product->gallery as $gallery) {
+	        $path = public_path($gallery->image);
+	        if (file_exists($path) && strpos($path, '/images/') === false) {
+	            unlink($path);
+	        }
+            $small_path_image = str_replace('product-gallery', 'product-gallery-small', $path);
+            if (file_exists($small_path_image) && strpos($small_path_image, '/images/') === false) {
+                unlink($small_path_image);
+            }
+            $medium_path_medium = str_replace('product-gallery', 'product-gallery-medium', $path);
+            if (file_exists($medium_path_medium) && strpos($medium_path_medium, '/images/') === false) {
+                unlink($medium_path_medium);
+            }
+	        $gallery->delete();
+        }
+
+
 		$product->delete();
 
         return redirect()->route('admin.products.index');
     }
+
+
+    public function productImageDelete(ProductGallery $gallery)
+	{
+
+        $path = public_path($gallery->image);
+        if (file_exists($path) && strpos($path, '/images/') === false) {
+            unlink($path);
+        }
+        $small_path_image = str_replace('product-gallery', 'product-gallery-small', $path);
+        if (file_exists($small_path_image) && strpos($small_path_image, '/images/') === false) {
+            unlink($small_path_image);
+        }
+        $medium_path_medium = str_replace('product-gallery', 'product-gallery-medium', $path);
+        if (file_exists($medium_path_medium) && strpos($medium_path_medium, '/images/') === false) {
+            unlink($medium_path_medium);
+        }
+		$gallery->delete();
+		return [
+            'status' => 'ok',
+        ];
+	}
+
 }

@@ -84,6 +84,12 @@
                 <label for="" class="form-label">Картинка</label>
                 <input name="main_img" type="file" class="form-control" id="inputMainImgFile">
             </div>
+            <div class="col-md-6 mb-3">
+                <div class="input-group">
+                    <input name="gallery[]" type="file" class="form-control" id="create_product_gallery_input" multiple>
+                    <label class="input-group-text" for="create_product_gallery_input">Галерея</label>
+                </div>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary col-md-1" >Створити</button>
     </form>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\{Order,Product};
+use App\Models\{Order,Product,OrderItem};
 use App\Http\Requests\{CartStoreRequest};
 use App\Http\Classes\Cart;
 
@@ -26,12 +26,9 @@ class OrderController extends Controller
     public function store(Request $request, Product $product)
     {
         $total_sum_product = Cart::getTotalSum();
+        $product_count = Cart::getTotalCount();
 
         $rules = [
-            'product_id' => 'required',
-            'price_per_one' => 'required',
-            'total' => 'required',
-            'product_quantity' => 'required',
             'name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
@@ -54,15 +51,46 @@ class OrderController extends Controller
 
         $data = $request->validate($rules, $message);
         $data['total'] =  $total_sum_product;
+        $data['product_quantity'] =  $product_count;
         // $data['user_id'] = auth()->user()->id;
 
-        Order::create($data);
+        $order = Order::create($data);
 
         $products = Cart::getProducts();
 
         foreach ($products as $product) {
-            OrderItem::create(['order_id', 'product_id', 'nameprod', 'product_price',  'product_count']);
+            $order_item['order_id'] = $order->id;
+            $order_item['product_id'] = $product->id;
+            $order_item['product_name'] = $product->name;
+            $order_item['product_price'] = $product->price;
+            $order_item['product_old_price'] = $product->old_price;
+            $order_item['product_count'] = $product->cart_quantity;
+
+
+            $ordered = OrderItem::create($order_item);
+
+
+            // dd($ordered->product_count);
+            // $rest_product = Product::find('id', $ordered->product_id);
+            // dd($rest_product);
+            // $rest_product->quantity - $ordered->product_count;
+            // $rest_product_count = $rest_product- $product->cart_quantity;
+            // dd( $rest_product_count);
         }
+
+        // foreach ($ordered as $item) {
+        //     $rest_products = Product::whereIn('id', $item['product_id']);
+        // dd( $rest_products)->toArray();
+
+        // }
+
+        // $rest_products = Product::all();
+
+
+        // $rest_products = Product::find('id', $ordered->product_id);
+        // $ordered_products = Orderitem::all();
+
+        // $count_products =
 
 
 

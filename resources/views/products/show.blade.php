@@ -8,7 +8,8 @@
     <div class="container page-show">
         <div class="row">
             <div class="col-lg-6">
-                <img class="product-img-show" src="{{$product->main_img}}" alt="">
+                {{-- <img class="product-img-show" src="{{$product->main_img}}" alt=""> --}}
+                <img class="product-img-show" src="{{str_replace('product-img', 'product-img-medium', $product->main_img)}}" alt="">
             </div>
             <div class="col-lg-6 product-show-right-info">
                 <h1>{{ $product->name }}</h1>
@@ -29,50 +30,8 @@
                 <div class="product-show-describtion py-5">
                     {{$product->description}}
                 </div>
-                <livewire:product-add-to-cart-button :product="$product">
-                {{-- <form action="{{ route('carts.approve', $product) }}" method="POST" class="product-show-add-to-cart pt-4">
-                    @csrf
 
-
-
-
-
-                </form> --}}
-
-
-                {{-- <button class="product-show-link-to-card mt-3" type="submit">
-                    Додати до кошика
-                    <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
-                </button> --}}
-
-                {{-- <div class="product-show-add-to-cart pt-4">
-                    <input class="product-show-input-quantity" inputmode="numeric" type="number"
-                    value="{{ $product->cart_quantity }}"
-                    max="{{ $product->quantity }}"
-                    data-productid="{{ $product->id }}"
-                    oninput="cart_item_quantity_change(this)">
-
-
-
-                    <button class="product-show-link-to-card" type="submit"
-                    onclick="add_button_cart(this, {{ $product->id }})">
-                        Додати до кошика
-                        <span class="cart-count-porduct">{{ $cart[$product->id] ?? '' }}</span>
-                    </button>
-
-
-
-                    <form class="product-btn-add-to-cart-index" action="{{ route('addToCart', $product) }}"
-                    method="POST">
-                        @csrf
-                    </form>
-                </div> --}}
-
-
-                {{-- <form class="product-show-add-to-cart pt-4">
-                    <input class="product-show-input-quantity" inputmode="numeric" type="number">
-                    <button type="submit" class="product-show-link-to-card">Додати до кошика</button>
-                </form> --}}
+                @livewire('product-add-to-cart-button', ['product' => $product])
 
                 <form action="" class="pt-5">
                     <a href="#" class="product-show-favorite-link-add">
