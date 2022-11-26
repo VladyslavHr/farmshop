@@ -27,6 +27,15 @@ use App\Http\Controllers\{ProductController,CartController,OrderController,Check
 Route::get('/', function () {
     return view('home');
 })->name('home');
+
+Route::any('/wayForPay/returnUrl', function () {
+    dump(request()->all());
+})->name('wayForPay.returnUrl');
+
+Route::any('/wayForPay/serviceUrl', function () {
+    file_put_contents(storage_path('serviceUrlData.json'), json_encode(request()->all(), 128));
+})->name('wayForPay.serviceUrl');
+
 // ->middleware(['auth'])
 require __DIR__.'/auth.php';
 
