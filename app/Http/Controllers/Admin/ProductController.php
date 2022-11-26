@@ -229,28 +229,14 @@ class ProductController extends Controller
                 $image->resizeToShortSide(1000);
                 $image->save($resized_url);
 
-                foreach ($product->gallery as $gallery) {
-                    $path = public_path($gallery->image);
-                    if (file_exists($path) && strpos($path, '/images/') === false) {
-                        unlink($path);
-                    }
-                    $small_path_image = str_replace('product-gallery', 'product-gallery-small', $path);
-                    if (file_exists($small_path_image) && strpos($small_path_image, '/images/') === false) {
-                        unlink($small_path_image);
-                    }
-                    $medium_path_medium = str_replace('product-gallery', 'product-gallery-medium', $path);
-                    if (file_exists($medium_path_medium) && strpos($medium_path_medium, '/images/') === false) {
-                        unlink($medium_path_medium);
-                    }
-                    // $gallery->delete();
-                }
             }
         }
 
 
         $saved = $product->update($data);
 
-        return redirect()->route('admin.products.index');
+        // return redirect()->route('admin.products.index');
+        return redirect()->back();
     }
 
     public function delete($id)

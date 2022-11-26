@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Родинна ферма з якісними органічними продуктами')
+@section('title', 'Wildfarm.com.ua | Родинна ферма з якісними органічними продуктами')
 
 @section('content')
 <div class="container">

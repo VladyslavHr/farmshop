@@ -1,13 +1,13 @@
-function galleryItemDelete(gallery, event) {
-    console.log($('#gallery_product_item_img'))
-    event.preventDefault()
-    $.post('/api/productImageDelete',
+function galleryItemDelete(button, gallery_id) {
+    console.log(gallery_id)
+
+    $.post('/api/productImageDelete/' + gallery_id,
     {
-        gallery: gallery,
+        // gallery: gallery,
         // _token: $('meta[name="csrf-token"]').attr('content'),
     }, function (gallery) {
         if (gallery.status === 'ok') {
-            $('#gallery_product_item_img').remove()
+            $(button).closest('.js-gallery-item').remove()
         }
     }, 'json')
 }

@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategory
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\NoteController as AdminNoteController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\{ProductController,CartController,OrderController};
+use App\Http\Controllers\{ProductController,CartController,OrderController,CheckoutController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,6 +58,9 @@ Route::post('/kosik-dodano/{product}', [CartController::class, 'approve'])->name
 Route::get('/dyakujemo', [OrderController::class, 'thanks'])->name('orders.thanks');
 Route::get('/zamovlennya', [OrderController::class, 'index'])->name('orders.index');
 Route::post('/zamovlennya/store', [OrderController::class, 'store'])->name('orders.store');
+
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkouts.index');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {

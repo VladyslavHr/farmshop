@@ -18,4 +18,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('productImageDelete/{gallery}', [App\Http\Controllers\DestinationController::class, 'productImageDelete']);
+Route::post('productImageDelete/{gallery}', [App\Http\Controllers\Admin\ProductController::class, 'productImageDelete']);

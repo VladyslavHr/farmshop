@@ -12,7 +12,7 @@
     {{-- <link rel="apple-touch-icon" sizes="180x180" href="/logo/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon-16x16.png"> --}}
-    <link rel="manifest" href="/logo/site.webmanifest">
+    {{-- <link rel="manifest" href="/logo/site.webmanifest"> --}}
 
     <!-- Load Material Icons from Google Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet" />
@@ -25,7 +25,8 @@
     <link rel="stylesheet" href="{{ asset ('css/styles.css') }}">
     <link rel="stylesheet" href="{{ asset ('css/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset ('css/admin.css?v=' . filemtime(public_path('css/admin.css')) ) }}">
-    <script src="{{ asset('js/jquery-3.6.1.slim.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
 
 </head>
 <body>
