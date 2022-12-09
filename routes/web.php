@@ -28,15 +28,20 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::any('/wayForPay/returnUrl', function () {
-    dump(request()->all());
-})->name('wayForPay.returnUrl');
 
-Route::any('/wayForPay/serviceUrl', function () {
-    file_put_contents(storage_path('serviceUrlData.json'), json_encode(request()->all(), 128));
-})->name('wayForPay.serviceUrl');
+Route::any('/wayForPay/returnUrl', [\App\Http\Controllers\OrderController::class, 'wayForPayReturnUrl'])->name('wayForPay.returnUrl');
+Route::any('/wayForPay/serviceUrl', [\App\Http\Controllers\OrderController::class, 'wayForPayServiceUrl'])->name('wayForPay.serviceUrl');
 
-// ->middleware(['auth'])
+
+
+// Route::any('/wayForPay/returnUrl', function () {
+//     dump(request()->all());
+// })->name('wayForPay.returnUrl');
+
+// Route::any('/wayForPay/serviceUrl', function () {
+//     file_put_contents(storage_path('serviceUrlData.json'), json_encode(request()->all(), 128));
+// })->name('wayForPay.serviceUrl');
+
 require __DIR__.'/auth.php';
 
 

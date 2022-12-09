@@ -14,6 +14,8 @@ use WayForPay\SDK\Domain\Client;
 use WayForPay\SDK\Domain\Product;
 use WayForPay\SDK\Wizard\PurchaseWizard;
 use WayForPay\SDK\Domain\MerchantTypes;
+use WayForPay\SDK\Exception\WayForPaySDKException;
+use WayForPay\SDK\Handler\ServiceUrlHandler;
 
 
 
@@ -100,12 +102,40 @@ class OrderController extends Controller
     {
         return view('orders.thanks');
     }
-    // public function returnUrl()
-    // {
-    //     return view('orders.thanks');
-    // }
-    // public function thanks()
-    // {
-    //     return view('orders.thanks');
-    // }
+    public function wayForPayReturnUrl()
+    {
+        // Use test credential or yours
+        $credential = new AccountSecretTestCredential();
+        //$credential = new AccountSecretCredential('account', 'secret');
+
+        try {
+            $handler = new ServiceUrlHandler($credential);
+            $response = $handler->parseRequestFromGlobals();
+
+            if ($response->getReason()->isOK()) {
+                echo "Success";
+            } else {
+                echo "Error: " . $response->getReason()->getMessage();
+            }
+        } catch (WayForPaySDKException $e) {
+            echo "WayForPay SDK exception: " . $e->getMessage();
+        }
+        return view('orders.thanks');
+    }
+    public function wayForPayServiceUrl()
+    {
+        // Use test credential or yours
+        // $credential = new AccountSecretTestCredential();
+        $credential = new AccountSecretCredential('test_merch_n1', 'flk3409refn54t54t*FNJRET');
+
+        try {
+            $handler = new ServiceUrlHandler($credential);
+            $response = $handler->parseRequestFromPostRaw();
+
+            echo $handler->getSuccessResponse($response->getTransaction());
+        } catch (WayForPaySDKException $e) {
+            echo "WayForPay SDK exception: " . $e->getMessage();
+        }
+        return file_put_contents(storage_path('serviceUrlData.json'), json_encode(request()->all(), 128));
+    }
 }
