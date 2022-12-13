@@ -1,14 +1,16 @@
-@extends('layouts.app')
-
-@section('content')
 
 
-<h1>Hello checkout</h1>
 
-<div class="">
+<div class="" id="pay_form_wrapper" style="display: none">
 
     {!! $form !!}
 
 </div>
 
-@endsection
+
+
+<script>
+    document.getElementById('pay_form_wrapper').querySelector('form').submit()
+</script>
+
+

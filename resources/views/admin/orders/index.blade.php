@@ -45,8 +45,24 @@
                 @else
                 <td class="text-center">Ні</td>
                 @endif
-                <td class="text-center">Сплачено</td>
-                <td class="text-center">Відправлено</td>
+                @if ($order->payment_status === 'created')
+                  <td class="text-center text-secondary">Створено <i class="bi bi-hourglass-split"></i> </td>
+                @elseif ($order->payment_status === 'pending')
+                  <td class="text-center text-secondary">Опрацьовується <i class="bi bi-hourglass-split"></i> </td>
+                @elseif ($order->payment_status === 'paid')
+                  <td class="text-center text-success">Сплачено <i class="bi bi-cash-coin"></i> </td>
+                @elseif ($order->payment_status === 'canceled')
+                  <td class="text-center text-danger">Відмінено <i class="bi bi-x"></i> </td>
+                @elseif ($order->payment_status === 'refounded')
+                  <td class="text-center text-warning">Повернуто <i class="bi bi-arrow-repeat"></i></td>
+                @endif
+                @if ($order->delivery_status === 'preparing')
+                  <td class="text-center text-secondary">Збирається <i class="bi bi-box-seam"></i></td>
+                @elseif ($order->delivery_status === 'delivered')
+                  <td class="text-center text-success">Відправлено <i class="bi bi-truck"></i></td>
+                @elseif ($order->delivery_status === 'returned')
+                  <td class="text-center text-danger">Повернуто <i class="bi bi-arrow-repeat"></i></td>
+                @endif
                 <td class="text-center">
                     <a href="{{ route('admin.orders.show', $order) }}">
                         <i class="bi bi-eye"></i>

@@ -15,6 +15,7 @@ class ProductsCategoryFilter extends Component
     public function changeCategory($categorySlug)
     {
         $this->choosenCategorySlug = $categorySlug;
+
         $this->emit('urlChange', '?category=' . $categorySlug);
     }
 

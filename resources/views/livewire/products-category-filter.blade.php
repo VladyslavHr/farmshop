@@ -43,6 +43,7 @@
                     </a>
                 </li>
                 @foreach ($categories as $category)
+                    @if (count($category->products))
                     <li class="category-list-element">
                         <a href="#"
                             class="category-list-link"
@@ -53,6 +54,8 @@
                             @endif
                         </a>
                     </li>
+                    @endif
+
                 @endforeach
             </ul>
         </div>

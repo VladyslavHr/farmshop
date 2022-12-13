@@ -22,12 +22,25 @@ class Order extends Model
         'post_adress',
         'self_shipping',
         'order_note',
+        'payment_status',
+        'delivery_status',
     ];
 
     protected $dates = [
         'created_at',
         'updated_at',
     ];
+
+    public const STATUS_CREATED = 'created';
+    public const STATUS_PENDING = 'pending';
+    public const STATUS_PAID = 'paid';
+    public const STATUS_CANCELED = 'canceled';
+    public const STATUS_REFOUNDED = 'refounded';
+
+
+    public const STATUS_PREPARING = 'preparing';
+    public const STATUS_DELIVERED = 'delivered';
+    public const STATUS_RETURNED = 'returned';
 
     public function orderItem() {
         return $this->hasMany(OrderItem::class)->orderByDesc('created_at');

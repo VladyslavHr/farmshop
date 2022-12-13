@@ -85,6 +85,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     // Orders
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('admin.orders.index');
     Route::get('/order/show/{order}', [AdminOrderController::class, 'show'])->name('admin.orders.show');
+    Route::post('/order/update/{order}', [AdminOrderController::class, 'update'])->name('admin.orders.update');
+
 
 
     // Products

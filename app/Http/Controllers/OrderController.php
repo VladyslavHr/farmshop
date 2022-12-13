@@ -38,6 +38,8 @@ class OrderController extends Controller
         $data = $request->validated();
         $data['total'] =  $total_sum_product;
         $data['product_quantity'] =  $product_count;
+        $data['payment_status'] = Order::STATUS_PENDING;
+        $data['delivery_status'] = Order::STATUS_PREPARING;
         // $data['user_id'] = auth()->user()->id;
 
         $order = Order::create($data);
@@ -56,7 +58,6 @@ class OrderController extends Controller
 
         }
 
-        session()->forget('cart');
 
         return $this->checkout($data, $order);
 
@@ -71,7 +72,7 @@ class OrderController extends Controller
         $credential = new AccountSecretCredential('test_merch_n1', 'flk3409refn54t54t*FNJRET');
 
         $form = PurchaseWizard::get($credential)
-            ->setOrderReference(time() .'-'. $order->id)
+            ->setOrderReference(time().'-'.$order->id)
             ->setAmount($data['total'])
             ->setCurrency('UAH')
             ->setOrderDate(new \DateTime())
@@ -108,34 +109,70 @@ class OrderController extends Controller
         $credential = new AccountSecretTestCredential();
         //$credential = new AccountSecretCredential('account', 'secret');
 
+
         try {
             $handler = new ServiceUrlHandler($credential);
             $response = $handler->parseRequestFromGlobals();
 
             if ($response->getReason()->isOK()) {
-                echo "Success";
+                // echo "Success";
+                session()->forget('cart');
+                $message = 'Tnahk you';
             } else {
-                echo "Error: " . $response->getReason()->getMessage();
+                $message = $response->getReason()->getMessage();
+                echo $response->getOrderReference();
+                // codeError = getOrderReference();
+                // echo "Error: " . $response->getReason()->getMessage();
             }
         } catch (WayForPaySDKException $e) {
             echo "WayForPay SDK exception: " . $e->getMessage();
         }
-        return view('orders.thanks');
+        return view('orders.thanks', [
+            'message' => $message,
+        ]);
     }
     public function wayForPayServiceUrl()
     {
         // Use test credential or yours
-        // $credential = new AccountSecretTestCredential();
-        $credential = new AccountSecretCredential('test_merch_n1', 'flk3409refn54t54t*FNJRET');
+        $credential = new AccountSecretTestCredential();
+        // $credential = new AccountSecretCredential('test_merch_n1', 'flk3409refn54t54t*FNJRET');
 
         try {
             $handler = new ServiceUrlHandler($credential);
             $response = $handler->parseRequestFromPostRaw();
 
-            echo $handler->getSuccessResponse($response->getTransaction());
+            $return = $handler->getSuccessResponse($response->getTransaction());
+            echo $return;
+            file_put_contents(storage_path('serviceUrlData_success.json'), $return);
         } catch (WayForPaySDKException $e) {
-            echo "WayForPay SDK exception: " . $e->getMessage();
+            $return = "WayForPay SDK exception: " . $e->getMessage();
+            echo $return;
+            file_put_contents(storage_path('serviceUrlData_error.json'), $return);
+
         }
-        return file_put_contents(storage_path('serviceUrlData.json'), json_encode(request()->all(), 128));
+        $json = file_get_contents('php://input');
+
+        $returnObject = json_decode($json);
+
+        $orderId = $returnObject->orderReference;
+
+        $orderId = explode('-', $orderId);
+
+        $orderId = $orderId[1];
+
+        $this->updateOrderStatus($orderId, Order::STATUS_PAID);
+
+        return file_put_contents(storage_path('serviceUrlData.json'), $json);
     }
+
+    public function updateOrderStatus($orderId, $status)
+    {
+        $order = Order::find($orderId);
+
+        if ($order) {
+            $order->update(['payment_status' => $status]);
+        }
+    }
+
+
 }
