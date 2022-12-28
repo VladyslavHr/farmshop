@@ -31,3 +31,8 @@
     padding: 4px;
     border-radius: 3px;
 }
+
+.border-devider{
+    border-bottom: 2px solid #9c27b069;
+    padding-bottom: 15px;
+}

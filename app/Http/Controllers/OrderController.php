@@ -72,7 +72,7 @@ class OrderController extends Controller
         $credential = new AccountSecretCredential('test_merch_n1', 'flk3409refn54t54t*FNJRET');
 
         $form = PurchaseWizard::get($credential)
-            ->setOrderReference(time().'-'.$order->id)
+            ->setOrderReference($order->order_reference)
             ->setAmount($data['total'])
             ->setCurrency('UAH')
             ->setOrderDate(new \DateTime())
@@ -115,7 +115,9 @@ class OrderController extends Controller
             $response = $handler->parseRequestFromGlobals();
 
             if ($response->getReason()->isOK()) {
-                // echo "Success";
+                // dump(request()->all());
+                // dump(request('orderReference'));
+                // $orderReference =  $response['orderReference'];
                 session()->forget('cart');
                 $message = 'Tnahk you';
             } else {

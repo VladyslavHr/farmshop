@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategory
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\NoteController as AdminNoteController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
-use App\Http\Controllers\{ProductController,CartController,OrderController,CheckoutController};
+use App\Http\Controllers\{ProductController,CartController,OrderController,CheckoutController,HomeController,ProductTypeController,ContactController};
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,9 +24,12 @@ use App\Http\Controllers\{ProductController,CartController,OrderController,Check
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+// Route::get('/', function () {
+//     return view('home');
+// })->name('home');
+
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
+
 
 
 Route::any('/wayForPay/returnUrl', [\App\Http\Controllers\OrderController::class, 'wayForPayReturnUrl'])->name('wayForPay.returnUrl');
@@ -75,6 +78,16 @@ Route::post('/zamovlennya/store', [OrderController::class, 'store'])->name('orde
 
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkouts.index');
+
+// ProdutcTypes
+Route::get('/kramnytsya/{slug}', [ProductTypeController::class, 'show'])->name('productTypes.show');
+
+// Contacts
+Route::get('/kontakty', [ContactController::class, 'index'])->name('contacts.index');
+Route::post('/kontakty/store', [ContactController::class, 'store'])->name('contacts.store');
+
+
+
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {

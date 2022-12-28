@@ -17,13 +17,16 @@ class Order extends Model
         'email',
         'phone',
         'new_post_num',
+        'new_post_city',
         'new_post_adress',
         'post_num',
+        'post_city',
         'post_adress',
         'self_shipping',
         'order_note',
         'payment_status',
         'delivery_status',
+        'payment_method',
     ];
 
     protected $dates = [
@@ -44,6 +47,11 @@ class Order extends Model
 
     public function orderItem() {
         return $this->hasMany(OrderItem::class)->orderByDesc('created_at');
+    }
+
+    public function getOrderReferenceAttribute()
+    {
+        return $this->created_at->timestamp . '-' . $this->id;
     }
 
 }

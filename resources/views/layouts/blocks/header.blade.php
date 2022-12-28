@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Wildfarm') }}
@@ -23,23 +23,51 @@
                     </li>
                 @endif
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('products.index') }}">Крамниця</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('carts.index') }}" >
-                            Кошик (<b id="cart_total_count">{{ Cart::getTotalCount() }}</b>)
+                        <a class="nav-link" href="{{ route('products.index') }}">
+                            <i class="bi bi-shop"></i>
+                            Крамниця
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contacts.index') }}">
+                            <i class="bi bi-telephone"></i>
+                            Контакти
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-info-circle"></i>
+                            Довідка
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">
+                                Доставка та оплата
+                            </a>
+                            <a class="dropdown-item" href="#">
+                                Повернення товару
+                            </a>
+                        </div>
+                    </li>
             </ul>
+            <div class="cart-block-header">
+                <a class="nav-link" href="{{ route('carts.index') }}" >
+                    <i class="bi bi-cart-check"></i>
+                    Кошик (<b id="cart_total_count">{{ Cart::getTotalCount() }}</b>)
+                </a>
+            </div>
+
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
                 <!-- Authentication Links -->
                 @guest
+                @if (Auth::check())
                     @if (Route::has('login'))
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                         </li>
                     @endif
+                @endif
+
 
                     @if (Route::has('register'))
                         <li class="nav-item">

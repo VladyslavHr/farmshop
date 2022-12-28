@@ -9,9 +9,80 @@
 
 body{
     font-family: Lato;
+    /* font-family: Playfair Display; */
+
 }
 
+#map {
+    height: 500px;
+    width: 100%;
+  }
 
+
+.navbar {
+    background-color: #222b33;
+    padding: 25px 0;
+}
+
+.nav-link{
+    color: #fff!important;
+    font-size: 20px;
+}
+
+.navbar-brand{
+    color: #fff!important;
+    font-size: 24px;
+}
+
+.main-bg-image{
+    background-image: url(/images/farm.jpeg);
+    /* background-image: url(https://www.yellowpages.ca/bus/Ontario/Kitchener/Dawah-Autoservice/101445469.html); */
+    background-position: center;
+    /* height: 450px; */
+    padding-top: 240px;
+    padding-bottom: 240px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.home-brand-title{
+    color: #215c93;
+}
+
+.home-type-link{
+    position: relative;
+    padding-top: 125px;
+    padding-bottom: 125px;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 8px solid #222b33;
+    width: 31%;
+    margin: 10px;
+    filter: grayscale(0.8);
+}
+
+.home-type-link:hover{
+    filter: none;
+    transition: .4s;
+    border-color: #678199;
+}
+
+.home-type-title{
+    color: #fff;
+    position: absolute;
+    top: 0;
+    background-color: #222b33;
+    padding: 0 10px;
+}
+
+.home-type-desc{
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    background-color: #222b33;
+    padding: 0 10px;
+    font-size: 18px;
+}
 
 .product-img-show{
     width: 100%;

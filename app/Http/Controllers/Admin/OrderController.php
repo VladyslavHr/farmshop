@@ -38,7 +38,7 @@ class OrderController extends Controller
         ]);
     }
 
-    public function update(Request $requsets, Order $order)
+    public function update(Request $request, Order $order)
     {
         $rules = [
             'delivery_status' => 'required',
@@ -51,5 +51,8 @@ class OrderController extends Controller
         $data = $request->validate($rules, $messages);
 
         $saved = $order->update($data);
+
+        return redirect()->back();
+
     }
 }

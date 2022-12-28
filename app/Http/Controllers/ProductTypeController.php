@@ -44,9 +44,13 @@ class ProductTypeController extends Controller
      * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Http\Response
      */
-    public function show(ProductType $productType)
+    public function show($slug)
     {
-        //
+        $product_types = ProductType::where('slug', $slug)->first();
+
+        return view('productTypes.show',[
+            'product_types' => $product_types,
+        ]);
     }
 
     /**

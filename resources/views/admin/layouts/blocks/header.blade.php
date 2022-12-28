@@ -10,7 +10,7 @@
             <div class="d-flex align-items-center mx-3 me-lg-0">
                 <!-- Navbar-->
                 <ul class="navbar-nav d-none d-lg-flex">
-                    <li class="nav-item"><a class="nav-link" href="{{route('home')}}">На веб</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('home.index')}}">На веб</a></li>
                     {{-- <li class="nav-item"><a class="nav-link" href="https://docs.startbootstrap.com/material-admin-pro" target="_blank">Documentation</a></li> --}}
                 </ul>
                 <!-- Navbar buttons-->
