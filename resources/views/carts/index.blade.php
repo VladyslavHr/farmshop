@@ -5,13 +5,11 @@
 @section('content')
 
 <div class="container py-3">
-
     <div class="cart-header">
         <div class="cart-header-title">
             <h1 class="cart-title py-2">Кошик</h1>
         </div>
     @if (count($products))
-
         <div class="cart-header-btn-clean">
             <button onclick="clearCart(this)" class="btn btn-danger" name="{{ route('clearCart') }}">Видалити все</button>
         </div>
@@ -20,8 +18,6 @@
     @if (count($products))
 
     <div class="full-cart">
-
-
         <div class="row mt-3 cart-product-titles">
             <div class="col-lg-1"></div>
             <div class="col-lg-1"></div>
@@ -86,7 +82,6 @@
                     {{  $total_sum_product_formated }}
                 </span>
                 ₴
-                {{-- {{ Cart::getTotalSum() }} ₴ --}}
             </div>
             <div class="col-lg-2">
                 <a href="{{ route('orders.index') }}" class="btn btn-warning">Оформити замовлення</a>

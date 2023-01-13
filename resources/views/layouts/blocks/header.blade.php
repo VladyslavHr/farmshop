@@ -10,18 +10,6 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav me-auto">
-                @if (Auth::check())
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('parsers.agriculture') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Agriculture
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.dashboard.index') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                            Admin
-                        </a>
-                    </li>
-                @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('products.index') }}">
                             <i class="bi bi-shop"></i>
@@ -49,11 +37,19 @@
                         </div>
                     </li>
             </ul>
-            <div class="cart-block-header">
-                <a class="nav-link" href="{{ route('carts.index') }}" >
+            <div class="cart-block-header d-flex">
+                <a class="nav-link me-3" href="{{ route('carts.index') }}" >
                     <i class="bi bi-cart-check"></i>
                     Кошик (<b id="cart_total_count">{{ Cart::getTotalCount() }}</b>)
                 </a>
+                @if (Auth::check())
+                    <a class="nav-link me-3" href="{{ route('parsers.agriculture') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Agriculture
+                    </a>
+                    <a class="nav-link me-3" href="{{ route('admin.dashboard.index') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Admin
+                    </a>
+                @endif
             </div>
 
             <!-- Right Side Of Navbar -->

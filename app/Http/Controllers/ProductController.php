@@ -64,6 +64,9 @@ class ProductController extends Controller
         $product = Product::where('slug', $slug)->first();
         $cart = session('cart', []);
         $cart_products = Product::whereIn('id', array_keys($cart))->get();
+        $interest_category = ProductCategory::where('id', $product->product_category_id)->get();
+
+        // dd($interests, 2 );
         // if ( $product->status === 'in_stock') {
         //     'В наявності';
         // } elseif ($product->status === 'out_of_stock') {
@@ -78,6 +81,7 @@ class ProductController extends Controller
             'product' => $product,
             'product_quantity' => Cart::getProducts(),
             'cart' => $cart,
+            'interest_category' => $interest_category,
             // 'cart_products' => $cart_products,
             'user' => auth()->user(),
         ]);

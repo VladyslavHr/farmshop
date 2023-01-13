@@ -15,7 +15,7 @@
 
     </div>
 
-    <div class="d-flex flex-wrap">
+    <div class="home-types-list">
         <a href="{{ route('products.index') }}" class="home-type-link" style="background-image: url('/images/shop.png')">
             <div class="home-type-title">
                 <h2>
@@ -36,6 +36,35 @@
         @endforeach
     </div>
 
+    {{-- <div class="row">
+        <div class="col-lg-4">
+            <a href="{{ route('products.index') }}" class="home-type-link col-lg-4" style="background-image: url('/images/shop.png'); width: 100%">
+                <div class="home-type-title">
+                    <h2>
+                        Крамниця
+                    </h2>
+                </div>
+                <div class="home-type-desc">Переглянути усі товари</div>
+            </a>
+        </div>
+
+        @foreach ($productsType as $type)
+        <div class="col-lg-4">
+            <div class="">
+                <a href="{{ route('productTypes.show', $type->slug) }}" class="home-type-link col-lg-4" style="background-image: url('{{ $type->logo }}')">
+                    <div class="home-type-title">
+                        <h2>
+                            {{ $type->name }}
+                        </h2>
+                    </div>
+                    <div class="home-type-desc"></div>
+                </a>
+            </div>
+
+        </div>
+        @endforeach
+
+    </div> --}}
 
     {{-- <div class="row justify-content-center">
         <div class="col-md-8">

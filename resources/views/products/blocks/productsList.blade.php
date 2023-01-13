@@ -2,16 +2,18 @@
     @foreach ($products as $product)
         <div class="products-card-wrapp col-sm-12 col-md-6 col-lg-5 col-xl-4">
             <div class="products-card-inside">
-                <div class="prod-image">
-                    <a href="{{ route('products.show', $product->slug) }}">
-                        <img src="{{str_replace('product-img', 'product-img-medium', $product->main_img)}}" alt="{{ $product->name }}">
+                <a href="{{ route('products.show', $product->slug) }}">
+
+                <div class="prod-image" style="background-image: url('{{str_replace('product-img', 'product-img-medium', $product->main_img)}}')" alt="{{ $product->name }}">
+                        {{-- <img src="{{str_replace('product-img', 'product-img-medium', $product->main_img)}}" alt="{{ $product->name }}"> --}}
                         @if ($product->old_price != 0)
                             <div class="sale-at">
                                 Знижка!
                             </div>
                         @endif
-                    </a>
                 </div>
+            </a>
+
                 <div class="product-status-wrap my-2">
                     @if ( $product->status === 'in_stock' )
                         <div class="prod-status">

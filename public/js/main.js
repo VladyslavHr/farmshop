@@ -73,11 +73,20 @@ function remove_cart_item(form, event) {
     $.post($(form).attr('action'),
     $(form).serialize(),
     function (data) {
-        if (data.status === 'ok') {
-            $(form).closest('.cart-product-item').remove()
-            $('#cart_total_count').text(data.cart_total_count)
-            $('.js-cart-total-sum').text(data.cart_total_sum)
-            toastr.warning('Товар видалено з кошика!')
+
+        if ($(".cart-product-item")[0]) {
+            if (data.status === 'ok') {
+                $(form).closest('.cart-product-item').remove()
+                $('#cart_total_count').text(data.cart_total_count)
+                $('.js-cart-total-sum').text(data.cart_total_sum)
+                toastr.warning('Товар видалено з кошика!')
+
+            }
+        }else{
+            $('.empty-cart').show()
+            $(button).hide()
+            $('#cart_total_count').text(0)
+            toastr.warning('Кошик спорожнено!')
         }
 
     }, 'json')

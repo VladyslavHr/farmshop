@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v7.1.0/ol.css">
 
     <link href="{{ asset("css/toastr.min.css") }}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
     <link rel="stylesheet" href="{{ asset ('css/main.css?v=' . filemtime(public_path('css/main.css')) ) }}">
 
     <!-- Scripts -->
@@ -108,6 +109,7 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="{{ asset("js/bootstrap.bundle.min.js") }}"></script>
     <script src="{{ asset("js/toastr.min.js") }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
     @livewireScripts
     <script src="{{ asset ('js/main.js?v=' . filemtime(public_path('js/main.js')) ) }}"></script>
 

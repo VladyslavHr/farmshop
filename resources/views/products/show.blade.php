@@ -8,8 +8,7 @@
     <div class="container page-show">
         <div class="row">
             <div class="col-lg-6">
-                {{-- <img class="product-img-show" src="{{$product->main_img}}" alt=""> --}}
-                <img class="product-img-show" src="{{str_replace('product-img', 'product-img-medium', $product->main_img)}}" alt="">
+                @include('/products/blocks/fancybox')
             </div>
             <div class="col-lg-6 product-show-right-info">
                 <h1>{{ $product->name }}</h1>
@@ -54,9 +53,17 @@
             </div>
         </div>
 
-        <div class="col-md-12 pt-5">
+        {{-- <div class="row">
+            @foreach ($interest_category->products as $interest)
+                <div class="col-lg-3">
+                    <h3>{{ $interest->name }}</h3>
+                    <img src="{{ $interest->main_img }}" alt="">
+                </div>
+            @endforeach
+        </div> --}}
+        {{-- <div class="col-md-12 pt-5">
             {{ $product->description }}
-        </div>
+        </div> --}}
     </div>
 
 </div>

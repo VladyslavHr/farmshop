@@ -16,6 +16,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@fancyapps/ui": "^4.0.31",
         "bootstrap-icons": "^1.9.1",
         "toastr": "^2.1.4"
     }

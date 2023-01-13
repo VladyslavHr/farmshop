@@ -51,7 +51,7 @@
                   Самовивіз
                 </label>
               </div>
-            <div class="self-shipping">
+            <div class="self-shipping" onclick="choose_self_shipping()">
                 Самовивіз можливий кожень день з 8:00 до 18:00
                 За адресою с.Соколово дн-району Дніпропетровської обл.
             </div>
