@@ -43,9 +43,11 @@ function add_button_cart (button, product_id) {
 
 
     var maxValue = +$(button).attr('max')
+    log(cart_product_count, maxValue)
+
 
     if (cart_product_count >= maxValue) {
-        log(cart_product_count, maxValue)
+        // log(cart_product_count, maxValue)
         return false
     }
 

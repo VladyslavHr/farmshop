@@ -34,4 +34,9 @@ class ProductType extends Model
     public function categories() {
         return $this->hasMany('App\Models\ProductCategory');
     }
+
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, ProductCategory::class);
+    }
 }

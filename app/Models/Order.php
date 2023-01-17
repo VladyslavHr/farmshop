@@ -45,7 +45,7 @@ class Order extends Model
     public const STATUS_DELIVERED = 'delivered';
     public const STATUS_RETURNED = 'returned';
 
-    public function orderItem() {
+    public function orderItems() {
         return $this->hasMany(OrderItem::class)->orderByDesc('created_at');
     }
 

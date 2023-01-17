@@ -21,6 +21,10 @@ class ProductsCategoryFilter extends Component
 
     public function render()
     {
+        // \Debugbar::info(request('slug'));
+        // dd();
+        $cart = session('cart', []);
+
         if (request('category')) {
             $this->choosenCategorySlug = request('category');
         }

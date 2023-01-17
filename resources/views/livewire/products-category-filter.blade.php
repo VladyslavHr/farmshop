@@ -60,7 +60,7 @@
             </ul>
         </div>
         <div class="main-content col-lg-9">
-            @include('products.blocks.productsList')
+            @include('products.blocks.productsList', ['cart' => $cart = session('cart', [])])
         </div>
     </div>
 </div>

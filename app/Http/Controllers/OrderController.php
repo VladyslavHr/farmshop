@@ -171,6 +171,12 @@ class OrderController extends Controller
     {
         $order = Order::find($orderId);
 
+        foreach ($order->order_items as $orderItem) {
+            $orderItem->product->update([
+                'quantity' => $orderItem->product->quantity - $orderItem->product_count
+            ]);
+        }
+
         if ($order) {
             $order->update(['payment_status' => $status]);
         }
