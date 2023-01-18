@@ -23,7 +23,7 @@ class ProductsCategoryFilter extends Component
     {
         // \Debugbar::info(request('slug'));
         // dd();
-        $cart = session('cart', []);
+
 
         if (request('category')) {
             $this->choosenCategorySlug = request('category');
@@ -35,6 +35,8 @@ class ProductsCategoryFilter extends Component
 
         $this->products = $this->category->products ?? Product::all();
 
-        return view('livewire.products-category-filter');
+        return view('livewire.products-category-filter', [
+            'cart' => session('cart', [])
+        ]);
     }
 }

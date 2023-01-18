@@ -60,7 +60,16 @@
             </ul>
         </div>
         <div class="main-content col-lg-9">
-            @include('products.blocks.productsList', ['cart' => $cart = session('cart', [])])
+            <div class="row">
+                <div class="col-12">
+                    <select wire:model="sorting_price" wire:select="sortingPrice">
+                        <option value="asc">от дешевых</option>
+                        <option value="desc">от дорогих</option>
+                    </select>
+                </div>
+            </div>
+
+            @include('products.blocks.productsList')
         </div>
     </div>
 </div>
