@@ -5,12 +5,7 @@
 @section('content')
 
 <div class="container">
-
     @livewire('products-category-filter')
-
 </div>
-
-
-
 
 @endsection

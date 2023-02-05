@@ -58,6 +58,10 @@ class OrderController extends Controller
 
         }
 
+        // if (condition) {
+        //     # code...
+        // }
+        // Check payment method
 
         return $this->checkout($data, $order);
 
@@ -146,25 +150,29 @@ class OrderController extends Controller
             $return = $handler->getSuccessResponse($response->getTransaction());
             echo $return;
             file_put_contents(storage_path('serviceUrlData_success.json'), $return);
+
+            $json = file_get_contents('php://input');
+
+            $returnObject = json_decode($json);
+
+            $orderId = $returnObject->orderReference;
+
+            $orderId = explode('-', $orderId);
+
+            $orderId = $orderId[1];
+
+            $this->updateOrderStatus($orderId, Order::STATUS_PAID);
+
         } catch (WayForPaySDKException $e) {
             $return = "WayForPay SDK exception: " . $e->getMessage();
             echo $return;
             file_put_contents(storage_path('serviceUrlData_error.json'), $return);
 
         }
-        $json = file_get_contents('php://input');
 
-        $returnObject = json_decode($json);
+        // return file_put_contents(storage_path('serviceUrlData.json'), $json);
 
-        $orderId = $returnObject->orderReference;
 
-        $orderId = explode('-', $orderId);
-
-        $orderId = $orderId[1];
-
-        $this->updateOrderStatus($orderId, Order::STATUS_PAID);
-
-        return file_put_contents(storage_path('serviceUrlData.json'), $json);
     }
 
     public function updateOrderStatus($orderId, $status)

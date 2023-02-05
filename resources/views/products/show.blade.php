@@ -32,14 +32,14 @@
 
                 @livewire('product-add-to-cart-button', ['product' => $product])
 
-                <form action="" class="pt-5">
+                {{-- <form action="" class="pt-5">
                     <a href="#" class="product-show-favorite-link-add">
                         <i class="bi bi-bag-heart me-2 favorite-icon-link"></i>
                         <span>
                             Додати до бажанного
                         </span>
                     </a>
-                </form>
+                </form> --}}
 
                 <div class="product-show-category pt-5">
                     <span class="product-show-category-title">

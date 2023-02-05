@@ -9,11 +9,26 @@ use App\Models\{Order,Product};
 
 class OrderController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::orderBy('id', 'desc')->paginate(10);
+        $sortingBy = $request->sortingBy ?? 'id';
+        $sortingDirection = $request->sortingDirection ?? 'desc';
+
+        $orders = Order::orderBy($sortingBy, $sortingDirection)->paginate(10);
+
+        // dd($request->all());
+
         return view('admin.orders.index',[
             'orders' => $orders,
+            'sortingParams' => '?sortingBy='.request('sortingBy').'&sortingDirection='.request('sortingDirection'),
+            'sortingOptions' => [
+                ['val' => '?sortingBy=total&sortingDirection=asc', 'lable' => 'дешевые'],
+                ['val' => '?sortingBy=total&sortingDirection=desc', 'lable' => 'дорошие'],
+                ['val' => '?sortingBy=delivery_status&sortingDirection=asc', 'lable' => 'статус 🠗'],
+                ['val' => '?sortingBy=delivery_status&sortingDirection=desc', 'lable' => 'статус 🠕'],
+                ['val' => '?sortingBy=created_at&sortingDirection=asc', 'lable' => 'старые'],
+                ['val' => '?sortingBy=created_at&sortingDirection=desc', 'lable' => 'новые'],
+            ]
         ]);
     }
 

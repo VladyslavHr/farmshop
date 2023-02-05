@@ -1,5 +1,34 @@
 {{-- <div class="container"> --}}
     <div>
+        <div class="category-page-wrap mt-3">
+            <div class="category-page-wrap-left">
+                <img class="category-page-wrap-left-image" style="width: 100%" src="{{ asset('/images/consumer.png') }}" alt="">
+            </div>
+            <div class="category-page-wrap-right">
+                @if ($category)
+                <div class="category-page-text-wrap-bg">
+                    <div class="category-page-title">
+                        <h1>{{ $category->name }}</h1>
+                    </div>
+                    <div class="category-page-text">
+                        {{ $category->description }}
+                    </div>
+                </div>
+                @else
+                <div class="category-page-text-wrap-bg">
+                    <div class="category-page-title">
+                        <h1>Крамниця</h1>
+                    </div>
+                    <div class="category-page-text">
+                        A consumer good, also known as a ‘final good’, is the end product a business produces and is purchased by the consumer. For example, microwaves, fridges, t-shirts, and washing machines, are all examples of consumer goods. They are final goods that the consumer purchases.
+                        Consumer goods contrast with intermediate goods in the fact that intermediate goods are used to create the final consumer good. Goods such as copper, coal, iron, or other raw materials, are not consumer goods because they are used to make a final consumer good. For instance, copper can be used to create trays, bowls, and other containers which are considered consumer products. These are examples of intermediate goods that are in turn used to create final consumer goods.
+                    </div>
+                </div>
+                @endif
+            </div>
+        </div>
+{{--
+
         <div class="row pt-3">
             <div class="col-xl-4 category-page-img-wrap">
                 <img style="width: 100%" src="{{ asset('/images/consumer.png') }}" alt="">
@@ -26,7 +55,7 @@
                 </div>
                 @endif
             </div>
-        </div>
+        </div> --}}
 
         <div class="row pt-5">
             <div class="side-filter col-lg-3">
@@ -62,37 +91,16 @@
             <div class="main-content col-lg-9">
                 <div class="row">
                     <div class="col-6">
-                        <select wire:model="sortingPrice">
-                            <option value="asc">от дешевых</option>
-                            <option value="desc">от дорогих</option>
-                            <option value="name">по названию </option>
-                            <option value="quantity">по колличеству</option>
+                        <select wire:model="sortingSelectValue" class="form-select">
+                            <option value="price_asc">Спочатку дешеві</option>
+                            <option value="price_desc">Спочатку доргі</option>
+                            <option value="name_asc">За назвою</option>
+                            <option value="quantity_desc">За кількістю</option>
                         </select>
                     </div>
                     <div class="col-6">
                         {{ $products->links() }}
                     </div>
-                    {{-- <div class="col-3">
-                        <select wire:model="sortingPrice">
-                            <option value="asc">от дешевых</option>
-                            <option value="desc">от дорогих</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <select wire:model="sortingName">
-                            <option value="asc">от А</option>
-                            <option value="desc">от Я</option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        <select wire:model="sortingQuantity">
-                            <option value="asc">по колличеству к меньшему</option>
-                            <option value="desc">по колличеству от большего </option>
-                        </select>
-                    </div>
-                    <div class="col-3">
-                        {{ $products->links() }}
-                    </div> --}}
                 </div>
                 @include('products.blocks.productsList')
 

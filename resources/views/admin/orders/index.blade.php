@@ -7,12 +7,23 @@
 <div class="container py-3">
     <div class="row py-3">
         <div class="col-md-2">
+            <select class="form-select" onchange="location.href = this.value">
+                @foreach ($sortingOptions as $value)
+                <option {{ $value['val'] === $sortingParams ? 'selected' : ''}}
+                    value="{{ $value['val'] }}">{{ $value['lable'] }}
+                </option>
+                @endforeach
+            </select>
             {{-- <a class="btn " href="{{ route('admin.orders.create') }}">
                 <i class="bi bi-plus-lg me-2"></i>
                 Створити
             </a> --}}
         </div>
+        <div class="col-md-6">
+            {{ $orders->withQueryString()->links() }}
+        </div>
     </div>
+
     <div class="tabel-responsive">
         <table class="table">
         <thead>
@@ -60,6 +71,8 @@
                   <td class="text-center text-secondary">Збирається <i class="bi bi-box-seam"></i></td>
                 @elseif ($order->delivery_status === 'delivered')
                   <td class="text-center text-success">Відправлено <i class="bi bi-truck"></i></td>
+                @elseif ($order->delivery_status === 'canceled')
+                    <td class="text-center text-danger">Cкасовано <i class="bi bi-x-lg"></i> </td>
                 @elseif ($order->delivery_status === 'returned')
                   <td class="text-center text-danger">Повернуто <i class="bi bi-arrow-repeat"></i></td>
                 @endif
@@ -74,7 +87,7 @@
             @endforeach
         </tbody>
       </table>
-    {{ $orders->links() }}
+    {{ $orders->withQueryString()->links() }}
     </div>
 </div>
 

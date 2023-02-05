@@ -38,9 +38,9 @@
                     </li>
             </ul>
             <div class="cart-block-header d-flex">
-                <a class="nav-link me-3" href="{{ route('carts.index') }}" >
+                <a class="nav-link me-3 {{ !Cart::getTotalCount() ? 'd-none' : ''}}" href="{{ route('carts.index') }}" >
                     <i class="bi bi-cart-check"></i>
-                    Кошик (<b id="cart_total_count">{{ Cart::getTotalCount() }}</b>)
+                    Кошик (<b id="cart_total_count ">{{ Cart::getTotalCount() }}</b>)
                 </a>
                 @if (Auth::check())
                     <a class="nav-link me-3" href="{{ route('parsers.agriculture') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>

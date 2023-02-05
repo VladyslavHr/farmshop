@@ -5,6 +5,15 @@
 @section('content')
 
 <div class="container py-2">
+    <div class="row py-3">
+        <div class="col-md-2">
+            <a class="btn " href="{{ route('admin.orders.index') }}">
+                <i class="bi bi-arrow-left-square me-2"></i>
+                Повернутись
+            </a>
+        </div>
+    </div>
+
     <h4 class="pt-3 pb-1">
         <i class="bi bi-file-person"></i>
         Контакт покупця:
@@ -123,33 +132,35 @@
         <i class="bi bi-box-seam"></i>
         Продукти:
     </h4>
-    @foreach ($order->orderItem as $item)
-        <div class="row border-devider">
-            <div class="col-lg-3 py-1">
-                <strong>
-                    Назва:
-                </strong>
-                {{ $item->product_name }}
-            </div>
-            <div class="col-lg-3 py-1">
-                <strong>
-                    Ціна до знижки:
-                </strong>
-                {{ $item->product_old_price }} UAH
-            </div>
-            <div class="col-lg-3 py-1">
-                <strong>
-                    Ціна:
-                </strong>
-                {{ $item->product_price }} UAH
-            </div>
-            <div class="col-lg-3 py-1">
-                <strong>
-                    Кількість:
-                </strong>
-                {{ $item->product_count }}
-            </div>
+    @foreach ($order->orderItems as $item)
+    <div class="row border-devider">
+        <div class="col-lg-3 py-1">
+            <strong>
+                Назва:
+            </strong>
+            {{$item->product_name}}
         </div>
+        <div class="col-lg-3 py-1">
+            <strong>
+                Ціна до знижки:
+            </strong>
+            {{$item->product_old_price}} UAH
+        </div>
+        <div class="col-lg-3 py-1">
+            <strong>
+                Ціна:
+            </strong>
+            <span class="text-danger">
+                {{$item->product_price}} UAH
+            </span>
+        </div>
+        <div class="col-lg-3 py-1">
+            <strong>
+                Кількість:
+            </strong>
+            {{$item->product_count}}
+        </div>
+    </div>
     @endforeach
 
     <h4 class="pt-3 pb-1">
@@ -173,6 +184,7 @@
                 <select class="form-select" name="delivery_status" id="">
                     <option value="preparing" {{ $order->delivery_status == 'preparing' ? 'selected' : '' }}>Збирається</option>
                     <option value="delivered" {{ $order->delivery_status == 'delivered' ? 'selected' : '' }}>Відправлено</option>
+                    <option value="canceled" {{ $order->delivery_status == 'canceled' ? 'selected' : '' }}>Cкасовано</option>
                     <option value="returned" {{ $order->delivery_status == 'returned' ? 'selected' : '' }}>Повернуто</option>
                 </select>
                 <button class="btn btn-outline-secondary" type="submit">Змінити</button>

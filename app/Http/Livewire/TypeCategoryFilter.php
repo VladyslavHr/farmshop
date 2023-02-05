@@ -10,69 +10,45 @@ class TypeCategoryFilter extends Component
 {
     use WithPagination;
 
+    public $paginationTheme = 'bootstrap';
+
     public $type;
     public $category;
     public $categories;
     public $choosenCategorySlug = 'all';
     public $productTypeSlug;
-    public $sortingPrice = 'asc';
-    public $sortingName = 'asc';
-    public $sortingQuantity = 'desc';
+    public $sortingSelectValue = null;
     public $sortingBy = 'name';
     public $sortingDirection = 'asc';
+    public $queryParams = [];
 
-    public function updateSortingName()
+    public function updatedSortingSelectValue()
     {
-        $this->sortingBy = 'name';
-        $this->sortingDirection = $this->sortingName;
-        bar('sorting_name => '. $this->sortingName);
+        // bar('sortingSelectValue => '. $this->sortingSelectValue);
 
-    }
-
-    public function updateSortingQuantity()
-    {
-        $this->sortingBy = 'quantity';
-        $this->sortingDirection = $this->sortingQuantity;
-        bar('sorting_quantity => '. $this->sortingQuantity);
-
-
-    }
-
-    public function updatedSortingPrice()
-    {
-        // if ( $this->sortingBy = 'price') {
-        //     $this->sortingDirection = $this->sortingPrice;
-        // }elseif ($this->sortingBy = 'name') {
-        //     $this->sortingDirection = $this->sortingName;
-        // }elseif ($this->sortingBy = 'quantity') {
-        //     $this->sortingDirection = $this->sortingQuantity;
+        // if ($this->sortingSelectValue === 'price_asc') {
+        //     $this->sortingBy = 'price';
+        //     $this->sortingDirection = 'asc';
         // }
 
-        if ($this->sortingBy = 'price') {
-            $this->sortingDirection = $this->sortingPrice;
-        }
-        if ($this->sortingBy = 'name') {
-            $this->sortingDirection = $this->sortingName;
-        }
-        if ($this->sortingBy = 'quantity') {
-            $this->sortingDirection = $this->sortingQuantity;
-        }
+        // if ($this->sortingSelectValue === 'price_desc') {
+        //     $this->sortingBy = 'price';
+        //     $this->sortingDirection = 'desc';
+        // }
 
-        // $this->sortingBy = 'price';
-        // $this->sortingDirection = $this->sortingPrice;
-        // $this->sortingBy = 'name';
-        // $this->sortingDirection = $this->sortingName;
-        // $this->sortingBy = 'quantity';
-        // $this->sortingDirection = $this->sortingQuantity;
+        // if ($this->sortingSelectValue === 'name_asc') {
+        //     $this->sortingBy = 'name';
+        //     $this->sortingDirection = 'asc';
+        // }
 
+        // if ($this->sortingSelectValue === 'quantity_desc') {
+        //     $this->sortingBy = 'quantity';
+        //     $this->sortingDirection = 'desc';
+        // }
 
-
-        bar('sorting_price => '. $this->sortingPrice);
-    }
-
-    public function filterProducts()
-    {
-
+        $this->sortingBy = explode('_', $this->sortingSelectValue)[0];
+        $this->sortingDirection = explode('_', $this->sortingSelectValue)[1] ?? 'asc';
+        $this->setQueryParams(['sortingBy' => $this->sortingBy, 'sortingDirection' => $this->sortingDirection]);
 
     }
 
@@ -80,13 +56,32 @@ class TypeCategoryFilter extends Component
     {
         $this->choosenCategorySlug = $categorySlug;
 
-        $this->emit('urlChange', '?category=' . $categorySlug);
+        // $this->emit('urlChange', '?category=' . $categorySlug);
+
+        $this->setQueryParams(['category' => $categorySlug]);
+
+    }
+
+    public function setQueryParams($params = [])
+    {
+        // bar(request()->all());
+        $this->queryParams = array_merge($this->queryParams, $params);
+
+        $queryString = '?' . http_build_query($this->queryParams);
+
+        $this->emit('urlChange', $queryString);
+
+        $this->resetPage();
 
     }
 
     public function mount()
     {
+        $this->queryParams = $_GET;
         $this->productTypeSlug = request('slug');
+        $this->sortingBy = request('sortingBy') ?? 'name';
+        $this->sortingDirection = request('sortingDirection') ?? 'asc';
+        $this->sortingSelectValue = $this->sortingBy . '_' . $this->sortingDirection;
     }
 
     public function render()
@@ -107,10 +102,10 @@ class TypeCategoryFilter extends Component
         $this->categories = $productType->categories;
 
         if ($this->category) {
-            $products = $this->category->products()->orderBy($this->sortingBy, $this->sortingDirection)->simplePaginate(2);
+            $products = $this->category->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
         }else{
             // bar($productType);
-            $products = $productType->products()->orderBy($this->sortingBy, $this->sortingDirection)->simplePaginate(2);
+            $products = $productType->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
             // $this->products = $productType->categories->reduce(function($products, $category)
             // {
             //     // \Debugbar::info($products);

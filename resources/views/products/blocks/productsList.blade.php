@@ -4,15 +4,15 @@
             <div class="products-card-inside">
                 <a href="{{ route('products.show', $product->slug) }}">
 
-                <div class="prod-image" style="background-image: url('{{str_replace('product-img', 'product-img-medium', $product->main_img)}}')" alt="{{ $product->name }}">
-                        {{-- <img src="{{str_replace('product-img', 'product-img-medium', $product->main_img)}}" alt="{{ $product->name }}"> --}}
-                        @if ($product->old_price != 0)
-                            <div class="sale-at">
-                                Знижка!
-                            </div>
-                        @endif
-                </div>
-            </a>
+                    <div class="prod-image" style="background-image: url('{{str_replace('product-img', 'product-img-medium', $product->main_img)}}')" alt="{{ $product->name }}">
+                            {{-- <img src="{{str_replace('product-img', 'product-img-medium', $product->main_img)}}" alt="{{ $product->name }}"> --}}
+                            @if ($product->old_price != 0)
+                                <div class="sale-at">
+                                    Знижка!
+                                </div>
+                            @endif
+                    </div>
+                </a>
 
                 <div class="product-status-wrap my-2">
                     @if ( $product->status === 'in_stock' )
@@ -37,7 +37,7 @@
                         <div class="prod-old-price">
                             {{ $product->old_price }} ₴
                         </div>
-                        <div class="prod-price-with-sale text-danger ms-2">
+                        <div class="prod-price-with-sale ms-2">
                             {{ $product->price }} ₴
                         </div>
                     @else

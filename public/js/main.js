@@ -111,6 +111,7 @@ function clearCart(button) {
 }
 
 
+
 function cart_input_quantity() {
     // var select_from = $(data)
     // var select_to = $(data)
@@ -175,4 +176,36 @@ function update_cart(productId, quantity) {
             $('.js-cart-total-sum').text(data.cart_total_sum)
         }
     }, 'json')
+}
+
+
+function choose_self_shipping(){
+    $("#delivery_new_post_choose").show();
+    $("#delivery_ukr_post_choose").show();
+    if ($('#check_self_shipping').is(":checked")) {
+        $("#delivery_new_post_choose").hide();
+        $("#delivery_ukr_post_choose").hide();
+    }
+}
+
+function check_input_new_post() {
+    // $("#check_self_shipping").show();
+    // $("#delivery_ukr_post_choose").show();
+    // if ($('#delivery_new_post_choose').val()) {
+    //     $("#check_self_shipping").hide();
+    //     $("#delivery_ukr_post_choose").hide();
+    // }
+    $("#check_self_shipping").show();
+
+    $('#delivery_new_post_choose').on('input', function() {
+        // const value = $(this).val();
+        if ($(this).val()) {
+        //   $('#testje').show();
+          $('#check_self_shipping').hide()
+        }
+        // else {
+        //   $('#testje').hide();
+        //   $('#SummaryHTML').show()
+        // }
+      });
 }

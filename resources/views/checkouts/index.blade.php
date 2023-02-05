@@ -10,7 +10,7 @@
 
 
 <script>
-    document.getElementById('pay_form_wrapper').querySelector('form').submit()
+    // document.getElementById('pay_form_wrapper').querySelector('form').submit()
 </script>
 
 

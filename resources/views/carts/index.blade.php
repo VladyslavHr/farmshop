@@ -42,7 +42,7 @@
                 </a>
             </div>
             <div class="col-lg-5 cart-product-name">
-                <a href="{{ route('products.show', $product->slug) }}">
+                <a href="{{ route('products.show', $product->slug) }}" class="cart-product-name-link">
                     {{ $product->name }}
                 </a>
             </div>
@@ -69,7 +69,7 @@
         </div>
         @endforeach
 
-        <div class="row mt-1 cart-product-sum">
+        <div class="row mt-1 cart-product-sum align-items-center">
             <div class="col-lg-8">
             </div>
             <div class="col-lg-1">
@@ -84,7 +84,7 @@
                 ₴
             </div>
             <div class="col-lg-2">
-                <a href="{{ route('orders.index') }}" class="btn btn-warning">Оформити замовлення</a>
+                <a href="{{ route('orders.index') }}" class="btn send-submit">Оформити замовлення</a>
             </div>
         </div>
 

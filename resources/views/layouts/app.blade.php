@@ -102,6 +102,7 @@
         @include('layouts.blocks.header')
         <main class="">
             @yield('content')
+            <a href="{{ route('carts.index') }}" class="cart-link-main"><i class="bi bi-cart-check me-2"></i>КОШИК</a>
         </main>
         @include('layouts.blocks.footer')
     {{-- </div> --}}
@@ -110,6 +111,8 @@
     <script src="{{ asset("js/bootstrap.bundle.min.js") }}"></script>
     <script src="{{ asset("js/toastr.min.js") }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <script src="https://kit.fontawesome.com/01db3a6801.js" crossorigin="anonymous"></script>
+
     @livewireScripts
     <script src="{{ asset ('js/main.js?v=' . filemtime(public_path('js/main.js')) ) }}"></script>
 

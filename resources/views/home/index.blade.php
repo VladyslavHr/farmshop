@@ -12,86 +12,39 @@
     <h1 class="text-center">Ласкаво просимо до родинної ферми <span class="home-brand-title">Wildfarm.com.ua</span></h1>
 
     <div class="row py-5">
-
-    </div>
-
-    <div class="home-types-list">
-        <a href="{{ route('products.index') }}" class="home-type-link" style="background-image: url('/images/shop.png')">
-            <div class="home-type-title">
-                <h2>
-                    Крамниця
-                </h2>
-            </div>
-            <div class="home-type-desc">Переглянути усі товари</div>
-        </a>
-        @foreach ($productsType as $type)
-            <a href="{{ route('productTypes.show', $type->slug) }}" class="home-type-link" style="background-image: url('{{ $type->logo }}')">
-                <div class="home-type-title">
-                    <h2>
-                        {{ $type->name }}
-                    </h2>
-                </div>
-                <div class="home-type-desc"></div>
-            </a>
-        @endforeach
-    </div>
-
-    {{-- <div class="row">
-        <div class="col-lg-4">
-            <a href="{{ route('products.index') }}" class="home-type-link col-lg-4" style="background-image: url('/images/shop.png'); width: 100%">
-                <div class="home-type-title">
-                    <h2>
-                        Крамниця
-                    </h2>
-                </div>
-                <div class="home-type-desc">Переглянути усі товари</div>
-            </a>
-        </div>
-
-        @foreach ($productsType as $type)
-        <div class="col-lg-4">
-            <div class="">
-                <a href="{{ route('productTypes.show', $type->slug) }}" class="home-type-link col-lg-4" style="background-image: url('{{ $type->logo }}')">
-                    <div class="home-type-title">
-                        <h2>
-                            {{ $type->name }}
-                        </h2>
+            <div class="product-type-wrap col-lg-4">
+                <a href="{{ route('products.index') }}">
+                    <div class="product-type-img" style="background-image: url('/images/shop.png')">
+                        <div class="home-type-title">
+                            <h2>
+                                Крамниця
+                            </h2>
+                        </div>
+                        <div class="home-type-desc">Переглянути усі товари</div>
                     </div>
-                    <div class="home-type-desc"></div>
                 </a>
             </div>
-
-        </div>
-        @endforeach
-
-    </div> --}}
-
-    {{-- <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+        @foreach ($productsType as $type)
+            <div class="product-type-wrap col-lg-4 pb-4">
+                <a href="{{ route('productTypes.show', $type->slug) }}">
+                    <div class="product-type-img" style="background-image: url('{{ $type->logo }}')">
+                        <div class="home-type-title">
+                            <h2>
+                                {{ $type->name }}
+                            </h2>
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                </div>
+                        <div class="home-type-desc"></div>
+                    </div>
+                </a>
             </div>
-        </div>
-    </div> --}}
+        @endforeach
+    </div>
 
     <div class="location-info pt-3">
         <h3>Знайти нас можете за адресою: <a href="https://goo.gl/maps/L6uoThWfC2Rr35By6" target="_blank"><strong>Вул. Гагаріна 17, с. Соколово, Дніпровський район, Дніпропетровська область</strong></a></h3>
     </div>
 
 </div>
-
-
-
 
 <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.15.1/build/ol.js"></script>
 <div id="map" class="map"></div>
