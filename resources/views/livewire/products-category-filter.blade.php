@@ -60,13 +60,13 @@
             </ul>
         </div>
         <div class="main-content col-lg-9">
-            <div class="row">
+            <div class="row pb-3">
                 <div class="col-6">
                     {{-- <select wire:model="sorting_price" wire:select="sortingPrice">
                         <option value="asc">от дешевых</option>
                         <option value="desc">от дорогих</option>
                     </select> --}}
-                    <select wire:model="sortingSelectValue" class="form-select">
+                    <select wire:model="sortingSelectValue" class="form-select sorting-select">
                         <option value="price_asc">Спочатку дешеві</option>
                         <option value="price_desc">Спочатку доргі</option>
                         <option value="name_asc">За назвою</option>
@@ -79,6 +79,10 @@
             </div>
 
             @include('products.blocks.productsList')
+
+            <div class="col-lg-12 pt-3">
+                {{ $products->links() }}
+            </div>
         </div>
     </div>
 </div>

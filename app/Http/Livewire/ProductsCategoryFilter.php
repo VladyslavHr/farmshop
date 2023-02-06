@@ -17,7 +17,7 @@ class ProductsCategoryFilter extends Component
 
     public $category;
     public $categories;
-    public $products;
+    // public $products;
     public $choosenCategorySlug = 'all';
     // public $productTypeSlug;
     public $sortingSelectValue = null;
@@ -59,19 +59,21 @@ class ProductsCategoryFilter extends Component
     {
         $this->choosenCategorySlug = $categorySlug;
 
-        $this->emit('urlChange', '?category=' . $categorySlug);
+        // $this->emit('urlChange', '?category=' . $categorySlug);
+
+        $this->setQueryParams(['category' => $categorySlug]);
+
     }
 
     public function setQueryParams($params = [])
     {
-        // bar(request()->all());
         $this->queryParams = array_merge($this->queryParams, $params);
 
         $queryString = '?' . http_build_query($this->queryParams);
 
         $this->emit('urlChange', $queryString);
 
-        // $this->resetPage();
+        $this->resetPage();
 
     }
 
@@ -94,44 +96,19 @@ class ProductsCategoryFilter extends Component
             $this->choosenCategorySlug = request('category');
         }
 
-        // $this->category = ProductCategory::where('slug', $this->choosenCategorySlug)->first();
-
-        // $this->categories = ProductCategory::all();
-
-        // $this->products = $this->category->products ?? Product::all();
-
-        // return view('livewire.products-category-filter', [
-        //     'cart' => session('cart', []),
-
-        // ]);
-
-
-        // $productType = ProductType::where('slug', $this->productTypeSlug)->first();
-        // $productAll =
-        // bar($productAll);
-
-        // \Debugbar::info($this->choosenCategorySlug);
-
         $this->category = ProductCategory::where('slug', $this->choosenCategorySlug)->first();
 
-        // $this->categories = $productType->categories;
         $this->categories = ProductCategory::all();
 
-        if ($this->category) {
-            // $products = $this->category->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
-            $this->category->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
-        }else{
-            $this->products->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
-            // $products = $productType->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
-            // {
-            //     // \Debugbar::info($products);
-            //    return $products->merge($category->products);
-            // }, collect([]));
-        }
+        $products = $this->category?->products() ?? Product::query();
 
-        return view('livewire.type-category-filter', [
+        $products = $products->orderBy($this->sortingBy, $this->sortingDirection)->paginate(10);
+
+
+
+        return view('livewire.products-category-filter', [
             'cart' => session('cart', []),
-            // 'products' => $products,
+            'products' => $products,
         ]);
     }
 }

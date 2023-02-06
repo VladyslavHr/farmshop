@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('post_num')->nullable();
             $table->string('post_adress')->nullable();
             $table->tinyInteger('self_shipping')->default(0);
+            $table->enum('payment_method', ['card', 'cash']);
             $table->string('order_note')->nullable();
             $table->timestamps();
         });

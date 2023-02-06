@@ -124,7 +124,7 @@ body{
 }
 
 .buttons-group-index-product{
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
 }
 
@@ -134,6 +134,12 @@ body{
     font-size: 22px;
     transition: 0.5s;
     position: relative;
+    /* margin-right: 20%; */
+}
+
+.index-product-btn:hover{
+    background-color: #678199!important;
+    color: #fff!important;
 }
 
 .prod-status{
@@ -707,7 +713,13 @@ body{
 }
 
 .payment-method-item{
+    display: flex;
+    align-items: center;
     margin-bottom: 25px;
+}
+
+.payment-method-item label{
+    font-size: 18px;
 }
 
 .payment-method-bank:checked{
@@ -733,20 +745,89 @@ body{
 }
 
 
+.cart-link-main{
+    color: #fff;
+    position: fixed;
+    right: 5%;
+    bottom: 20%;
+    background: #678199;
+    padding: 10px 15px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+}
 
 
+.cart-link-main:hover{
+    color: #fff;
+    background-color: #222b33;
+    transition: 0.4s;
+}
+
+.sorting-select{
+    border-radius: 0;
+}
+
+.sorting-select:focus{
+    border-color: #678199;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(103 129 153 / 25%);
+}
+
+.total-sum-products{
+    color: #e10202;
+}
+
+.product-out-of-stock{
+    filter: grayscale(1);
+}
+
+.product-out-of-stock::after{
+    content: 'Немає в наявності';
+}
 
 
+/* Pagination */
 
+.pagination{
+    justify-content: flex-end;
+}
 
+.page-link{
+    border-radius: 0!important;
+    border-color: #678199;
+    color: black;
+}
 
+.page-link:hover{
+    color: black;
+}
 
+.active>.page-link{
+    background-color: #678199!important;
+    border-color: #678199!important;
+}
 
+/* Toastr */
 
+/* .toast-warning {
+    background-color: #ffc107;
+  } */
 
+/*  */
 
+/* Navbar Brand */
 
+.navbar-brand svg{
+    display: block;
+    max-height: 80px;
+    width: 100%;
 
+}
+
+/*  */
 
 
 
@@ -819,6 +900,15 @@ body{
 
     .category-page-wrap-left{
         width: 100%;
+    }
+
+    .navbar-brand{
+        padding: 0;
+        margin: 0;
+    }
+
+    .nav-link{
+        font-size: 18px;
     }
 }
 

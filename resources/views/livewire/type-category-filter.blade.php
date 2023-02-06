@@ -91,7 +91,7 @@
             <div class="main-content col-lg-9">
                 <div class="row">
                     <div class="col-6">
-                        <select wire:model="sortingSelectValue" class="form-select">
+                        <select wire:model="sortingSelectValue" class="form-select sorting-select">
                             <option value="price_asc">Спочатку дешеві</option>
                             <option value="price_desc">Спочатку доргі</option>
                             <option value="name_asc">За назвою</option>
@@ -104,7 +104,9 @@
                 </div>
                 @include('products.blocks.productsList')
 
-
+                <div class="col-lg-12 pt-3">
+                    {{ $products->links() }}
+                </div>
 
             </div>
         </div>

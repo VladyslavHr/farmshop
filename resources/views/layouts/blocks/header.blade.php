@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-md navbar-light shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Wildfarm') }}
+            {{-- {{ config('app.name', 'Wildfarm') }} --}}
+            @include('layouts/blocks/logo')
+
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -38,14 +40,14 @@
                     </li>
             </ul>
             <div class="cart-block-header d-flex">
-                <a class="nav-link me-3 {{ !Cart::getTotalCount() ? 'd-none' : ''}}" href="{{ route('carts.index') }}" >
+                <a class="nav-link me-3 " href="{{ route('carts.index') }}" >
                     <i class="bi bi-cart-check"></i>
-                    Кошик (<b id="cart_total_count ">{{ Cart::getTotalCount() }}</b>)
+                    Кошик (<b id="cart_total_count" class="cart-count">{{ Cart::getTotalCount() }}</b>)
                 </a>
                 @if (Auth::check())
-                    <a class="nav-link me-3" href="{{ route('parsers.agriculture') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{-- <a class="nav-link me-3" href="{{ route('parsers.agriculture') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                         Agriculture
-                    </a>
+                    </a> --}}
                     <a class="nav-link me-3" href="{{ route('admin.dashboard.index') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                         Admin
                     </a>

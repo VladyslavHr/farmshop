@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container">
+<div class="container py-5">
     <form action="{{ route('orders.store') }}" method="POST" enctype="multipart/form-data" class="row">
         @csrf
         {{-- <input type="hidden" value="{{ $product->id }}"> --}}
@@ -45,15 +45,17 @@
                 </div>
             </div>
 
-            <div class="form-check self-shipping-check pt-4">
-                <input class="form-check-input self-shipping-input" type="checkbox" name="self_shipping" value="1" id="check_self_shipping" onclick="choose_self_shipping()">
+            <div class="selfshipping-wrap" >
+            <div class="form-check self-shipping-check pt-4" >
+                <input class="form-check-input self-shipping-input" type="checkbox" id="check_self_shipping" name="self_shipping" value="1"  onclick="choose_self_shipping()">
                 <label class="form-check-label" for="check_self_shipping">
                   Самовивіз
                 </label>
               </div>
-            <div class="self-shipping" >
+            <div class="self-shipping pt-4">
                 Самовивіз можливий кожень день з 8:00 до 18:00
                 За адресою с.Соколово дн-району Дніпропетровської обл.
+            </div>
             </div>
             <div class="delivery-new-post-wrap" id="delivery_new_post_choose" >
                 <div class="delivery-title d-flex py-5">
@@ -68,28 +70,28 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <span class="small-titles-inputs d-block">Населенний пункт</span>
-                        <input type="text" name="new_post_locality" value=" {{ old('new_post_locality') }}" class=" input-checkout @error ('new_post_locality') is-invalid @enderror">
+                        <input type="text" name="new_post_locality" value="{{ old('new_post_locality') }}" class=" input-checkout @error ('new_post_locality') is-invalid @enderror" oninput="check_input_new_post(this)">
                         <div class="invalid-feedback">
                             @error ('new_post_locality') {{$message}}@enderror
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <span class="small-titles-inputs d-block">№ відділення</span>
-                        <input type="text" name="new_post_num" value=" {{ old('new_post_num') }}" class="input-checkout @error ('new_post_num') is-invalid @enderror" oninput="check_input_new_post()">
+                        <input type="number" name="new_post_num" value="{{ old('new_post_num') }}" class="input-checkout @error ('new_post_num') is-invalid @enderror" oninput="check_input_new_post(this)">
                         <div class="invalid-feedback">
                             @error ('new_post_num') {{$message}}@enderror
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <span class="small-titles-inputs d-block">Адреса відділення</span>
-                        <input type="text" name="new_post_adress" value=" {{ old('new_post_adress') }}" class=" input-checkout @error ('new_post_adress') is-invalid @enderror" oninput="check_input_new_post()">
+                        <input type="text" name="new_post_adress" value="{{ old('new_post_adress') }}" class=" input-checkout @error ('new_post_adress') is-invalid @enderror" oninput="check_input_new_post(this)">
                         <div class="invalid-feedback">
                             @error ('new_post_adress') {{$message}}@enderror
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="delivery-ukr-post-wrap" id="delivery_ukr_post_choose">
+            {{-- <div class="delivery-ukr-post-wrap" id="delivery_ukr_post_choose">
                 <div class="delivery-title d-flex py-5">
                     <h2>
                         Доставка з Укрпошта
@@ -101,30 +103,30 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <span class="small-titles-inputs d-block">Населенний пункт</span>
-                        <input type="text" name="post_locality" value=" {{ old('post_locality') }}" class=" input-checkout @error ('post_locality') is-invalid @enderror">
+                        <input type="text" name="post_locality" value="{{ old('post_locality') }}" class=" input-checkout @error ('post_locality') is-invalid @enderror" oninput="check_input_ukr_post(this)">
                         <div class="invalid-feedback">
                             @error ('post_locality') {{$message}}@enderror
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <span class="small-titles-inputs d-block">№ відділення</span>
-                        <input type="text" name="post_num" value=" {{ old('post_num') }}" class=" input-checkout @error ('post_num') is-invalid @enderror">
+                        <input type="number" name="post_num" value="{{ old('post_num') }}" class=" input-checkout @error ('post_num') is-invalid @enderror" oninput="check_input_ukr_post(this)">
                         <div class="invalid-feedback">
                             @error ('post_num') {{$message}}@enderror
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <span class="small-titles-inputs d-block">Адреса відділення</span>
-                        <input type="text" name="post_adress" value=" {{ old('post_adress') }}" class=" input-checkout @error ('post_adress') is-invalid @enderror">
+                        <input type="text" name="post_adress" value="{{ old('post_adress') }}" class=" input-checkout @error ('post_adress') is-invalid @enderror" oninput="check_input_ukr_post(this)">
                         <div class="invalid-feedback">
                             @error ('post_adress') {{$message}}@enderror
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row pt-3">
+            </div> --}}
+            <div class="row pt-5">
                 <div class="col-lg-12">
-                    <span lass="small-titles-inputs d-block">Коментар</span>
+                    <h2 lass="small-titles-inputs d-block">Коментар до замовлення</h2>
                     <textarea class="text-chekout" name="order_note" id="" cols="30" rows="10"></textarea>
                 </div>
             </div>
@@ -162,7 +164,7 @@
                     <tfoot>
                         <tr>
                             <td class="fs-4">До сплати</td>
-                            <td class="fs-4">{{ $total_sum_product }} ₴</td>
+                            <td class="fs-4"><b class="total-sum-products">{{ $total_sum_product }}</b> ₴</td>
                         </tr>
                     </tfoot>
                     </table>
@@ -170,13 +172,13 @@
                 <div class="h3 text-center pb-2">Оберіть спосіб оплати</div>
                 <ul class="payment-method-list">
                     <li class="payment-method-item">
-                        <input class="form-check-input me-2 payment-method-bank" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                        <input class="form-check-input me-3 payment-method-bank" type="radio" name="payment_method" value="card" id="flexRadioDefault2" checked>
                         <label class="form-check-label" for="flexRadioDefault2">
-                            Онлайн (Спдатаити онлайн банківською карткою)
+                            Онлайн (Сплатаити онлайн банківською карткою)
                         </label>
                     </li>
                     <li class="payment-method-item">
-                        <input class="form-check-input me-2 payment-method-cash" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                        <input class="form-check-input me-3 payment-method-cash" type="radio" name="payment_method" value="cash" id="flexRadioDefault1">
                         <label class="form-check-label" for="flexRadioDefault1">
                             Готівкою (Сплатити готівкою при самовивезенні, або у відділенні пошти)
                         </label>

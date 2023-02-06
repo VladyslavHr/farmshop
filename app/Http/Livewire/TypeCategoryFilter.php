@@ -95,22 +95,14 @@ class TypeCategoryFilter extends Component
 
         $productType = ProductType::where('slug', $this->productTypeSlug)->first();
 
-        // \Debugbar::info($this->choosenCategorySlug);
-
         $this->category = ProductCategory::where('slug', $this->choosenCategorySlug)->first();
 
         $this->categories = $productType->categories;
 
         if ($this->category) {
-            $products = $this->category->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
+            $products = $this->category->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(10);
         }else{
-            // bar($productType);
-            $products = $productType->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(2);
-            // $this->products = $productType->categories->reduce(function($products, $category)
-            // {
-            //     // \Debugbar::info($products);
-            //    return $products->merge($category->products);
-            // }, collect([]));
+            $products = $productType->products()->orderBy($this->sortingBy, $this->sortingDirection)->paginate(10);
         }
 
         return view('livewire.type-category-filter', [

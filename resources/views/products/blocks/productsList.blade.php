@@ -1,7 +1,7 @@
 <div class="row product-content-wrap">
     @foreach ($products as $product)
-        <div class="products-card-wrapp col-sm-12 col-md-6 col-lg-5 col-xl-4">
-            <div class="products-card-inside">
+        <div class="products-card-wrapp col-sm-12 col-md-6 col-lg-5 col-xl-4 @if ($product->quantity <= 0) product-out-of-stock @endif">
+            <div class="products-card-inside ">
                 <a href="{{ route('products.show', $product->slug) }}">
 
                     <div class="prod-image" style="background-image: url('{{str_replace('product-img', 'product-img-medium', $product->main_img)}}')" alt="{{ $product->name }}">
@@ -17,7 +17,7 @@
                 <div class="product-status-wrap my-2">
                     @if ( $product->status === 'in_stock' )
                         <div class="prod-status">
-                            В наявності
+                            У наявності
                         </div>
                     @elseif ($product->status === 'out_of_stock')
                         <div class="prod-status">
@@ -49,17 +49,17 @@
                         /{{ $product->price_type }}
                     </div>
                 </div>
-                <div class="d-flex buttons-group-index-product my-2">
-                    <a class="btn index-product-btn" href="{{ route('products.show', $product->slug) }}">
+                <div class="d-flex buttons-group-index-product my-3">
+                    <a class="btn index-product-btn me-2" href="{{ route('products.show', $product->slug) }}">
                         <i class="bi bi-eye"></i>
                     </a>
-                    <form class="d-block" action="">
+                    {{-- <form class="d-block" action="">
                         @csrf
                         <button class="btn index-product-btn ">
                             <i class="bi bi-bag-heart"></i>
                         </button>
-                    </form>
-                    <button class="btn index-product-btn js-btn-add-to-cart" type="submit"
+                    </form> --}}
+                    <button class="btn index-product-btn js-btn-add-to-cart ms-5 @if ($product->quantity <= 0) disabled @endif" type="submit"
                     onclick="add_button_cart(this, {{ $product->id }})"
                     max="{{ $product->quantity }}">
                         <i class="bi bi-cart-plus"></i>

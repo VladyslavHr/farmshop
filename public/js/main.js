@@ -41,56 +41,52 @@ function add_button_cart (button, product_id) {
 
     var cart_product_count = +$(button).find('.cart-count-porduct').text()
 
-
     var maxValue = +$(button).attr('max')
-    log(cart_product_count, maxValue)
-
+    // log(cart_product_count, maxValue)s
 
     if (cart_product_count >= maxValue) {
         // log(cart_product_count, maxValue)
         return false
     }
 
-
-
     $.post(form.attr('action'),
         $(form).serialize(),
         function (data) {
             if (data.added) {
                 $(button).attr('disabled', false)
-
                 $(button).find('.cart-count-porduct').text(data.count)
-                $('#cart_total_count').text(data.cart_total_count)
+                // $('#cart_total_count').text(data.cart_total_count)
+                $('#fixed_cart_link').removeClass('d-none')
+                $('.cart-count').text(data.cart_total_count)
                 toastr.success('Товар додано до кошика!')
             }
 
         }, 'json')
     }
 
-
-
-
 function remove_cart_item(form, event) {
     event.preventDefault()
     $.post($(form).attr('action'),
     $(form).serialize(),
     function (data) {
+        if (data.status === 'ok') {
+            $(form).closest('.cart-product-item').remove()
+            $('#cart_total_count').text(data.cart_total_count)
+            $('.js-cart-total-sum').text(data.cart_total_sum)
 
-        if ($(".cart-product-item")[0]) {
-            if (data.status === 'ok') {
-                $(form).closest('.cart-product-item').remove()
-                $('#cart_total_count').text(data.cart_total_count)
-                $('.js-cart-total-sum').text(data.cart_total_sum)
+            if ($(".cart-product-item").length) {
                 toastr.warning('Товар видалено з кошика!')
-
+                $('.cart-count').text(data.cart_total_count)
+            }else{
+                $('.full-cart').remove()
+                $('.cart-header-btn-clean').remove()
+                $('.empty-cart').show()
+                // $('#cart_total_count').text(0)
+                $('.cart-count').text(data.cart_total_count)
+                $('#fixed_cart_link').addClass('d-none')
+                toastr.error('Кошик спорожнено!')
             }
-        }else{
-            $('.empty-cart').show()
-            $(button).hide()
-            $('#cart_total_count').text(0)
-            toastr.warning('Кошик спорожнено!')
         }
-
     }, 'json')
 }
 
@@ -103,8 +99,10 @@ function clearCart(button) {
                 $('.full-cart').remove()
                 $('.empty-cart').show()
                 $(button).hide()
-                $('#cart_total_count').text(0)
-                toastr.warning('Кошик спорожнено!')
+                // $('#cart_total_count').text(0)
+                $('.cart-count').text(0)
+                $('#fixed_cart_link').addClass('d-none')
+                toastr.error('Кошик спорожнено!')
             }
         })
 
@@ -180,32 +178,43 @@ function update_cart(productId, quantity) {
 
 
 function choose_self_shipping(){
-    $("#delivery_new_post_choose").show();
-    $("#delivery_ukr_post_choose").show();
+
     if ($('#check_self_shipping').is(":checked")) {
         $("#delivery_new_post_choose").hide();
         $("#delivery_ukr_post_choose").hide();
+    }else{
+        $("#delivery_new_post_choose").show();
+        $("#delivery_ukr_post_choose").show();
     }
 }
 
 function check_input_new_post() {
-    // $("#check_self_shipping").show();
-    // $("#delivery_ukr_post_choose").show();
-    // if ($('#delivery_new_post_choose').val()) {
-    //     $("#check_self_shipping").hide();
-    //     $("#delivery_ukr_post_choose").hide();
-    // }
-    $("#check_self_shipping").show();
 
-    $('#delivery_new_post_choose').on('input', function() {
-        // const value = $(this).val();
-        if ($(this).val()) {
-        //   $('#testje').show();
-          $('#check_self_shipping').hide()
-        }
-        // else {
-        //   $('#testje').hide();
-        //   $('#SummaryHTML').show()
-        // }
-      });
+    var inputValues =  $('#delivery_new_post_choose input').map(function(){
+        return this.value
+    }).get().join('')
+
+    // log(inputValues)
+
+    if (inputValues) {
+        $('#check_self_shipping').parent().hide()
+        // $('#check_self_shipping').parent().hide()
+    }else{
+        $("#check_self_shipping").parent().show()
+        // $("#check_self_shipping").parent().show()
+    }
+}
+
+function check_input_ukr_post() {
+    var inputValues = $('#delivery_ukr_post_choose input').map(function(){
+        return this.value
+    }).get().join('')
+
+    if (inputValues) {
+        $('#check_self_shipping').attr('disabled', true)
+        $('#delivery_new_post_choose input').attr('disabled', true).addClass('disabled')
+    }else{
+        $("#check_self_shipping").attr('disabled', false)
+        $("#delivery_new_post_choose input").attr('disabled', false).removeClass('disabled')
+    }
 }

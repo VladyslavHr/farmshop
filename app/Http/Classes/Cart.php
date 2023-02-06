@@ -116,6 +116,11 @@ class Cart extends ServiceProvider
     }
 
 
+    public static function  isEmpty($ifTrue = 1, $ifFalse = '') {
+
+        return !session('cart', []) ? $ifTrue : $ifFalse;
+    }
+
 
 
 

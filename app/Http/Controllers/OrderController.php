@@ -63,7 +63,15 @@ class OrderController extends Controller
         // }
         // Check payment method
 
-        return $this->checkout($data, $order);
+        if ($order->payment_method == 'card') {
+            return $this->checkout($data, $order);
+        }else{
+            // $this->updateOrderStatus($order->id);
+            session()->forget('cart');
+            return redirect()->route('orders.thanks');
+        }
+
+        // return $this->checkout($data, $order);
 
         // return redirect()->route('orders.thanks');
     }
@@ -184,6 +192,8 @@ class OrderController extends Controller
                 'quantity' => $orderItem->product->quantity - $orderItem->product_count
             ]);
         }
+
+        // Udate Product if quantity <= 0 to status out of stock and price and old price on 0
 
         if ($order) {
             $order->update(['payment_status' => $status]);

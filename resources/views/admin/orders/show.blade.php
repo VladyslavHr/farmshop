@@ -60,7 +60,11 @@
             <strong>
                 Платіжний метод:
             </strong>
-
+            @if ($order->payment_method == 'card')
+                Картою
+            @else
+                Готівкою
+            @endif
         </div>
         <div class="col-lg-3">
             <strong>

@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container py-3">
+<div class="container py-5">
     <div class="cart-header">
         <div class="cart-header-title">
             <h1 class="cart-title py-2">Кошик</h1>
@@ -90,7 +90,7 @@
 
     </div>
     @endif
-        <div class="empty-cart @if (count($products)) hidden @endif">
+        <div class="empty-cart @if (count($products)) hidden @endif py-5">
             Наразі ваш кошик порожний,
             <a href="{{ route('products.index') }}">
                 перейти до крамниці

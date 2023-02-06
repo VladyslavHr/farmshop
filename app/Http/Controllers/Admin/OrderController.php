@@ -22,12 +22,12 @@ class OrderController extends Controller
             'orders' => $orders,
             'sortingParams' => '?sortingBy='.request('sortingBy').'&sortingDirection='.request('sortingDirection'),
             'sortingOptions' => [
-                ['val' => '?sortingBy=total&sortingDirection=asc', 'lable' => 'дешевые'],
-                ['val' => '?sortingBy=total&sortingDirection=desc', 'lable' => 'дорошие'],
-                ['val' => '?sortingBy=delivery_status&sortingDirection=asc', 'lable' => 'статус 🠗'],
-                ['val' => '?sortingBy=delivery_status&sortingDirection=desc', 'lable' => 'статус 🠕'],
-                ['val' => '?sortingBy=created_at&sortingDirection=asc', 'lable' => 'старые'],
-                ['val' => '?sortingBy=created_at&sortingDirection=desc', 'lable' => 'новые'],
+                ['val' => '?sortingBy=total&sortingDirection=asc', 'lable' => 'Дешеві'],
+                ['val' => '?sortingBy=total&sortingDirection=desc', 'lable' => 'Дорогі'],
+                ['val' => '?sortingBy=delivery_status&sortingDirection=asc', 'lable' => 'Статус 🠗'],
+                ['val' => '?sortingBy=delivery_status&sortingDirection=desc', 'lable' => 'Статус 🠕'],
+                ['val' => '?sortingBy=created_at&sortingDirection=asc', 'lable' => 'Старі'],
+                ['val' => '?sortingBy=created_at&sortingDirection=desc', 'lable' => 'Нові'],
             ]
         ]);
     }

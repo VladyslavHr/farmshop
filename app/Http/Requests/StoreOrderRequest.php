@@ -34,6 +34,7 @@ class StoreOrderRequest extends FormRequest
             'post_adress' => '',
             'self_shipping' => 'required_without_all:post_num,new_post_num',
             'order_note' => '',
+            'payment_method' => ['required'],
 		];
     }
 

@@ -102,7 +102,13 @@
         @include('layouts.blocks.header')
         <main class="">
             @yield('content')
-            <a href="{{ route('carts.index') }}" class="cart-link-main"><i class="bi bi-cart-check me-2"></i>КОШИК</a>
+            <a href="{{ route('carts.index') }}" id="fixed_cart_link"
+                class="cart-link-main {{ Cart::isEmpty('d-none') }}" >
+                {{-- {{ !session('cart') ? 'd-none' : '' }} --}}
+                    <i class="bi bi-cart-check"></i>
+                    <span>КОШИК</span>
+                    <b class="cart-count">{{ Cart::getTotalCount() }}</b>
+                </a>
         </main>
         @include('layouts.blocks.footer')
     {{-- </div> --}}

@@ -5,7 +5,7 @@
     wire:model="addToCartCount">
 
 
-<button class=" btn product-show-link-to-card me-2 position-relative" type="button"
+<button class=" btn product-show-link-to-card me-2 position-relative @if ($product->quantity <= 0) disabled @endif" type="button"
     wire:click="addToCart">
     Додати до кошика
     <span class="cart-count-porduct">{{ $productCartCount }}</span>
