@@ -67,6 +67,15 @@ class OrderController extends Controller
             return $this->checkout($data, $order);
         }else{
             // $this->updateOrderStatus($order->id);
+            // dd($order->orderItems());
+            // foreach ($order->orderItems() as $orderItem) {
+            //     $orderItem->product->update([
+            //         'quantity' => $orderItem->product->quantity - $orderItem->product_count
+            //     ]);
+            //     if ($orderItem->product->quantity <= 0) {
+            //         $orderItem->product->status->update('out_of_stock');
+            //     }
+            // }
             session()->forget('cart');
             return redirect()->route('orders.thanks');
         }

@@ -28,11 +28,12 @@ class StoreOrderRequest extends FormRequest
             'last_name' => 'required',
             'email' => 'required',
             'phone' => 'required',
-            'new_post_num' => 'required_without_all:post_num,self_shipping',
-            'new_post_adress' => '',
-            'post_num' => 'required_without_all:self_shipping,new_post_num',
-            'post_adress' => '',
-            'self_shipping' => 'required_without_all:post_num,new_post_num',
+            'new_post_num' => 'required_without_all:self_shipping',
+            'new_post_adress' => 'required_without_all:self_shipping',
+            'new_post_locality' => 'required_without_all:self_shipping',
+            // 'post_num' => 'required_without_all:self_shipping,new_post_num',
+            // 'post_adress' => '',
+            'self_shipping' => 'required_without_all:new_post_num',
             'order_note' => '',
             'payment_method' => ['required'],
 		];
@@ -45,9 +46,11 @@ class StoreOrderRequest extends FormRequest
             'last_name.required' => 'Напишіть будь ласка Прізвище.',
             'email.required' => 'Напишіть будь ласка Мейл.',
             'phone.required' => 'Напишіть будь ласка телефон.',
-            'self_shipping.required_without_all' => 'Please choose delivery1',
-            'post_num.required_without_all' => 'Please choose delivery2',
-            'new_post_num.required_without_all' => 'Please choose delivery3',
+            'self_shipping.required_without_all' => 'Будь ласка виберіть достаку',
+            // 'post_num.required_without_all' => 'Please choose delivery2',
+            'new_post_num.required_without_all' => 'Будь ласка напишіть номер відділення',
+            'new_post_locality.required_without_all' => 'Будь ласка напишіть місто відділення',
+            'new_post_adress.required_without_all' => 'Будь ласка напишіть адресу відділення',
         ];
     }
 }

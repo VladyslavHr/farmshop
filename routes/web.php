@@ -19,7 +19,7 @@ use App\Http\Controllers\{ProductController,CartController,OrderController,Check
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/sitemap.xml', [App\Http\Controllers\Controller::class, 'sitemap'])->name('sitemap');
 // Route::get('/', function () {
 //     return view('welcome');
 // });

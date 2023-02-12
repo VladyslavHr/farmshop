@@ -20,8 +20,7 @@
                         <h1>Крамниця</h1>
                     </div>
                     <div class="category-page-text">
-                        A consumer good, also known as a ‘final good’, is the end product a business produces and is purchased by the consumer. For example, microwaves, fridges, t-shirts, and washing machines, are all examples of consumer goods. They are final goods that the consumer purchases.
-                        Consumer goods contrast with intermediate goods in the fact that intermediate goods are used to create the final consumer good. Goods such as copper, coal, iron, or other raw materials, are not consumer goods because they are used to make a final consumer good. For instance, copper can be used to create trays, bowls, and other containers which are considered consumer products. These are examples of intermediate goods that are in turn used to create final consumer goods.
+                        Фермерське господарство «Looschen» з Ольденбурга Мюнстерланда налічує понад 300-річний досвід у розведенні великої рогатої худоби протягом кількох поколінь. З наміром визначити правильні напрямки майбутнього розвитку ферми протягом останнього десятиліття ми успішно розширили нашу діяльність до розведення корів породи вагю. Wagyu Auetal поєднує розведення великої рогатої худоби «Made in Germany» з найкращою та найціннішою породою корів у світі.
                     </div>
                 </div>
                 @endif
@@ -89,7 +88,7 @@
                 </ul>
             </div>
             <div class="main-content col-lg-9">
-                <div class="row">
+                <div class="row pb-3">
                     <div class="col-6">
                         <select wire:model="sortingSelectValue" class="form-select sorting-select">
                             <option value="price_asc">Спочатку дешеві</option>

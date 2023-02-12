@@ -8,8 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | {{ config('app.name', 'Wildfarm.com.ua') }}</title>
 
-    <meta name="keywords" content="@yield('keywords', 'ферма', 'мясо', 'органіка', 'томати', 'яйця')">
-    <meta name="description" content="@yield('description', '')">
+    <meta name="keywords" content="@yield('keywords', 'ферма, мясо, органіка, томати, яйця')">
+    <meta name="description" content="@yield('description', 'Еко ферма для всієї родини Farm')">
+    <meta name="author" content="Vladyslav Hrebennikov">
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
 
     <!-- Fonts -->

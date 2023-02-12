@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('main_img')->nullable();
             $table->string('price_type')->nullable();
             $table->string('status')->default('in_stock');
-            $table->integer('quantity')->default(0);
+            $table->bigInteger('quantity')->default(0);
             $table->string('seo_title')->nullable();
             $table->string('seo_keywords')->nullable();
             $table->text('seo_description')->nullable();

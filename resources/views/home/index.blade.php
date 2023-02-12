@@ -1,6 +1,7 @@
 @extends('layouts.app')
-
-@section('title', 'Wildfarm.com.ua | Родинна ферма з якісними органічними продуктами')
+@section('title', 'Wildfarm.com.ua')
+@section('description', 'Еко ферма для всієї родини')
+@section('keywords', 'ферма, мясо, органіка, томати, яйця, овочі')
 
 @section('content')
 

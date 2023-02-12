@@ -48,6 +48,9 @@
             <div class="selfshipping-wrap" >
             <div class="form-check self-shipping-check pt-4" >
                 <input class="form-check-input self-shipping-input" type="checkbox" id="check_self_shipping" name="self_shipping" value="1"  onclick="choose_self_shipping()">
+                <div class="invalid-feedback">
+                    @error ('self_shipping') {{$message}}@enderror
+                </div>
                 <label class="form-check-label" for="check_self_shipping">
                   Самовивіз
                 </label>
@@ -65,6 +68,9 @@
                     <div class="ms-3 delivery-logo-newpost">
                         <img style="width: 100%" src="/logo/noa_posta_logo.svg.png" alt="Нова Пошта">
                     </div>
+                    {{-- <div class="invalid-feedback">
+                        @error ('new_post_num') {{$message}}@enderror
+                    </div> --}}
                 </div>
 
                 <div class="row">
