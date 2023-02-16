@@ -4,8 +4,20 @@
 
 @section('content')
 
-<div class="container">
-    <h1>Thank you</h1>
+<div class="container py-5">
+    <div class="text-center py-5">
+        <h1>Д'якуємо за ваше замовлення</h1>
+        <h3>Номер вашого замовлення <b>{{ $order->id }}</b></h3>
+        <p class="fs-5">Підтвердження вашого замовлення прийде на вказану вами елктронну пошту.</p>
+        @if ($order->self_shipping == 1)
+            <p class="fs-5">Як тільки ваше замовлення буде зібране, на електронну пошту отримаєте підтвердження.</p>
+            <p class="fs-5">Замовлення можете забрати за адресою <a class="thnaks-link-style" href="https://goo.gl/maps/L6uoThWfC2Rr35By6">Вул. Гагаріна 17, с. Соколово, Новомосковський район, Дніпропетровська область</a></p>
+        @else
+            <p class="fs-5">Як тільки ваше замовлення буде відправлене, на електронну пошту отримаєте підтвердження з номером відпралення.</p>
+        @endif
+
+        <h5><a class="thnaks-link-style" href="{{ route('home.index') }}">На головну сторінку</a></h5>
+    </div>
 </div>
 
 @endsection

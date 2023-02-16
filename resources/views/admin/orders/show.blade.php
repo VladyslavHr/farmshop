@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="container py-2">
+<div class="container py-5">
     <div class="row py-3">
         <div class="col-md-2">
             <a class="btn " href="{{ route('admin.orders.index') }}">
@@ -171,15 +171,24 @@
         Доставка:
     </h4>
     <div class="row border-devider">
-        <div class="col-lg-6">
+        <div class="col-lg-4">
             <strong>
                 Статус платежа:
             </strong>
             {{ $payment_status }}
         </div>
-        <form action="{{ route('admin.orders.update', $order) }}" class="col-lg-6" method="POST">
+        <form action="{{ route('admin.orders.update', $order) }}" class="col-lg-8" method="POST">
             @csrf
             <div class="input-group">
+                @if ($order->self_shipping == 0)
+                <span class="me-3">
+                    <strong>
+                        TTH:
+                    </strong>
+                </span>
+                <input type="text" class="form-control me-3" name="delivery_track"
+                    value="{{ $order->delivery_track }}">
+                @endif
                 <span class="me-3">
                     <strong>
                         Статус доставки:
@@ -187,7 +196,12 @@
                 </span>
                 <select class="form-select" name="delivery_status" id="">
                     <option value="preparing" {{ $order->delivery_status == 'preparing' ? 'selected' : '' }}>Збирається</option>
-                    <option value="delivered" {{ $order->delivery_status == 'delivered' ? 'selected' : '' }}>Відправлено</option>
+                    @if ($order->self_shipping == 1)
+                        <option value="collected" {{ $order->delivery_status == 'collected' ? 'selected' : '' }}>Зібрано</option>
+                    @endif
+                    @if ($order->self_shipping == 0)
+                        <option value="delivered" {{ $order->delivery_status == 'delivered' ? 'selected' : '' }}>Відправлено</option>
+                    @endif
                     <option value="canceled" {{ $order->delivery_status == 'canceled' ? 'selected' : '' }}>Cкасовано</option>
                     <option value="returned" {{ $order->delivery_status == 'returned' ? 'selected' : '' }}>Повернуто</option>
                 </select>
@@ -196,11 +210,13 @@
         </form>
     </div>
 
-    <div class="pt-3 pb-1">
-        <button class="btn btn-danger"
-            onsubmit="if(!confirm('Повернути кошти?')) return false">
-            Повернути кошти
-        </button>
+    <div class="pt-3 pb-5">
+        @if ($order->payment_method == 'card')
+            <button class="btn btn-danger"
+                onsubmit="if(!confirm('Повернути кошти?')) return false">
+                Повернути кошти
+            </button>
+        @endif
     </div>
 
 

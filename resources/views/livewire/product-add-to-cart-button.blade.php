@@ -1,7 +1,7 @@
 
 <div class="product-show-add-to-cart pt-4" >
 
-<input class="product-show-input-quantity me-2" type="number"
+<input class="product-show-input-quantity me-2" type="number" min="0"
     wire:model="addToCartCount">
 
 

@@ -76,9 +76,9 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <span class="small-titles-inputs d-block">Населенний пункт</span>
-                        <input type="text" name="new_post_locality" value="{{ old('new_post_locality') }}" class=" input-checkout @error ('new_post_locality') is-invalid @enderror" oninput="check_input_new_post(this)">
+                        <input type="text" name="new_post_city" value="{{ old('new_post_city') }}" class=" input-checkout @error ('new_post_city') is-invalid @enderror" oninput="check_input_new_post(this)">
                         <div class="invalid-feedback">
-                            @error ('new_post_locality') {{$message}}@enderror
+                            @error ('new_post_city') {{$message}}@enderror
                         </div>
                     </div>
                     <div class="col-lg-3">

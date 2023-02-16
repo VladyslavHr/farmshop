@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('title', $product->seo_title)
+@section('description', $product->seo_description)
+@section('keywords', $product->seo_keywords)
 @section('page-title', 'Товар')
 
 @section('content')

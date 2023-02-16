@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderRequest;
-use App\Models\{Order,OrderItem};
+use App\Models\{Order,OrderItem,User};
 use App\Http\Requests\{CartStoreRequest};
 use App\Http\Classes\Cart;
+use Illuminate\Support\Facades\Notification;
 use WayForPay\SDK\Collection\ProductCollection;
 use WayForPay\SDK\Credential\AccountSecretTestCredential;
 use WayForPay\SDK\Credential\AccountSecretCredential;
@@ -16,8 +17,8 @@ use WayForPay\SDK\Wizard\PurchaseWizard;
 use WayForPay\SDK\Domain\MerchantTypes;
 use WayForPay\SDK\Exception\WayForPaySDKException;
 use WayForPay\SDK\Handler\ServiceUrlHandler;
-
-
+use App\Notifications\{OrderClientStoreSend,OrderClientStoreAdmin};
+use Mail;
 
 class OrderController extends Controller
 {
@@ -67,17 +68,25 @@ class OrderController extends Controller
             return $this->checkout($data, $order);
         }else{
             // $this->updateOrderStatus($order->id);
-            // dd($order->orderItems());
-            // foreach ($order->orderItems() as $orderItem) {
-            //     $orderItem->product->update([
-            //         'quantity' => $orderItem->product->quantity - $orderItem->product_count
-            //     ]);
-            //     if ($orderItem->product->quantity <= 0) {
-            //         $orderItem->product->status->update('out_of_stock');
-            //     }
-            // }
+            // dd($order->order_items());
+            foreach ($order->items as $order_item) {
+                $order_item->product->update([
+                    'quantity' => $order_item->product->quantity - $order_item->product_count
+                ]);
+                if ($order_item->product->quantity <= 0) {
+                    $order_item->product->update([
+                        'status' => 'out_of_stock'
+                    ]);
+                }
+            }
+            $order->notify(new OrderClientStoreSend($order));
+
+            $admins = User::where('id', 1)->first();
+            // Notification::send($users, new InvoicePaid($invoice));
+            Notification::send($admins, new OrderClientStoreAdmin($order));
+
             session()->forget('cart');
-            return redirect()->route('orders.thanks');
+            return redirect()->route('orders.thanks', $order->id);
         }
 
         // return $this->checkout($data, $order);
@@ -120,9 +129,14 @@ class OrderController extends Controller
         ]);
     }
 
-    public function thanks()
+    public function thanks($order)
     {
-        return view('orders.thanks');
+
+        $order = Order::where('id', $order)->first();
+
+        return view('orders.thanks',[
+            'order' => $order,
+        ]);
     }
     public function wayForPayReturnUrl()
     {
@@ -200,6 +214,12 @@ class OrderController extends Controller
             $orderItem->product->update([
                 'quantity' => $orderItem->product->quantity - $orderItem->product_count
             ]);
+
+            if ($orderItem->product->quantity <= 0) {
+                $orderItem->product->update([
+                    'status' => 'out_of_stock'
+                ]);
+            }
         }
 
         // Udate Product if quantity <= 0 to status out of stock and price and old price on 0

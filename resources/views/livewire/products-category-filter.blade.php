@@ -2,7 +2,11 @@
 <div>
     <div class="row pt-3">
         <div class="col-xl-4 category-page-img-wrap">
-            <img style="width: 100%" src="{{ asset('/images/consumer.png') }}" alt="">
+            @if ($category)
+                <img style="width: 100%" src="{{ $category->main_img }}" alt="">
+            @else
+                <img style="width: 100%" src="{{ asset('/images/consumer.png') }}" alt="">
+            @endif
         </div>
         <div class="col-xl-8 category-page-text-wrap">
             @if ($category)

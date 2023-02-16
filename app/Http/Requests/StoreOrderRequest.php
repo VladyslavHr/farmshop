@@ -30,7 +30,7 @@ class StoreOrderRequest extends FormRequest
             'phone' => 'required',
             'new_post_num' => 'required_without_all:self_shipping',
             'new_post_adress' => 'required_without_all:self_shipping',
-            'new_post_locality' => 'required_without_all:self_shipping',
+            'new_post_city' => 'required_without_all:self_shipping',
             // 'post_num' => 'required_without_all:self_shipping,new_post_num',
             // 'post_adress' => '',
             'self_shipping' => 'required_without_all:new_post_num',
@@ -49,7 +49,7 @@ class StoreOrderRequest extends FormRequest
             'self_shipping.required_without_all' => 'Будь ласка виберіть достаку',
             // 'post_num.required_without_all' => 'Please choose delivery2',
             'new_post_num.required_without_all' => 'Будь ласка напишіть номер відділення',
-            'new_post_locality.required_without_all' => 'Будь ласка напишіть місто відділення',
+            'new_post_city.required_without_all' => 'Будь ласка напишіть місто відділення',
             'new_post_adress.required_without_all' => 'Будь ласка напишіть адресу відділення',
         ];
     }

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'total',
@@ -27,6 +28,7 @@ class Order extends Model
         'payment_status',
         'delivery_status',
         'payment_method',
+        'delivery_track',
     ];
 
     protected $dates = [
@@ -46,6 +48,9 @@ class Order extends Model
     public const STATUS_RETURNED = 'returned';
 
     public function orderItems() {
+        return $this->hasMany(OrderItem::class)->orderByDesc('created_at');
+    }
+    public function items() {
         return $this->hasMany(OrderItem::class)->orderByDesc('created_at');
     }
 

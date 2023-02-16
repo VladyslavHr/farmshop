@@ -71,14 +71,30 @@ function remove_cart_item(form, event) {
     function (data) {
         if (data.status === 'ok') {
             $(form).closest('.cart-product-item').remove()
+            $(form).closest('.cart-product-item-small').remove()
             $('#cart_total_count').text(data.cart_total_count)
             $('.js-cart-total-sum').text(data.cart_total_sum)
 
-            if ($(".cart-product-item").length) {
+            if ($(".cart-product-item").length ) {
                 toastr.warning('Товар видалено з кошика!')
                 $('.cart-count').text(data.cart_total_count)
             }else{
                 $('.full-cart').remove()
+                $('.full-cart-small-screen').remove()
+                $('.cart-header-btn-clean').remove()
+                $('.empty-cart').show()
+                // $('#cart_total_count').text(0)
+                $('.cart-count').text(data.cart_total_count)
+                $('#fixed_cart_link').addClass('d-none')
+                // toastr.error('Кошик спорожнено!')
+            }
+
+            if ( $(".cart-product-item-small").length) {
+                // toastr.warning('Товар видалено з кошика!')
+                $('.cart-count').text(data.cart_total_count)
+            }else{
+                $('.full-cart').remove()
+                $('.full-cart-small-screen').remove()
                 $('.cart-header-btn-clean').remove()
                 $('.empty-cart').show()
                 // $('#cart_total_count').text(0)
@@ -97,6 +113,7 @@ function clearCart(button) {
         }, function (data) {
             if (data.status === 'ok') {
                 $('.full-cart').remove()
+                $('.full-cart-small-screen').remove()
                 $('.empty-cart').show()
                 $(button).hide()
                 // $('#cart_total_count').text(0)

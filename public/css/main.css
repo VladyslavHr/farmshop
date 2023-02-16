@@ -45,8 +45,49 @@ body{
     background-size: cover;
 }
 
+/* Burger menu  */
+.burger-menu-btn {
+    border-color: #fff;
+    border-radius: 3px;
+}
+
+.burger-menu-btn span{
+    filter: invert(1);
+}
+
+
+/* home */
+
+.home-link-map{
+    color: #215c93;
+    text-decoration: none;
+}
+
+.home-link-map:hover{
+    color: #678199;
+    transition: 0.3s;
+}
+
 .home-brand-title{
     color: #215c93;
+}
+
+.cart-product-image{
+    width: 50%;
+}
+
+.cart-wrap-img{
+    position: relative;
+}
+
+.cart-item-delete-small{
+    position: absolute;
+    top: 40%;
+    right: 10%;
+}
+
+.full-cart-small-screen{
+    display: none;
 }
 
 .product-img-show{
@@ -437,6 +478,10 @@ body{
     border-color: #cccccc;
 }
 
+.product-title-link-name{
+    min-height: 70px;
+}
+
 /* .product-btn-add-to-cart-index{
     position: relative;
 } */
@@ -714,6 +759,7 @@ body{
 
 .payment-method-item{
     display: flex;
+    /* flex-wrap: wrap; */
     align-items: center;
     margin-bottom: 25px;
 }
@@ -829,10 +875,30 @@ body{
 
 /*  */
 
+/* Footer */
+
+.footer-link-logo{
+    color: #215c93;
+    text-decoration: none;
+}
+
+.footer-link-logo:hover{
+    color: #678199;
+    transition: 0.3s;
+}
 
 
+/* Thanks */
 
+.thnaks-link-style{
+    color: #215c93;
+    text-decoration: none;
+}
 
+.thnaks-link-style:hover{
+    color: #678199;
+    transition: 0.3s;
+}
 
 
 
@@ -909,6 +975,22 @@ body{
 
     .nav-link{
         font-size: 18px;
+    }
+
+    .full-cart{
+        display: none;
+    }
+
+    .full-cart-small-screen{
+        display: block;
+    }
+
+    .product-type-img{
+        filter: none;
+    }
+
+    .payment-method-item{
+        flex-wrap: wrap;
     }
 }
 

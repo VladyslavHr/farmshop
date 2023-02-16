@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title', 'Wildfarm.com.ua')
-@section('description', 'Еко ферма для всієї родини')
-@section('keywords', 'ферма, мясо, органіка, томати, яйця, овочі')
+@section('description', 'Еко ферма для всієї родини, Farm, фермерські продукти, еко продукти, купити продукти,')
+@section('keywords', 'ферма, мясо, органіка, томати, яйцяБ молокоБ олія, яблоко, кавун, екзотичні фрукти, екзотика,')
 
 @section('content')
 
@@ -13,9 +13,9 @@
     <h1 class="text-center">Ласкаво просимо до родинної ферми <span class="home-brand-title">Wildfarm.com.ua</span></h1>
 
     <div class="row py-5">
-            <div class="product-type-wrap col-lg-4">
+            <div class="product-type-wrap col-lg-4 pb-4">
                 <a href="{{ route('products.index') }}">
-                    <div class="product-type-img" style="background-image: url('/images/shop.png')">
+                    <div class="product-type-img" style="background-image: url('/images/kram-log.jpeg')">
                         <div class="home-type-title">
                             <h2>
                                 Крамниця
@@ -42,7 +42,7 @@
     </div>
 
     <div class="location-info pt-3">
-        <h3>Знайти нас можете за адресою: <a href="https://goo.gl/maps/L6uoThWfC2Rr35By6" target="_blank"><strong>Вул. Гагаріна 17, с. Соколово, Дніпровський район, Дніпропетровська область</strong></a></h3>
+        <h3>Знайти нас можете за адресою: <a href="https://goo.gl/maps/L6uoThWfC2Rr35By6" target="_blank" class="home-link-map"><strong>Вул. Гагаріна 17, с. Соколово, Новомосковський район, Дніпропетровська область</strong></a></h3>
     </div>
 
 </div>

@@ -8,10 +8,32 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') | {{ config('app.name', 'Wildfarm.com.ua') }}</title>
 
-    <meta name="keywords" content="@yield('keywords', 'ферма, мясо, органіка, томати, яйця')">
-    <meta name="description" content="@yield('description', 'Еко ферма для всієї родини Farm')">
+    <meta name="keywords" content="@yield('keywords')">
+    <meta name="description" content="@yield('description')">
     <meta name="author" content="Vladyslav Hrebennikov">
     {{-- <title>{{ config('app.name', 'Laravel') }}</title> --}}
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="{{ str_replace('//wildfarm.com.ua/', '//www.wildfarm.com.ua/#!/', url()->current()) }}">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Rancho&effect=shadow-multiple">
+
+
+    <!-- Social -->
+
+    <meta property="og:site_name" content="{{ config('app.name', 'Wildfarm.com.ua') }}">
+    <meta property="og:title" content="@yield('title') | {{ config('app.name', 'Wildfarm.com.ua') }}">
+    <meta property="og:description" content="@yield('description', 'Farm Shop Wildfarm.com.ua')">
+    <meta property="og:image" content="{{ asset('/images/farm.jpeg') }}">
+    <meta property="og:url" content="{{ url()->current() }}">
+
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -32,6 +54,15 @@
     {{-- <script src="{{ asset('js/jquery-3.6.1.slim.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 
+
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-W4NQDLW');</script>
+    <!-- End Google Tag Manager -->
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-PHBMB7QLQ9"></script>
     <script>
@@ -45,6 +76,11 @@
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W4NQDLW"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     {{-- <div id="app"> --}}
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

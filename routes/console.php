@@ -2,7 +2,10 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-
+use App\Models\{Order,OrderItem,User};
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\{OrderClientStoreSend,OrderClientStoreAdmin};
+// use Mail;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -27,6 +30,14 @@ Artisan::command('get-folders', function (){
        echo $folderName;
        echo PHP_EOL;
     }
+});
+
+
+Artisan::command('testt', function (){
+    $order = \App\Models\Order::find(18);
+    // echo $produtcs->count();
+    // print_r();
+    dd($order->items);
 });
 
 
@@ -59,4 +70,13 @@ Artisan::command('create-folders', function (){
     foreach ($folders as $folderName) {
         @mkdir(public_path('storage/' . $folderName));
     }
+});
+
+
+
+Artisan::command('notif', function(){
+    $order = Order::where('id', 12)->first();
+    $admins = User::where('id', 1)->first();
+    // Notification::send($users, new InvoicePaid($invoice));
+    Notification::send($admins, new OrderClientStoreAdmin($order));
 });

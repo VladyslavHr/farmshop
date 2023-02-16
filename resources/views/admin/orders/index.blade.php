@@ -69,6 +69,8 @@
                 @endif
                 @if ($order->delivery_status === 'preparing')
                   <td class="text-center text-secondary">Збирається <i class="bi bi-box-seam"></i></td>
+                @elseif ($order->delivery_status === 'collected')
+                  <td class="text-center text-success">Зібрано <i class="bi bi-box-seam"></i></td>
                 @elseif ($order->delivery_status === 'delivered')
                   <td class="text-center text-success">Відправлено <i class="bi bi-truck"></i></td>
                 @elseif ($order->delivery_status === 'canceled')
@@ -81,8 +83,8 @@
                         <i class="bi bi-eye"></i>
                     </a>
                 </td>
-                <td class="text-center">{{ $order->updated_at->format('Y-m-d H:i') }}</td>
-                <td class="text-center">{{ $order->created_at->format('Y-m-d H:i') }}</td>
+                <td class="text-center">{{ $order->updated_at->format('Y-m-d') }}</td>
+                <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
               </tr>
             @endforeach
         </tbody>

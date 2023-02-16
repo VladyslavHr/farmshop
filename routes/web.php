@@ -72,7 +72,7 @@ Route::post('/kosik-dodano/{product}', [CartController::class, 'approve'])->name
 
 // Route::get('/zamovlennya', [CartController::class, 'cartStore'])->name('carts.cartStore');
 
-Route::get('/dyakujemo', [OrderController::class, 'thanks'])->name('orders.thanks');
+Route::get('/dyakujemo/{order}', [OrderController::class, 'thanks'])->name('orders.thanks');
 Route::get('/zamovlennya', [OrderController::class, 'index'])->name('orders.index');
 Route::post('/zamovlennya/store', [OrderController::class, 'store'])->name('orders.store');
 
@@ -88,7 +88,7 @@ Route::post('/kontakty/store', [ContactController::class, 'store'])->name('conta
 
 
 
-
+Route::get('/mailTest', [App\Http\Controllers\CheckoutController::class, 'mailTest']);
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use App\Models\{Order,Product};
-
+use App\Notifications\{OrderClientStoreSend,OrderClientUpdateSend,OrderClientStoreAdmin};
+use Mail;
 
 class OrderController extends Controller
 {
@@ -22,12 +24,13 @@ class OrderController extends Controller
             'orders' => $orders,
             'sortingParams' => '?sortingBy='.request('sortingBy').'&sortingDirection='.request('sortingDirection'),
             'sortingOptions' => [
+                ['val' => '?sortingBy=created_at&sortingDirection=desc', 'lable' => 'Нові'],
+                ['val' => '?sortingBy=created_at&sortingDirection=asc', 'lable' => 'Старі'],
                 ['val' => '?sortingBy=total&sortingDirection=asc', 'lable' => 'Дешеві'],
                 ['val' => '?sortingBy=total&sortingDirection=desc', 'lable' => 'Дорогі'],
                 ['val' => '?sortingBy=delivery_status&sortingDirection=asc', 'lable' => 'Статус 🠗'],
                 ['val' => '?sortingBy=delivery_status&sortingDirection=desc', 'lable' => 'Статус 🠕'],
-                ['val' => '?sortingBy=created_at&sortingDirection=asc', 'lable' => 'Старі'],
-                ['val' => '?sortingBy=created_at&sortingDirection=desc', 'lable' => 'Нові'],
+
             ]
         ]);
     }
@@ -57,6 +60,7 @@ class OrderController extends Controller
     {
         $rules = [
             'delivery_status' => 'required',
+            'delivery_track' => '',
         ];
 
         $messages = [
@@ -67,7 +71,12 @@ class OrderController extends Controller
 
         $saved = $order->update($data);
 
-        return redirect()->back();
+        if ($order->delivery_status == 'collected' || $order->delivery_status == 'delivered') {
+            $order->notify(new OrderClientUpdateSend($order));
+        }
+        // dd($order);
+
+        return redirect()->route('admin.orders.index');
 
     }
 }
