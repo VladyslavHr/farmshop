@@ -8,7 +8,7 @@
 <div class="container py-5">
     <div class="row">
         <div class="col-md-6">
-            <h1>Kontakt</h1>
+            <h1>Контактна інформація</h1>
             {{-- <div class="contact-title">Lodní doprava Slapy</div> --}}
             <h2 class="py-3 contact-firm-title" >Wildfarm.com.ua</h2>
             <div class="contac-info">
@@ -19,7 +19,7 @@
                         </strong>
                     </span>
                     <span>
-                        с. Соколово, вул. Гагаріна 17, Новомосковьский район, Дніпропетровська область.
+                        с. Соколово, вул. Гагаріна 18, Новомосковьский район, Дніпропетровська область.
                     </span>
                 </div>
                 <div class="contact-el">
