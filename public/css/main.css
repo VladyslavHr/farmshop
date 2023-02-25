@@ -127,7 +127,7 @@ body{
 
 .category-page-text-wrap-bg{
     background-color: #ecf0f2;
-    padding: 26px;
+    padding: 14px;
     min-height: 100%;
 
 }
@@ -995,6 +995,17 @@ body{
 }
 
 @media (max-width: 767px){
+    .navbar-nav{
+        text-align: center;
+    }
+
+    .cart-block-header{
+        justify-content: center;
+    }
+
+    .cart-block-header .nav-link {
+        margin: 0!important;
+    }
 }
 
 @media (max-width: 575px){

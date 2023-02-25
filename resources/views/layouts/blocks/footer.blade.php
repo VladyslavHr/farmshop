@@ -116,7 +116,7 @@
           <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <!-- Links -->
             <h6 class="text-uppercase fw-bold mb-4">Контакт</h6>
-            <p><i class="fas fa-home me-3"></i>с. Соколово, вул. Гагаріна 17, Новомосковьский район, Дніпропетровська область.</p>
+            <p><i class="fas fa-home me-3"></i>с. Соколово, вул. Гагаріна 18, Новомосковьский район, Дніпропетровська область.</p>
             <p>
               <i class="fas fa-envelope me-3"></i>
               info@wildfarm.com.ua
