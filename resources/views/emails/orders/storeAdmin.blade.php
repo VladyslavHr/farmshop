@@ -55,7 +55,7 @@
         <div class="center padding-l">
             {{-- <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px"> --}}
         </div>
-        <h2 class="center white">Нове замовлення!</h2>
+        <h2 class="center white">Нове замовлення! ADMIN</h2>
 
     </header>
 

@@ -1,0 +1,22 @@
+{
+    "merchantAccount": "test_merch_n1",
+    "merchantSignature": "f644e4ae7f76206c883edc506f2aaf9c",
+    "orderReference": "1677320117-35",
+    "amount": "10",
+    "currency": "UAH",
+    "authCode": "391475",
+    "email": "vladyslavhrebennikov@gmail.com",
+    "phone": "420737547404",
+    "createdDate": "1677320119",
+    "processingDate": "1677320189",
+    "cardPan": "53****1203",
+    "cardType": "MasterCard",
+    "issuerBankCountry": "Ukraine",
+    "issuerBankName": "MONObank",
+    "recToken": "5b40fee8-4f74-4fb5-8f47-1767f63f23fe",
+    "transactionStatus": "Approved",
+    "reason": "Ok",
+    "reasonCode": "1100",
+    "fee": "0.22",
+    "paymentSystem": "card"
+}

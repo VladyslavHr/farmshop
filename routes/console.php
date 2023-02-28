@@ -34,10 +34,18 @@ Artisan::command('get-folders', function (){
 
 
 Artisan::command('testt', function (){
-    $order = \App\Models\Order::find(18);
+    $order = \App\Models\Order::find(30);
     // echo $produtcs->count();
     // print_r();
-    dd($order->items);
+    $order->notify(new OrderClientStoreSend($order));
+
+    $admin = User::where('id', 1)->first();
+    // Notification::send($users, new InvoicePaid($invoice));
+    Notification::send($admin, new OrderClientStoreAdmin($order));
+    // $admin->notify(new OrderClientStoreAdmin($order));
+
+
+    // dd($order->items);
 });
 
 

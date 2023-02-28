@@ -81,7 +81,7 @@ class OrderController extends Controller
             }
             $order->notify(new OrderClientStoreSend($order));
 
-            $admins = User::where('id', 1)->first();
+            $admins = User::where('id', 1)->get();
             // Notification::send($users, new InvoicePaid($invoice));
             Notification::send($admins, new OrderClientStoreAdmin($order));
 
@@ -129,6 +129,26 @@ class OrderController extends Controller
         ]);
     }
 
+    public function refund(Request $request)
+    {
+        $order = Order::findOrFail($request->order_id);
+        // Use test credential or yours
+        $credential = new AccountSecretTestCredential();
+        //$credential = new AccountSecretCredential('account', 'secret');
+
+        $response = RefundWizard::get($credential)
+            ->setOrderReference($order->order_reference)
+            ->setAmount($order->total)
+            ->setCurrency('UAH')
+            ->setComment('Refund' . $order->order_reference)
+            ->getRequest()
+            ->send();
+
+
+            echo 'Reason Code: ' . $response->getReason()->getCode() . PHP_EOL;
+            echo 'Order status: ' . $response->getTransactionStatus() . PHP_EOL;
+    }
+
     public function thanks($order)
     {
 
@@ -164,7 +184,18 @@ class OrderController extends Controller
         } catch (WayForPaySDKException $e) {
             echo "WayForPay SDK exception: " . $e->getMessage();
         }
+        // storage_path('test.json');
+        // file_put_contents(storage_path('test.json'), json_encode($_REQUEST, 128));
+
+        $order = explode('-', $_REQUEST['orderReference']);
+
+        $order = $order[1];
+
+        $order = Order::findOrFail($order);
+        // dd($order);
+
         return view('orders.thanks', [
+            'order' => $order,
             'message' => $message,
         ]);
     }

@@ -11,7 +11,8 @@
     <div class="container page-show">
         <div class="row">
             <div class="col-lg-6">
-                @include('/products/blocks/fancybox')
+                {{-- @include('/products/blocks/fancybox') --}}
+                @include('components.fancybox')
             </div>
             <div class="col-lg-6 product-show-right-info">
                 <h1>{{ $product->name }}</h1>
