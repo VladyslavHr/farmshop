@@ -84,6 +84,8 @@ Route::get('/kramnytsya/{slug}', [ProductTypeController::class, 'show'])->name('
 
 // Contacts
 Route::get('/kontakty', [ContactController::class, 'index'])->name('contacts.index');
+Route::get('/dostavka-i-oplata', [ContactController::class, 'payAndDelivery'])->name('contacts.payAndDelivery');
+Route::get('/povernenya-tovaru', [ContactController::class, 'retunrRules'])->name('contacts.retunrRules');
 Route::post('/kontakty/store', [ContactController::class, 'store'])->name('contacts.store');
 
 

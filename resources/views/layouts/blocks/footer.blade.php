@@ -101,10 +101,10 @@
               <a href="{{ route('contacts.index') }}" class="text-reset">Контакти</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">Доставка та оплата</a>
+              <a href="{{ route('contacts.payAndDelivery') }}" class="text-reset">Доставка та оплата</a>
             </p>
             <p>
-              <a href="#!" class="text-reset">Поверення товару</a>
+              <a href="{{ route('contacts.retunrRules') }}" class="text-reset">Поверення товару</a>
             </p>
             {{-- <p>
               <a href="#!" class="text-reset">Help</a>

@@ -257,7 +257,6 @@ class ProductController extends Controller
             unlink($medium_path_medium);
         }
 
-
         foreach ($product->gallery as $gallery) {
 	        $path = public_path($gallery->image);
 	        if (file_exists($path) && strpos($path, '/images/') === false) {
@@ -273,7 +272,6 @@ class ProductController extends Controller
             }
 	        $gallery->delete();
         }
-
 
 		$product->delete();
 

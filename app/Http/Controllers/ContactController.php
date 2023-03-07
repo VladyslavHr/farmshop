@@ -53,4 +53,14 @@ class ContactController extends Controller
 
         return redirect()->route('home.index');
     }
+
+    public function payAndDelivery()
+    {
+        return view('contacts.payAndDelivery');
+    }
+
+    public function retunrRules()
+    {
+        return view('contacts.retunrRules');
+    }
 }

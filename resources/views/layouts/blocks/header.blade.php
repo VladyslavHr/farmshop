@@ -30,10 +30,10 @@
                             Довідка
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('contacts.payAndDelivery') }}">
                                 Доставка та оплата
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ route('contacts.retunrRules') }}">
                                 Повернення товару
                             </a>
                         </div>
