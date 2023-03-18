@@ -11,12 +11,21 @@ use \Gumlet\ImageResize;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $sortingBy = $request->sortingBy ?? 'id';
+        $sortingDirection = $request->sortingDirection ?? 'desc';
 
-        $products = Product::orderBy('created_at', 'desc')->get();
+        $products = Product::orderBy($sortingBy, $sortingDirection)->paginate(2);
         return view('admin.products.index',[
             'products' => $products,
+            'sortingParams' => '?sortingBy='.request('sortingBy').'&sortingDirection='.request('sortingDirection'),
+            'sortingOptions' => [
+                ['val' => '?sortingBy=created_at&sortingDirection=desc', 'lable' => 'Нові'],
+                ['val' => '?sortingBy=created_at&sortingDirection=asc', 'lable' => 'Старі'],
+                ['val' => '?sortingBy=name&sortingDirection=asc', 'lable' => 'А-Я'],
+                ['val' => '?sortingBy=name&sortingDirection=desc', 'lable' => 'Я-А'],
+            ]
         ]);
     }
 

@@ -13,6 +13,24 @@
             </a>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <select class="form-select" onchange="location.href = this.value">
+                @foreach ($sortingOptions as $value)
+                <option {{ $value['val'] === $sortingParams ? 'selected' : ''}}
+                    value="{{ $value['val'] }}">{{ $value['lable'] }}
+                </option>
+                @endforeach
+            </select>
+            {{-- <a class="btn " href="{{ route('admin.orders.create') }}">
+                <i class="bi bi-plus-lg me-2"></i>
+                Створити
+            </a> --}}
+        </div>
+        <div class="col-lg-10">
+            {{ $products->links() }}
+        </div>
+    </div>
     <div class="tabel-responsive">
         <table class="table">
         <thead>
@@ -70,7 +88,11 @@
             @endforeach
         </tbody>
       </table>
-
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            {{ $products->links() }}
+        </div>
     </div>
 </div>
 

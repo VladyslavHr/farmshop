@@ -1,14 +1,21 @@
 {{-- <div class="container"> --}}
     <div>
         <div class="category-page-wrap mt-3">
-            <div class="col-xl-4 category-page-wrap-left">
+            {{-- category-page-wrap-left --}}
+            <div class="col-lg-6">
                 @if ($category)
-                    <img style="width: 100%" src="{{ $category->main_img }}" alt="">
+                    @if ($category->main_img == '/images/no-thumb-r.jpg')
+                    {{-- <img style="width: 100%;" src="{{ $category->main_img }}" alt=""> --}}
+                    <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
+                    @else
+                    <img style="width: 100%; height: 100%" src="{{ $category->main_img }}" alt="">
+                    @endif
                 @else
-                    <img style="width: 100%" src="{{ asset('/images/consumer.png') }}" alt="">
+                    <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
                 @endif
             </div>
-            <div class="col-xl-8 category-page-wrap-right">
+            <div class="col-lg-6">
+                {{-- category-page-wrap-right --}}
                 @if ($category)
                 <div class="category-page-text-wrap-bg">
                     <div class="category-page-title">

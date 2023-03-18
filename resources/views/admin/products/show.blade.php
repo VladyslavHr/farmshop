@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <ul class="product-info-page-info-list">
                 <li>
                     <span>
@@ -113,7 +113,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-6 admin-product-show-image">
+        <div class="col-md-4 admin-product-show-image">
 
             @include('admin.components.fancybox')
             {{-- <div class="row">

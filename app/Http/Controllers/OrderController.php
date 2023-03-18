@@ -81,7 +81,7 @@ class OrderController extends Controller
             }
             $order->notify(new OrderClientStoreSend($order));
 
-            $admins = User::where('id', 1)->get();
+            $admins = User::get();
             // Notification::send($users, new InvoicePaid($invoice));
             Notification::send($admins, new OrderClientStoreAdmin($order));
 

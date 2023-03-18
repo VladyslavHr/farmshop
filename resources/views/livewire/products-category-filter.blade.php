@@ -3,9 +3,14 @@
     <div class="row pt-3">
         <div class="col-xl-4 category-page-img-wrap">
             @if ($category)
-                <img style="width: 100%" src="{{ $category->main_img }}" alt="">
+                @if ($category->main_img == '/images/no-thumb-r.jpg')
+                {{-- <img style="width: 100%;" src="{{ $category->main_img }}" alt=""> --}}
+                    <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
+                @else
+                    <img style="width: 100%; height: 100%" src="{{ $category->main_img }}" alt="">
+                @endif
             @else
-                <img style="width: 100%" src="{{ asset('/images/consumer.png') }}" alt="">
+                <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
             @endif
         </div>
         <div class="col-xl-8 category-page-text-wrap">

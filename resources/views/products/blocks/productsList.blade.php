@@ -30,7 +30,7 @@
                     @endif
                 </div>
                 <a class="product-title-link" href="{{ route('products.show', $product->slug) }}">
-                    <h3 class="product-title-link-name"> {{ $product->name }} </h3>
+                    <h4 class="product-title-link-name"> {{ $product->name }} </h4>
                 </a>
                 <div class="price-block my-4">
                     @if ($product->old_price != 0)
