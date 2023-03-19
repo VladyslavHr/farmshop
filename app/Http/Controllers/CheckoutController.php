@@ -22,8 +22,8 @@ class CheckoutController extends Controller
     public function index()
     {
         // Use test credential or yours
-        $credential = new AccountSecretTestCredential();
-        //$credential = new AccountSecretCredential('account', 'secret');
+        // $credential = new AccountSecretTestCredential();
+        $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
 
         $form = PurchaseWizard::get($credential)
             ->setOrderReference(sha1(microtime(true)))

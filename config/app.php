@@ -17,6 +17,9 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'merchant_id' => env('MERCHANT_ID'),
+    'merchant_secret' => env('MERCHANT_SECRET'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

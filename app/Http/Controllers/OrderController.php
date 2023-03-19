@@ -99,7 +99,7 @@ class OrderController extends Controller
         // dd($data);
         // Use test credential or yours
         // $credential = new AccountSecretTestCredential();
-        $credential = new AccountSecretCredential('test_merch_n1', 'flk3409refn54t54t*FNJRET');
+        $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
 
         $form = PurchaseWizard::get($credential)
             ->setOrderReference($order->order_reference)
@@ -133,8 +133,8 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($request->order_id);
         // Use test credential or yours
-        $credential = new AccountSecretTestCredential();
-        //$credential = new AccountSecretCredential('account', 'secret');
+        // $credential = new AccountSecretTestCredential();
+        $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
 
         $response = RefundWizard::get($credential)
             ->setOrderReference($order->order_reference)
@@ -161,8 +161,8 @@ class OrderController extends Controller
     public function wayForPayReturnUrl()
     {
         // Use test credential or yours
-        $credential = new AccountSecretTestCredential();
-        //$credential = new AccountSecretCredential('account', 'secret');
+        // $credential = new AccountSecretTestCredential();
+        $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
 
 
         try {
@@ -177,15 +177,15 @@ class OrderController extends Controller
                 $message = 'Tnahk you';
             } else {
                 $message = $response->getReason()->getMessage();
-                echo $response->getOrderReference();
+                // echo $response->getOrderReference();
                 // codeError = getOrderReference();
                 // echo "Error: " . $response->getReason()->getMessage();
             }
         } catch (WayForPaySDKException $e) {
-            echo "WayForPay SDK exception: " . $e->getMessage();
+            dd("WayForPay SDK exception: " . $e->getMessage());
         }
-        // storage_path('test.json');
-        // file_put_contents(storage_path('test.json'), json_encode($_REQUEST, 128));
+        // public_path('test.json');
+        // file_put_contents(public_path('test.json'), json_encode($_REQUEST, 128));
 
         $order = explode('-', $_REQUEST['orderReference']);
 
@@ -202,8 +202,8 @@ class OrderController extends Controller
     public function wayForPayServiceUrl()
     {
         // Use test credential or yours
-        $credential = new AccountSecretTestCredential();
-        // $credential = new AccountSecretCredential('test_merch_n1', 'flk3409refn54t54t*FNJRET');
+        // $credential = new AccountSecretTestCredential();
+        $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
 
         try {
             $handler = new ServiceUrlHandler($credential);
@@ -211,11 +211,14 @@ class OrderController extends Controller
 
             $return = $handler->getSuccessResponse($response->getTransaction());
             echo $return;
-            file_put_contents(storage_path('serviceUrlData_success.json'), $return);
+            // telegram_bot_message('serviceURL $return ' . $return );
+            file_put_contents(public_path('test/serviceUrlData_success.json'), date("H:i").PHP_EOL.$return);
 
             $json = file_get_contents('php://input');
 
             $returnObject = json_decode($json);
+
+            // telegram_bot_message('serviceURL $returnObject ' . $returnObject );
 
             $orderId = $returnObject->orderReference;
 
@@ -223,16 +226,22 @@ class OrderController extends Controller
 
             $orderId = $orderId[1];
 
-            $this->updateOrderStatus($orderId, Order::STATUS_PAID);
+            if ($returnObject->reasonCode == 1100) {
+                $this->updateOrderStatus($orderId, Order::STATUS_PAID);
+            }
+
+            // telegram_bot_message('serviceURL $orderId ' . $orderId );
+
+
 
         } catch (WayForPaySDKException $e) {
             $return = "WayForPay SDK exception: " . $e->getMessage();
             echo $return;
-            file_put_contents(storage_path('serviceUrlData_error.json'), $return);
+            file_put_contents(public_path('test/serviceUrlData_error.json'), date("H:i").PHP_EOL.$return);
 
         }
 
-        // return file_put_contents(storage_path('serviceUrlData.json'), $json);
+        file_put_contents(public_path('test/serviceUrlData.json'), print_r($json, true));
 
 
     }
@@ -240,6 +249,8 @@ class OrderController extends Controller
     public function updateOrderStatus($orderId, $status)
     {
         $order = Order::find($orderId);
+
+        file_put_contents(public_path('test/serviceUrlData-order.json'), jsone_encode($order));
 
         foreach ($order->order_items as $orderItem) {
             $orderItem->product->update([
@@ -257,6 +268,9 @@ class OrderController extends Controller
 
         if ($order) {
             $order->update(['payment_status' => $status]);
+            // telegram_bot_message('serviceURL [payment_status => $status] ' . ['payment_status' => $status] );
+        }else{
+            // telegram_bot_message('serviceURL else');
         }
     }
 

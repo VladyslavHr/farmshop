@@ -13,6 +13,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
+
         $sortingBy = $request->sortingBy ?? 'id';
         $sortingDirection = $request->sortingDirection ?? 'desc';
 

@@ -88,3 +88,9 @@ Artisan::command('notif', function(){
     // Notification::send($users, new InvoicePaid($invoice));
     Notification::send($admins, new OrderClientStoreAdmin($order));
 });
+
+
+Artisan::command('message', function(){
+
+    telegram_bot_message('Hi');
+});
