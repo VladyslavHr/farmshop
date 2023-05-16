@@ -34,14 +34,45 @@ Artisan::command('get-folders', function (){
 
 
 Artisan::command('testt', function (){
-    $order = \App\Models\Order::find(30);
-    // echo $produtcs->count();
-    // print_r();
-    $order->notify(new OrderClientStoreSend($order));
 
-    $admin = User::where('id', 1)->first();
-    // Notification::send($users, new InvoicePaid($invoice));
-    Notification::send($admin, new OrderClientStoreAdmin($order));
+
+    $order = Order::find(27);
+
+
+    foreach ($order->orderItems as $orderItem) {
+        $orderItem->product->update([
+            'quantity' => $orderItem->product->quantity - $orderItem->product_count
+        ]);
+
+        if ($orderItem->product->quantity <= 0) {
+            $orderItem->product->update([
+                'status' => 'out_of_stock'
+            ]);
+        }
+    }
+
+
+
+
+
+
+    // try {
+    //     $asd[6];
+    // } catch (\Throwable $e) {
+    //     telegram_bot_error($e);
+    // }
+
+
+
+
+    // $order = \App\Models\Order::find(30);
+    // // echo $produtcs->count();
+    // // print_r();
+    // $order->notify(new OrderClientStoreSend($order));
+
+    // $admin = User::where('id', 1)->first();
+    // // Notification::send($users, new InvoicePaid($invoice));
+    // Notification::send($admin, new OrderClientStoreAdmin($order));
     // $admin->notify(new OrderClientStoreAdmin($order));
 
 
@@ -93,4 +124,31 @@ Artisan::command('notif', function(){
 Artisan::command('message', function(){
 
     telegram_bot_message('Hi');
+});
+
+
+Artisan::command('sendMail', function() {
+    $order = Order::find(23);
+
+    if ($order->client_mail_sended == 0 || $order->admin_mail_sended == 0) {
+        $order->notify(new OrderClientStoreSend($order));
+
+        $admins = User::get();
+        Notification::send($admins, new OrderClientStoreAdmin($order));
+
+        if ($order) {
+            $order->update([
+                'client_mail_sended' => 1,
+                'admin_mail_sended' => 1,
+            ]);
+        }
+
+        // Работает без fillable
+        // if ($order) {
+        //     $order->client_mail_sended = 1;
+        //     $order->admin_mail_sended = 1;
+        //     $order->save();
+        // }
+
+    }
 });

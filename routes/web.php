@@ -28,6 +28,8 @@ Route::get('/sitemap.xml', [App\Http\Controllers\Controller::class, 'sitemap'])-
 //     return view('home');
 // })->name('home');
 
+Route::any('gopay-notification', [\App\Http\Controllers\HomeController::class, 'goPayNotification']);
+
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
 
@@ -76,8 +78,13 @@ Route::get('/dyakujemo/{order}', [OrderController::class, 'thanks'])->name('orde
 Route::get('/zamovlennya', [OrderController::class, 'index'])->name('orders.index');
 Route::post('/zamovlennya/store', [OrderController::class, 'store'])->name('orders.store');
 
+Route::get('/checkoutMono', [OrderController::class, 'checkoutMono'])->name('checkouts.checkoutMono');
+
+
 
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkouts.index');
+
+
 
 // ProdutcTypes
 Route::get('/kramnytsya/{slug}', [ProductTypeController::class, 'show'])->name('productTypes.show');

@@ -53,7 +53,9 @@
             <a class="white" href="https://www.wildfarm.com.ua/">Wildfarm.com.ua</a>
         </div>
         <div class="center padding-l">
-            <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px">
+            <img  src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px">
+            {{-- {{ $logo }} --}}
+            {{-- /logo/logoimg.png --}}
         </div>
         <h2 class="center white">Дякуємо за замовлення!</h2>
 

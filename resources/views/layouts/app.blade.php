@@ -15,7 +15,7 @@
 
     <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="{{ str_replace('//wildfarm.com.ua/', '//www.wildfarm.com.ua/#!/', url()->current()) }}">
+    <link rel="canonical" href="{{ str_replace('//wildfarm.com.ua/', '//www.wildfarm.com.ua/', url()->current()) }}">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -26,14 +26,11 @@
 
 
     <!-- Social -->
-
     <meta property="og:site_name" content="{{ config('app.name', 'Wildfarm.com.ua') }}">
     <meta property="og:title" content="@yield('title') | {{ config('app.name', 'Wildfarm.com.ua') }}">
     <meta property="og:description" content="@yield('description', 'Farm Shop Wildfarm.com.ua')">
     <meta property="og:image" content="{{ asset('/images/farm.jpeg') }}">
     <meta property="og:url" content="{{ url()->current() }}">
-
-
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

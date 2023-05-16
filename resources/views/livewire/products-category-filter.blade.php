@@ -49,7 +49,7 @@
             <h2 class="category-list-title">Категорії товарів</h2>
             <ul class="ctegorie-list-index">
                 <li class="category-list-element">
-                    <a href="#"
+                    <a href="all"
                         class="category-list-link"
                         wire:click.prevent="changeCategory('all')">
                         Всі категорії
@@ -61,7 +61,7 @@
                 @foreach ($categories as $category)
                     @if (count($category->products))
                     <li class="category-list-element">
-                        <a href="#"
+                        <a href="/tovary?category={{$category->slug}}"
                             class="category-list-link"
                             wire:click.prevent="changeCategory('{{ $category->slug }}')">
                             {{$category->name}}

@@ -94,6 +94,93 @@ class OrderController extends Controller
         // return redirect()->route('orders.thanks');
     }
 
+    public function checkoutMono()
+    {
+
+        $pubKeyBase64 = 'uapzSJx4sRI8H2Z37MvqDxXDOK8y50zwD_FxnQHeOTks';
+
+        $xSignBase64 = 'uapzSJx4sRI8H2Z37MvqDxXDOK8y50zwD_FxnQHeOTks';
+
+        $message = '{
+            "invoiceId": "p2_9ZgpZVsl3",
+            "status": "created",
+            "failureReason": "string",
+            "amount": 4200,
+            "ccy": 980,
+            "finalAmount": 4200,
+            "createdDate": "2019-08-24T14:15:22Z",
+            "modifiedDate": "2019-08-24T14:15:22Z",
+            "reference": "84d0070ee4e44667b31371d8f8813947",
+            "cancelList": [
+              {
+                "status": "processing",
+                "amount": 4200,
+                "ccy": 980,
+                "createdDate": "2019-08-24T14:15:22Z",
+                "modifiedDate": "2019-08-24T14:15:22Z",
+                "approvalCode": "662476",
+                "rrn": "060189181768",
+                "extRef": "635ace02599849e981b2cd7a65f417fe"
+              }
+            ]
+          }';
+
+        // "amount": 4200,
+        // "ccy": 980,
+        // "merchantPaymInfo": {
+        // "reference": "84d0070ee4e44667b31371d8f8813947",
+        // "destination": "Покупка щастя",
+        // "basketOrder": []
+        // },
+        // "redirectUrl": "https://example.com/your/website/result/page",
+        // "webHookUrl": "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily",
+        // "validity": 3600,
+        // "paymentType": "debit",
+        // "qrId": "XJ_DiM4rTd5V",
+        // "saveCardData": {
+        // "saveCard": true,
+        // "walletId": "69f780d841a0434aa535b08821f4822c"
+        // }
+
+
+
+
+
+
+
+
+        $signature = base64_decode($xSignBase64);
+        $publicKey = openssl_get_publickey(base64_decode($pubKeyBase64));
+
+        $result = openssl_verify($message, $signature, $publicKey, OPENSSL_ALGO_SHA256);
+
+        echo $result === 1 ? "OK" : "NOT OK";
+    }
+
+
+    public function monoPay()
+    {
+
+        // {
+        //     "amount": 4200,
+        //     "ccy": 980,
+        //     "merchantPaymInfo": {
+        //     "reference": "84d0070ee4e44667b31371d8f8813947",
+        //     "destination": "Покупка щастя",
+        //     "basketOrder": [$order]
+        //     },
+        //     "redirectUrl": "https://example.com/your/website/result/page",
+        //     "webHookUrl": "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily",
+        //     "validity": 3600,
+        //     "paymentType": "debit",
+        //     "qrId": "XJ_DiM4rTd5V",
+        //     "saveCardData": {
+        //     "saveCard": true,
+        //     "walletId": "69f780d841a0434aa535b08821f4822c"
+        //     }
+        //     }
+    }
+
     public function checkout($data, $order)
     {
         // dd($data);
@@ -175,8 +262,12 @@ class OrderController extends Controller
                 // $orderReference =  $response['orderReference'];
                 session()->forget('cart');
                 $message = 'Tnahk you';
+                $isSuccess = true;
             } else {
                 $message = $response->getReason()->getMessage();
+                telegram_bot_message($message);
+                $isSuccess = false;
+
                 // echo $response->getOrderReference();
                 // codeError = getOrderReference();
                 // echo "Error: " . $response->getReason()->getMessage();
@@ -197,6 +288,7 @@ class OrderController extends Controller
         return view('orders.thanks', [
             'order' => $order,
             'message' => $message,
+            'isSuccess' => $isSuccess,
         ]);
     }
     public function wayForPayServiceUrl()
@@ -218,7 +310,7 @@ class OrderController extends Controller
 
             $returnObject = json_decode($json);
 
-            // telegram_bot_message('serviceURL $returnObject ' . $returnObject );
+            telegram_bot_message($returnObject );
 
             $orderId = $returnObject->orderReference;
 
@@ -228,17 +320,22 @@ class OrderController extends Controller
 
             if ($returnObject->reasonCode == 1100) {
                 $this->updateOrderStatus($orderId, Order::STATUS_PAID);
+                $this->notifySuccessOrder($orderId);
+            }elseif ($returnObject->reasonCode != 1134){
+                $this->updateOrderStatus($orderId, Order::STATUS_CANCELED);
             }
 
             // telegram_bot_message('serviceURL $orderId ' . $orderId );
-
-
 
         } catch (WayForPaySDKException $e) {
             $return = "WayForPay SDK exception: " . $e->getMessage();
             echo $return;
             file_put_contents(public_path('test/serviceUrlData_error.json'), date("H:i").PHP_EOL.$return);
+            telegram_bot_error($e);
 
+        } catch (\Throwable $e) {
+            file_put_contents(public_path('test/serviceUrlData_throwable.json'), date("H:i").PHP_EOL.$e->getMessage());
+            telegram_bot_error($e);
         }
 
         file_put_contents(public_path('test/serviceUrlData.json'), print_r($json, true));
@@ -250,29 +347,55 @@ class OrderController extends Controller
     {
         $order = Order::find($orderId);
 
-        file_put_contents(public_path('test/serviceUrlData-order.json'), jsone_encode($order));
+        file_put_contents(public_path('test/serviceUrlData-order.json'), json_encode($order));
 
-        foreach ($order->order_items as $orderItem) {
-            $orderItem->product->update([
-                'quantity' => $orderItem->product->quantity - $orderItem->product_count
+
+        try {
+            if ($status == Order::STATUS_PAID) {
+                foreach ($order->orderItems as $orderItem) {
+                    $orderItem->product->update([
+                        'quantity' => $orderItem->product->quantity - $orderItem->product_count
+                    ]);
+
+                    if ($orderItem->product->quantity <= 0) {
+                        $orderItem->product->update([
+                            'status' => 'out_of_stock'
+                        ]);
+                    }
+                }
+            }
+
+        } catch (\Throwable $e) {
+            telegram_bot_error($e);
+        }
+        // Udate Product if quantity <= 0 to status out of stock and price and old price on 0
+        if ($order) {
+            $order->update(['payment_status' => $status]);
+            telegram_bot_message([
+                'payment_status' => $status,
+                'orderId' => $orderId,
             ]);
+        }else{
+            telegram_bot_message('serviceURL else');
+        }
+    }
 
-            if ($orderItem->product->quantity <= 0) {
-                $orderItem->product->update([
-                    'status' => 'out_of_stock'
+    public function notifySuccessOrder($orderId)
+    {
+        $order = Order::find($orderId);
+
+        if ($order->client_mail_sended == 0 || $order->admin_mail_sended == 0) {
+            $order->notify(new OrderClientStoreSend($order));
+
+            $admins = User::get();
+            Notification::send($admins, new OrderClientStoreAdmin($order));
+            if ($order) {
+                $order->update([
+                    'client_mail_sended' => 1,
+                    'admin_mail_sended' => 1,
                 ]);
             }
         }
 
-        // Udate Product if quantity <= 0 to status out of stock and price and old price on 0
-
-        if ($order) {
-            $order->update(['payment_status' => $status]);
-            // telegram_bot_message('serviceURL [payment_status => $status] ' . ['payment_status' => $status] );
-        }else{
-            // telegram_bot_message('serviceURL else');
-        }
     }
-
-
 }

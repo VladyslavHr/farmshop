@@ -7,21 +7,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-
-class OrderClientStoreSend extends Notification
+class OrderReturned extends Notification
 {
     use Queueable;
-
-    public $order;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($order)
+    public function __construct()
     {
-        $this->order = $order;
+        //
     }
 
     /**
@@ -32,7 +29,7 @@ class OrderClientStoreSend extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail', 'database'];
+        return ['mail'];
     }
 
     /**
@@ -43,21 +40,10 @@ class OrderClientStoreSend extends Notification
      */
     public function toMail($notifiable)
     {
-        $path = public_path('logo/logoimg.png');
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data_img = file_get_contents($path);
-        $logo = 'data:image/' . $type . ';base64,' . base64_encode($data_img);
-
         return (new MailMessage)
-            ->subject('Замовлення №' . $this->order->id)
-            ->markdown('emails.orders.store', [
-                'order' => $this->order,
-                'logo' => $logo,
-            ]);
-        // return (new MailMessage)
-        //             ->line('The introduction to the notification.')
-        //             ->action('Notification Action', url('/'))
-        //             ->line('Thank you for using our application!');
+                    ->line('The introduction to the notification.')
+                    ->action('Notification Action', url('/'))
+                    ->line('Thank you for using our application!');
     }
 
     /**

@@ -63,7 +63,7 @@
                     @foreach ($categories as $category)
                         {{-- @if (count($category->products)) --}}
                         <li class="category-list-element">
-                            <a href="#"
+                            <a href="?category={{$category->slug}}"
                                 class="category-list-link"
                                 wire:click.prevent="changeCategory('{{ $category->slug }}')">
                                 {{$category->name}}
@@ -73,7 +73,6 @@
                             </a>
                         </li>
                         {{-- @endif --}}
-
                     @endforeach
                 </ul>
             </div>

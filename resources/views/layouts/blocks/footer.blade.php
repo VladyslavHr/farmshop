@@ -121,7 +121,9 @@
               <i class="fas fa-envelope me-3"></i>
               info@wildfarm.com.ua
             </p>
-            <p><i class="fas fa-phone me-3"></i> +380 111 222 333</p>
+            <p><i class="fas fa-phone me-3"></i>
+                <a href="tel: +380683382017"> +380 (68) 338 20 17</a>
+            </p>
             {{-- <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p> --}}
           </div>
           <!-- Grid column -->

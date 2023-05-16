@@ -17,7 +17,7 @@ class ProductController extends Controller
         $sortingBy = $request->sortingBy ?? 'id';
         $sortingDirection = $request->sortingDirection ?? 'desc';
 
-        $products = Product::orderBy($sortingBy, $sortingDirection)->paginate(2);
+        $products = Product::orderBy($sortingBy, $sortingDirection)->paginate(10);
         return view('admin.products.index',[
             'products' => $products,
             'sortingParams' => '?sortingBy='.request('sortingBy').'&sortingDirection='.request('sortingDirection'),

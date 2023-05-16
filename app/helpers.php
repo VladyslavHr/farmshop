@@ -28,6 +28,16 @@ function telegram_bot_message($message){
 }
 
 
+function telegram_bot_error($e)
+{
+    return telegram_bot_message([
+        'message' => $e->getMessage(),
+        'file' => $e->getFile(),
+        'line' => $e->getLine(),
+    ]);
+}
+
+
 // $send_message_url = 'https://api.telegram.org/bot'.$telegram_bot_token.'/sendMessage'? . $data;
 
 // file_get_contents($send_message_url);

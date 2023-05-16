@@ -107,6 +107,8 @@
 
   <script>
 // Initialise Carousel
+Fancybox.defaults.Hash = false;
+
 const mainCarousel = new Carousel(document.querySelector("#mainCarousel"), {
   Dots: false,
 			height   : 250,

@@ -29,7 +29,7 @@
                         </strong>
                     </span>
                     <span>
-                        +380 000 111 222
+                        <a href="tel: +380683382017"> +380 (68) 338 20 17</a>
                     </span>
                 </div>
                 <div class="contact-el">

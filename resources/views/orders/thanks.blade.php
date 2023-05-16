@@ -7,6 +7,7 @@
 <div class="container py-5">
 
     {{-- <h2>{{ $message }}</h2> --}}
+    @if ($isSuccess)
     <div class="text-center py-5">
         <h1>Д'якуємо за ваше замовлення</h1>
         <h3>Номер вашого замовлення <b>{{ $order->id }}</b></h3>
@@ -20,6 +21,13 @@
 
         <h5><a class="thnaks-link-style" href="{{ route('home.index') }}">На головну сторінку</a></h5>
     </div>
+    @else
+    <div class="text-center py-5">
+        <h1>Нажаль сталася помилка</h1>
+        <h3>Будь ласка спробуйте зробити замовлення ще раз <a class="thnaks-link-style" href="{{ route('products.index') }}">перейти до крамниці</a></h3>
+    </div>
+    @endif
+
 </div>
 
 @endsection

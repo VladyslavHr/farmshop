@@ -29,6 +29,8 @@ class Order extends Model
         'delivery_status',
         'payment_method',
         'delivery_track',
+        'client_mail_sended',
+        'admin_mail_sended',
     ];
 
     protected $dates = [

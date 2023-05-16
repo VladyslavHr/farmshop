@@ -43,10 +43,11 @@ class OrderClientUpdateSend extends Notification
      */
     public function toMail($notifiable)
     {
-        $path = 'logo/logoimg.png';
+        $path = public_path('logo/logoimg.png');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data_img = file_get_contents($path);
         $logo = 'data:image/' . $type . ';base64,' . base64_encode($data_img);
+
         return (new MailMessage)
             ->subject('Замовлення №' . $this->order->id)
             ->markdown('emails.orders.update', [
