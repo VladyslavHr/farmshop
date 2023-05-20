@@ -37,6 +37,9 @@ Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('h
 Route::any('/wayForPay/returnUrl', [\App\Http\Controllers\OrderController::class, 'wayForPayReturnUrl'])->name('wayForPay.returnUrl');
 Route::any('/wayForPay/serviceUrl', [\App\Http\Controllers\OrderController::class, 'wayForPayServiceUrl'])->name('wayForPay.serviceUrl');
 
+Route::any('/wayForPay/returnUrl', [\App\Http\Controllers\OrderController::class, 'monobankReturnUrl'])->name('monobank.returnUrl');
+Route::any('/wayForPay/webHook', [\App\Http\Controllers\OrderController::class, 'monobankWebHook'])->name('monobank.webHook');
+
 
 
 // Route::any('/wayForPay/returnUrl', function () {

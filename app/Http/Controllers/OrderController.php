@@ -18,6 +18,7 @@ use WayForPay\SDK\Domain\MerchantTypes;
 use WayForPay\SDK\Exception\WayForPaySDKException;
 use WayForPay\SDK\Handler\ServiceUrlHandler;
 use App\Notifications\{OrderClientStoreSend,OrderClientStoreAdmin};
+use App\Facades\PaymentFacade as Payment;
 use Mail;
 
 class OrderController extends Controller
@@ -94,127 +95,60 @@ class OrderController extends Controller
         // return redirect()->route('orders.thanks');
     }
 
-    public function checkoutMono()
-    {
-
-        $pubKeyBase64 = 'uapzSJx4sRI8H2Z37MvqDxXDOK8y50zwD_FxnQHeOTks';
-
-        $xSignBase64 = 'uapzSJx4sRI8H2Z37MvqDxXDOK8y50zwD_FxnQHeOTks';
-
-        $message = '{
-            "invoiceId": "p2_9ZgpZVsl3",
-            "status": "created",
-            "failureReason": "string",
-            "amount": 4200,
-            "ccy": 980,
-            "finalAmount": 4200,
-            "createdDate": "2019-08-24T14:15:22Z",
-            "modifiedDate": "2019-08-24T14:15:22Z",
-            "reference": "84d0070ee4e44667b31371d8f8813947",
-            "cancelList": [
-              {
-                "status": "processing",
-                "amount": 4200,
-                "ccy": 980,
-                "createdDate": "2019-08-24T14:15:22Z",
-                "modifiedDate": "2019-08-24T14:15:22Z",
-                "approvalCode": "662476",
-                "rrn": "060189181768",
-                "extRef": "635ace02599849e981b2cd7a65f417fe"
-              }
-            ]
-          }';
-
-        // "amount": 4200,
-        // "ccy": 980,
-        // "merchantPaymInfo": {
-        // "reference": "84d0070ee4e44667b31371d8f8813947",
-        // "destination": "Покупка щастя",
-        // "basketOrder": []
-        // },
-        // "redirectUrl": "https://example.com/your/website/result/page",
-        // "webHookUrl": "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily",
-        // "validity": 3600,
-        // "paymentType": "debit",
-        // "qrId": "XJ_DiM4rTd5V",
-        // "saveCardData": {
-        // "saveCard": true,
-        // "walletId": "69f780d841a0434aa535b08821f4822c"
-        // }
-
-
-
-
-
-
-
-
-        $signature = base64_decode($xSignBase64);
-        $publicKey = openssl_get_publickey(base64_decode($pubKeyBase64));
-
-        $result = openssl_verify($message, $signature, $publicKey, OPENSSL_ALGO_SHA256);
-
-        echo $result === 1 ? "OK" : "NOT OK";
-    }
-
-
-    public function monoPay()
-    {
-
-        // {
-        //     "amount": 4200,
-        //     "ccy": 980,
-        //     "merchantPaymInfo": {
-        //     "reference": "84d0070ee4e44667b31371d8f8813947",
-        //     "destination": "Покупка щастя",
-        //     "basketOrder": [$order]
-        //     },
-        //     "redirectUrl": "https://example.com/your/website/result/page",
-        //     "webHookUrl": "https://example.com/mono/acquiring/webhook/maybesomegibberishuniquestringbutnotnecessarily",
-        //     "validity": 3600,
-        //     "paymentType": "debit",
-        //     "qrId": "XJ_DiM4rTd5V",
-        //     "saveCardData": {
-        //     "saveCard": true,
-        //     "walletId": "69f780d841a0434aa535b08821f4822c"
-        //     }
-        //     }
-    }
 
     public function checkout($data, $order)
     {
+
+        $link = Payment::getPaymentLink($order);
+
+        return redirect($link);
         // dd($data);
         // Use test credential or yours
         // $credential = new AccountSecretTestCredential();
-        $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
+        // $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
 
-        $form = PurchaseWizard::get($credential)
-            ->setOrderReference($order->order_reference)
-            ->setAmount($data['total'])
-            ->setCurrency('UAH')
-            ->setOrderDate(new \DateTime())
-            ->setMerchantDomainName('www.wildfarm.com.ua')
-        //    ->setMerchantTransactionType(MerchantTypes::TRANSACTION_AUTO)
-        //    ->setMerchantTransactionType(MerchantTypes::TRANSACTION_AUTH) //  hold
-            ->setClient(new Client(
-                $data['name'],
-                $data['last_name'],
-                $data['email'],
-                $data['phone'],
-            ))
-            ->setProducts(new ProductCollection(array(
-                new Product('test', 0.01, 1)
-            )))
-            ->setReturnUrl(route('wayForPay.returnUrl'))
-            ->setServiceUrl(route('wayForPay.serviceUrl'))
-            ->getForm()
-            ->getAsString();
+        // $form = PurchaseWizard::get($credential)
+        //     ->setOrderReference($order->order_reference)
+        //     ->setAmount($data['total'])
+        //     ->setCurrency('UAH')
+        //     ->setOrderDate(new \DateTime())
+        //     ->setMerchantDomainName('www.wildfarm.com.ua')
+        // //    ->setMerchantTransactionType(MerchantTypes::TRANSACTION_AUTO)
+        // //    ->setMerchantTransactionType(MerchantTypes::TRANSACTION_AUTH) //  hold
+        //     ->setClient(new Client(
+        //         $data['name'],
+        //         $data['last_name'],
+        //         $data['email'],
+        //         $data['phone'],
+        //     ))
+        //     ->setProducts(new ProductCollection(array(
+        //         new Product('test', 0.01, 1)
+        //     )))
+        //     ->setReturnUrl(route('wayForPay.returnUrl'))
+        //     ->setServiceUrl(route('wayForPay.serviceUrl'))
+        //     ->getForm()
+        //     ->getAsString();
 
-        return view('checkouts.index', [
-            'credential' => $credential,
-            'form' => $form,
+        // return view('checkouts.index', [
+        //     'credential' => $credential,
+        //     'form' => $form,
+        // ]);
+    }
+
+    public function monobankReturnUrl(Request $request)
+    {
+        dd($request->all());
+    }
+
+    public function monobankWebHook()
+    {
+        telegram_bot_message([
+            'action' => 'monobankWebHook',
+            'method' => $request->method(),
+            'data' => $request->all(),
         ]);
     }
+
 
     public function refund(Request $request)
     {
@@ -245,8 +179,11 @@ class OrderController extends Controller
             'order' => $order,
         ]);
     }
-    public function wayForPayReturnUrl()
+    public function wayForPayReturnUrl(Request $request)
     {
+
+        dump(getallheaders());
+        dd($request->all());
         // Use test credential or yours
         // $credential = new AccountSecretTestCredential();
         $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));

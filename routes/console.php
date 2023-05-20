@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Artisan;
 use App\Models\{Order,OrderItem,User};
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\{OrderClientStoreSend,OrderClientStoreAdmin};
+use App\Facades\PaymentFacade as Payment;
 // use Mail;
 /*
 |--------------------------------------------------------------------------
@@ -35,8 +36,14 @@ Artisan::command('get-folders', function (){
 
 Artisan::command('testt', function (){
 
-
     $order = Order::find(27);
+
+
+    $link = Payment::getPaymentLink($order);
+
+
+
+
 
 
     foreach ($order->orderItems as $orderItem) {
