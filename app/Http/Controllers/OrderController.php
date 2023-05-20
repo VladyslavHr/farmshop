@@ -150,6 +150,8 @@ class OrderController extends Controller
                 'data' => request()->all(),
                 'headers' => getallheaders(),
                 'xSign' => request()->header('X-Sign'),
+                'content' => request()->getContent(),
+                'file' => file_get_contents('php://input'),
             ]);
         } catch (\Throwable $th) {
             echo $th->getMessage();
