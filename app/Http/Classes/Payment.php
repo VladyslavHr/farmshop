@@ -31,7 +31,7 @@ class Payment implements PaymentInterface
         };
 
         $response = Http::withHeaders([
-            'X-Token' => 'uapzSJx4sRI8H2Z37MvqDxXDOK8y50zwD_FxnQHeOTks',
+            'X-Token' => 'u-ANf29QbXf379ayYP-cuDf6PioLFuupCJX30a_AVB_Q',
         ])->post('https://api.monobank.ua/api/merchant/invoice/create',
             [
                 "amount"=> round($order->total * 100),
@@ -66,6 +66,11 @@ class Payment implements PaymentInterface
 
         // $response->dump();
         return $body['pageUrl'];
+    }
+
+    public function checkSign()
+    {
+        # code...
     }
 
     public function checkOrderStatus($transactionId)

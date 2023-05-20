@@ -142,11 +142,19 @@ class OrderController extends Controller
 
     public function monobankWebHook()
     {
-        telegram_bot_message([
-            'action' => 'monobankWebHook',
-            'method' => $request->method(),
-            'data' => $request->all(),
-        ]);
+
+        try {
+            telegram_bot_message([
+                'action' => 'monobankWebHook',
+                'method' => request()->method(),
+                'data' => request()->all(),
+                'headers' => getallheaders(),
+                'xSign' => rewust()->header('X-Sign'),
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+
     }
 
 
@@ -187,7 +195,6 @@ class OrderController extends Controller
         // Use test credential or yours
         // $credential = new AccountSecretTestCredential();
         $credential = new AccountSecretCredential(config('app.merchant_id'), config('app.merchant_secret'));
-
 
         try {
             $handler = new ServiceUrlHandler($credential);
