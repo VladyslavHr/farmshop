@@ -149,10 +149,10 @@ class OrderController extends Controller
                 'method' => request()->method(),
                 'data' => request()->all(),
                 'headers' => getallheaders(),
-                'xSign' => rewust()->header('X-Sign'),
+                'xSign' => request()->header('X-Sign'),
             ]);
         } catch (\Throwable $th) {
-            //throw $th;
+            echo $th->getMessage();
         }
 
     }
