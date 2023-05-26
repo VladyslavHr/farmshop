@@ -137,7 +137,8 @@ class OrderController extends Controller
 
     public function monobankReturnUrl(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
+        return redirect()->route('home.index');
     }
 
     public function monobankWebHook()
