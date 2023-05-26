@@ -155,11 +155,7 @@ class OrderController extends Controller
             ]);
         } catch (\Throwable $e) {
             echo $e->getMessage();
-            telegram_bot_message([
-                'error' => $e->getMessage(),
-                'file' => $e->getFile(),
-                'line' => $e->getLine(),
-            ]);
+            telegram_bot_error($e);
         }
 
     }
