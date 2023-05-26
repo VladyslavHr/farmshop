@@ -77,7 +77,7 @@ class Payment implements PaymentInterface
         $message = request()->getContent();
 
         $signature = base64_decode($xSignBase64);
-        $publicKey = openssl_get_publickey(base64_decode($pubKeyBase64));
+        $publicKey = openssl_get_publickey($pubKeyBase64);
 
 
         telegram_bot_message([
