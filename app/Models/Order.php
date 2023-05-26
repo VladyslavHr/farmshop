@@ -31,6 +31,7 @@ class Order extends Model
         'delivery_track',
         'client_mail_sended',
         'admin_mail_sended',
+        'transaction_id',
     ];
 
     protected $dates = [

@@ -142,7 +142,6 @@ class OrderController extends Controller
 
     public function monobankWebHook()
     {
-
         try {
             telegram_bot_message([
                 'action' => 'monobankWebHook',
@@ -152,6 +151,7 @@ class OrderController extends Controller
                 'xSign' => request()->header('X-Sign'),
                 'content' => request()->getContent(),
                 'file' => file_get_contents('php://input'),
+                'result' => Payment::checkSign(),
             ]);
         } catch (\Throwable $th) {
             echo $th->getMessage();

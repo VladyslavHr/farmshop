@@ -52,9 +52,9 @@ class Payment implements PaymentInterface
 
 
         // dd($body);
-        // $order->update([
-        //     'transaction_id' => $body['invoiceId'],
-        // ]);
+        $order->update([
+            'transaction_id' => $body['invoiceId'],
+        ]);
 
         // dd($response->getStatusCode());
 
@@ -70,7 +70,18 @@ class Payment implements PaymentInterface
 
     public function checkSign()
     {
-        # code...
+        $pubKeyBase64 = "u-ANf29QbXf379ayYP-cuDf6PioLFuupCJX30a_AVB_Q";
+
+        $xSignBase64 = request()->header('X-Sign');
+
+        $message = request()->getContent();
+
+        $signature = base64_decode($xSignBase64);
+        $publicKey = openssl_get_publickey(base64_decode($pubKeyBase64));
+
+        $result = openssl_verify($message, $signature, $publicKey, OPENSSL_ALGO_SHA256);
+
+        return $result === 1 ? "OK" : "NOT OK";
     }
 
     public function checkOrderStatus($transactionId)
