@@ -20,6 +20,7 @@ return [
     'merchant_id' => env('MERCHANT_ID'),
     'merchant_secret' => env('MERCHANT_SECRET'),
 
+    'monobank_token' => env('MONOBANK_TOKEN'),
     /*
     |--------------------------------------------------------------------------
     | Application Environment
