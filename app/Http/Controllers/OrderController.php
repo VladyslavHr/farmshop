@@ -153,8 +153,13 @@ class OrderController extends Controller
                 'file' => file_get_contents('php://input'),
                 'result' => Payment::checkSign(),
             ]);
-        } catch (\Throwable $th) {
-            echo $th->getMessage();
+        } catch (\Throwable $e) {
+            echo $e->getMessage();
+            telegram_bot_message([
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
         }
 
     }
