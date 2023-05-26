@@ -31,7 +31,7 @@ class Payment implements PaymentInterface
         };
 
         $response = Http::withHeaders([
-            'X-Token' => 'u-ANf29QbXf379ayYP-cuDf6PioLFuupCJX30a_AVB_Q',
+            'X-Token' => config('monobank_token'),
         ])->post('https://api.monobank.ua/api/merchant/invoice/create',
             [
                 "amount"=> round($order->total * 100),
@@ -70,7 +70,7 @@ class Payment implements PaymentInterface
 
     public function checkSign()
     {
-        $pubKeyBase64 = "u-ANf29QbXf379ayYP-cuDf6PioLFuupCJX30a_AVB_Q";
+        $pubKeyBase64 = config('monobank_token');
 
         $xSignBase64 = request()->header('X-Sign');
 
