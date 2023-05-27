@@ -42,8 +42,8 @@ class Payment implements PaymentInterface
                     "basketOrder"=> $items,
                 ],
                 "redirectUrl"=> route('monobank.returnUrl', $order->id),
-                // "webHookUrl"=> "https://wildfarm.com.ua/gopay-notification",
-                "webHookUrl"=> route('monobank.webHook'),
+                "webHookUrl"=> "https://wildfarm.com.ua/gopay-notification",
+                // "webHookUrl"=> route('monobank.webHook'),
                 "validity"=> 3600,
                 "paymentType"=> "debit",
             ]);

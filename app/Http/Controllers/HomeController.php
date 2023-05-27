@@ -23,9 +23,9 @@ class HomeController extends Controller
             'data' => $request->all(),
         ];
 
-        dump($data);
-
-        file_put_contents(public_path('gopay-notification.json'), json_encode($data, 128));
+        telegram_bot_message([
+            'data' => $data,
+        ]);
 
     }
 }
