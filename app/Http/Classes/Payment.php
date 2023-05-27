@@ -37,7 +37,7 @@ class Payment implements PaymentInterface
                 "amount"=> round($order->total * 100),
                 "ccy"=> 980,
                 "merchantPaymInfo"=> [
-                    "reference"=> $order->id,
+                    "reference"=> "$order->id",
                     "destination"=> "Покупка товарів",
                     "basketOrder"=> $items,
                 ],
@@ -63,17 +63,11 @@ class Payment implements PaymentInterface
             'payment_link' => $body,
         ]);
 
-
-
-        telegram_bot_message([
-            'payment_link' => $body,
-        ]);
-
         // dd($response->getStatusCode());
 
-        if ($response->getStatusCode() != 200) {
-            throw new \Exception('Payment gateway error');
-        }
+        // if ($response->getStatusCode() != 200) {
+        //     throw new \Exception('Payment gateway error');
+        // }
 
         // dump($body);
 
