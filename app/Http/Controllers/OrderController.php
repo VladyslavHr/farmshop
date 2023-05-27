@@ -141,7 +141,7 @@ class OrderController extends Controller
 
         $response = Http::withHeaders([
             'X-Token' => config('app.monobank_token'),
-        ])->post("https://api.monobank.ua/api/merchant/invoice/status?invoiceId={$order->id}");
+        ])->get("https://api.monobank.ua/api/merchant/invoice/status?invoiceId={$order->id}");
 
         $body = $response->json();
         // dd($request->all());
