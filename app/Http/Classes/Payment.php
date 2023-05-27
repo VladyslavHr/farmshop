@@ -53,8 +53,20 @@ class Payment implements PaymentInterface
 
 
         // dd($body);
-        $order->update([
-            'transaction_id' => $body['invoiceId'],
+        if (isset($body['invoiceID'])) {
+            $order->update([
+                'transaction_id' => $body['invoiceId'],
+            ]);
+        }
+
+        telegram_bot_message([
+            'payment_link' => $body,
+        ]);
+
+
+
+        telegram_bot_message([
+            'payment_link' => $body,
         ]);
 
         // dd($response->getStatusCode());
