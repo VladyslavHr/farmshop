@@ -36,6 +36,9 @@ Artisan::command('get-folders', function (){
 
 Artisan::command('testt', function (){
 
+    dd(route('monobank.webHook'));
+
+    return;
     $order = Order::find(27);
 
 

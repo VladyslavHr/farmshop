@@ -135,9 +135,20 @@ class OrderController extends Controller
         // ]);
     }
 
-    public function monobankReturnUrl(Request $request)
+    public function monobankReturnUrl(Request $request, $orderId)
     {
+        $order = Order::findOrFail($orderId);
+
+        $response = Http::withHeaders([
+            'X-Token' => config('app.monobank_token'),
+        ])->post("https://api.monobank.ua/api/merchant/invoice/status?invoiceId={$order->id}");
+
+        $body = $response->json();
         // dd($request->all());
+        telegram_bot_message([
+            'return_message' => $body,
+        ]);
+
         return redirect()->route('home.index');
     }
 
