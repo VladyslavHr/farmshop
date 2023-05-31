@@ -17,7 +17,6 @@ class Payment implements PaymentInterface
 
     public function getPaymentLink(Order $order)
     {
-
         $items = [];
 
         foreach ($order->items as $orderItems) {
@@ -42,8 +41,8 @@ class Payment implements PaymentInterface
                     "basketOrder"=> $items,
                 ],
                 "redirectUrl"=> route('monobank.returnUrl', $order->id),
-                "webHookUrl"=> "https://wildfarm.com.ua/gopay-notification",
-                // "webHookUrl"=> route('monobank.webHook'),
+                // "webHookUrl"=> "https://eo6ha77i00j3lyf.m.pipedream.net",
+                "webHookUrl"=> route('monobank.webHook'),
                 "validity"=> 3600,
                 "paymentType"=> "debit",
             ]);
