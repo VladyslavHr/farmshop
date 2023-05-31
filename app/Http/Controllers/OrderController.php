@@ -167,7 +167,7 @@ class OrderController extends Controller
                 'xSign' => request()->header('X-Sign'),
                 'content' => request()->getContent(),
                 'file' => file_get_contents('php://input'),
-                // 'result' => Payment::checkSign(),
+                'result' => Payment::checkSign(),
             ]);
         } catch (\Throwable $e) {
             echo $e->getMessage();
