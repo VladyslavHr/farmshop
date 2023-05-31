@@ -156,23 +156,44 @@ class OrderController extends Controller
         return redirect()->route('home.index');
     }
 
-    public function monobankWebHook()
+    public function monobankWebHook(Request $request, $orderId)
     {
         try {
+            $order = Order::findOrFail($orderId);
+
+            $response = Http::withHeaders([
+                'X-Token' => config('app.monobank_token'),
+            ])->get("https://api.monobank.ua/api/merchant/invoice/status?invoiceId={$order->transaction_id}");
+
+            $body = $response->json();
+            // dd($request->all());
+
+            //  Order status change
             telegram_bot_message([
-                // 'action' => 'monobankWebHook',
-                // 'method' => request()->method(),
-                // 'data' => request()->all(),
-                // 'headers' => getallheaders(),
-                // 'xSign' => request()->header('X-Sign'),
-                // 'content' => request()->getContent(),
-                // 'file' => file_get_contents('php://input'),
-                'result' => Payment::checkSign(),
+                'webHook_message' => $body,
             ]);
+
+            return null;
         } catch (\Throwable $e) {
             echo $e->getMessage();
             telegram_bot_error($e);
         }
+
+        // try {
+        //     telegram_bot_message([
+        //         // 'action' => 'monobankWebHook',
+        //         // 'method' => request()->method(),
+        //         // 'data' => request()->all(),
+        //         // 'headers' => getallheaders(),
+        //         // 'xSign' => request()->header('X-Sign'),
+        //         // 'content' => request()->getContent(),
+        //         // 'file' => file_get_contents('php://input'),
+        //         'result' => Payment::checkSign(),
+        //     ]);
+        // } catch (\Throwable $e) {
+        //     echo $e->getMessage();
+        //     telegram_bot_error($e);
+        // }
 
     }
 
