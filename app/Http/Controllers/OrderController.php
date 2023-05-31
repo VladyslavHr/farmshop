@@ -160,13 +160,13 @@ class OrderController extends Controller
     {
         try {
             telegram_bot_message([
-                'action' => 'monobankWebHook',
-                'method' => request()->method(),
-                'data' => request()->all(),
-                'headers' => getallheaders(),
-                'xSign' => request()->header('X-Sign'),
-                'content' => request()->getContent(),
-                'file' => file_get_contents('php://input'),
+                // 'action' => 'monobankWebHook',
+                // 'method' => request()->method(),
+                // 'data' => request()->all(),
+                // 'headers' => getallheaders(),
+                // 'xSign' => request()->header('X-Sign'),
+                // 'content' => request()->getContent(),
+                // 'file' => file_get_contents('php://input'),
                 'result' => Payment::checkSign(),
             ]);
         } catch (\Throwable $e) {
