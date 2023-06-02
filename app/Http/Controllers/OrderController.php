@@ -333,7 +333,7 @@ class OrderController extends Controller
     {
         $order = Order::find($orderId);
 
-        file_put_contents(public_path('test/serviceUrlData-order.json'), json_encode($order));
+        // file_put_contents(public_path('test/serviceUrlData-order.json'), json_encode($order));
 
 
         try {
