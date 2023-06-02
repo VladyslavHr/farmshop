@@ -151,21 +151,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                        {{-- ...
-                        </tr>
-                        <tr class="align-bottom">
-                        ...
-                        </tr>
-                        <tr> --}}
                         @foreach ($products as $product)
-                            <td class="fs-5 ">{{ $product->name }} <strong class="ms-2">x {{ $product->cart_quantity }}</strong></td>
-                            <td class="fs-5">{{ $product->price }} ₴</td>
+                            <tr>
+                                <td scopre="row" class="fs-5 ">{{ $product->name }} <strong class="ms-2">x {{ $product->cart_quantity }}</strong></td>
+                                <td class="fs-5">{{ $product->price }} ₴</td>
+                            </tr>
                         @endforeach
-
-                        {{-- <td class="align-top">This cell is aligned to the top.</td>
-                        <td>...</td> --}}
-                        </tr>
                     </tbody>
                     <tfoot>
                         <tr>

@@ -138,7 +138,7 @@ class OrderController extends Controller
 
     public function monobankReturnUrl(Request $request, $orderId)
     {
-        // dd($request);
+        // dump($request);
         $order = Order::findOrFail($orderId);
 
         $response = Http::withHeaders([
@@ -146,14 +146,26 @@ class OrderController extends Controller
         ])->get("https://api.monobank.ua/api/merchant/invoice/status?invoiceId={$order->transaction_id}");
 
         $body = $response->json();
-        // dd($request->all());
+        // dd($body);
+        if ($body['status'] === "success") {
+            session()->forget('cart');
+            $message = 'Tnahk you';
+            $isSuccess = true;
+        } else {
+            $message = $body['status'];
+            telegram_bot_message($message);
+            $isSuccess = false;
+        }
 
-        //  Order status change
         telegram_bot_message([
             'return_message' => $body,
         ]);
 
-        return redirect()->route('home.index');
+        return view('orders.thanks', [
+            'order' => $order,
+            'message' => $message,
+            'isSuccess' => $isSuccess,
+        ]);
     }
 
     public function monobankWebHook(Request $request, $orderId)
@@ -167,7 +179,13 @@ class OrderController extends Controller
 
             $body = $response->json();
             // dd($request->all());
-
+            if ($body['status'] === "success") {
+                session()->forget('cart');
+                $this->updateOrderStatus($orderId, Order::STATUS_PAID);
+                $this->notifySuccessOrder($orderId);
+            }elseif ($body['status'] != "success"){
+                $this->updateOrderStatus($orderId, Order::STATUS_CANCELED);
+            }
             //  Order status change
             telegram_bot_message([
                 'webHook_message' => $body,
@@ -178,22 +196,6 @@ class OrderController extends Controller
             echo $e->getMessage();
             telegram_bot_error($e);
         }
-
-        // try {
-        //     telegram_bot_message([
-        //         // 'action' => 'monobankWebHook',
-        //         // 'method' => request()->method(),
-        //         // 'data' => request()->all(),
-        //         // 'headers' => getallheaders(),
-        //         // 'xSign' => request()->header('X-Sign'),
-        //         // 'content' => request()->getContent(),
-        //         // 'file' => file_get_contents('php://input'),
-        //         'result' => Payment::checkSign(),
-        //     ]);
-        // } catch (\Throwable $e) {
-        //     echo $e->getMessage();
-        //     telegram_bot_error($e);
-        // }
 
     }
 
