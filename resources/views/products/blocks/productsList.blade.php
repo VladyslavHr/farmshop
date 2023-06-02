@@ -16,16 +16,16 @@
 
                 <div class="product-status-wrap my-2">
                     @if ( $product->status === 'in_stock' )
-                        <div class="prod-status">
-                            У наявності
+                        <div class="prod-status-stock">
+                            <span>У наявності</span>
                         </div>
                     @elseif ($product->status === 'out_of_stock')
-                        <div class="prod-status">
-                            Немає в наявності
+                        <div class="prod-status-out">
+                            <span>Немає в наявності</span>
                         </div>
                     @elseif ($product->status === 'for_order')
-                        <div class="prod-status">
-                            Під замовлення
+                        <div class="prod-status-order">
+                            <span>Під замовлення</span>
                         </div>
                     @endif
                 </div>

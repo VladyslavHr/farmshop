@@ -188,8 +188,17 @@ body{
     color: #fff!important;
 }
 
-.prod-status{
-    color: #678199;
+.prod-status-stock span{
+    background-color: rgb(11 255 52 / 62%);
+    padding: 3px 5px;
+    border-radius: 2px;
+}
+
+.prod-status-out span,
+.prod-status-order span{
+    background-color: #6781999e;
+    padding: 3px 5px;
+    border-radius: 2px;
 }
 
 .prod-image{
