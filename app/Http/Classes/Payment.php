@@ -44,7 +44,8 @@ class Payment implements PaymentInterface
                 ],
                 "redirectUrl"=> route('monobank.returnUrl', $order->id),
                 // "webHookUrl"=> "https://eo6ha77i00j3lyf.m.pipedream.net",
-                "webHookUrl"=> route('monobank.webHook', $order->id),
+                // "webHookUrl"=> route('monobank.webHook', $order->id),
+                "webHookUrl"=> "https://wildfarm.com.ua/mono/webHook/{$order->id}",
                 "validity"=> 3600,
                 "paymentType"=> "debit",
             ]);
