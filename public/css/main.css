@@ -835,9 +835,9 @@ body{
     filter: grayscale(1);
 }
 
-.product-out-of-stock::after{
+/* .product-out-of-stock::after{
     content: 'Немає в наявності';
-}
+} */
 
 
 /* Pagination */
