@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="container">
-    @livewire('type-category-filter')
+    @livewire('type-category-filter', ['product_types' => $product_types])
 </div>
 
 

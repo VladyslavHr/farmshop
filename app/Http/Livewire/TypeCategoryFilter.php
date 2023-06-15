@@ -12,6 +12,7 @@ class TypeCategoryFilter extends Component
 
     public $paginationTheme = 'bootstrap';
 
+    public $product_types;
     public $type;
     public $category;
     public $categories;

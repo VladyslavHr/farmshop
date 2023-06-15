@@ -10,6 +10,12 @@
                     @else
                     <img style="width: 100%; height: 100%" src="{{ $category->main_img }}" alt="">
                     @endif
+                @elseif ($product_types)
+                    @if ($product_types->main_img == '/images/no-thumb-r.jpg')
+                    <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
+                    @else
+                    <img style="width: 100%; height: 100%" src="{{ $product_types->main_img }}" alt="">
+                    @endif
                 @else
                     <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
                 @endif
@@ -23,6 +29,15 @@
                     </div>
                     <div class="category-page-text">
                         {{ $category->description }}
+                    </div>
+                </div>
+                @elseif ($product_types)
+                <div class="category-page-text-wrap-bg">
+                    <div class="category-page-title">
+                        <h1>{{ $product_types->name }}</h1>
+                    </div>
+                    <div class="category-page-text">
+                        {{ $product_types->description }}
                     </div>
                 </div>
                 @else
