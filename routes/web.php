@@ -32,15 +32,11 @@ Route::any('gopay-notification', [\App\Http\Controllers\HomeController::class, '
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home.index');
 
-
-
 // Route::any('/wayForPay/returnUrl', [\App\Http\Controllers\OrderController::class, 'wayForPayReturnUrl'])->name('wayForPay.returnUrl');
 // Route::any('/wayForPay/serviceUrl', [\App\Http\Controllers\OrderController::class, 'wayForPayServiceUrl'])->name('wayForPay.serviceUrl');
 
 Route::any('/mono/returnUrl/{orderId}', [\App\Http\Controllers\OrderController::class, 'monobankReturnUrl'])->name('monobank.returnUrl');
 Route::any('/mono/webHook/{orderId}', [\App\Http\Controllers\OrderController::class, 'monobankWebHook'])->name('monobank.webHook');
-
-
 
 // Route::any('/wayForPay/returnUrl', function () {
 //     dump(request()->all());
@@ -70,12 +66,8 @@ Route::post('/tovary/removeFromCart/{product}', [ProductController::class, 'remo
 Route::post('/tovary/clearCart/', [ProductController::class, 'clearCart'])->name('clearCart');
 Route::post('/tovary/updateCart/', [ProductController::class, 'updateCart'])->name('updateCart');
 
-
 Route::get('/kosik', [CartController::class, 'index'])->name('carts.index');
 Route::post('/kosik-dodano/{product}', [CartController::class, 'approve'])->name('carts.approve');
-
-
-// Route::get('/zamovlennya', [CartController::class, 'cartStore'])->name('carts.cartStore');
 
 Route::get('/dyakujemo/{order}', [OrderController::class, 'thanks'])->name('orders.thanks');
 Route::get('/zamovlennya', [OrderController::class, 'index'])->name('orders.index');
