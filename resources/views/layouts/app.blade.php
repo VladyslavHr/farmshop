@@ -15,7 +15,7 @@
 
     <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="{{ str_replace('//wildfarm.com.ua/', '//www.wildfarm.com.ua/', url()->current()) }}">
+    <link rel="canonical" href="{{ str_replace('//www.wildfarm.com.ua/', '//wildfarm.com.ua/', url()->current()) }}">
 
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
