@@ -48,7 +48,7 @@ class ProductTypeController extends Controller
     {
         $product_types = ProductType::where('slug', $slug)->first();
 
-        dd($product_types);
+        // dd($product_types);
         return view('productTypes.show',[
             'product_types' => $product_types,
         ]);
