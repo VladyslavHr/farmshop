@@ -73,7 +73,6 @@ class TypeCategoryFilter extends Component
         $this->emit('urlChange', $queryString);
 
         $this->resetPage();
-
     }
 
     public function mount()
@@ -87,9 +86,6 @@ class TypeCategoryFilter extends Component
 
     public function render()
     {
-
-
-
         if (request('category')) {
             $this->choosenCategorySlug = request('category');
         }

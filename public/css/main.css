@@ -218,7 +218,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    filter: grayscale(0.8);
+    /* filter: grayscale(0.8); */
 
 }
 
