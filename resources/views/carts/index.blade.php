@@ -59,6 +59,15 @@
                         </div>
                     </div>
                     <div class="row text-center pt-3 fs-5">
+                        <div class="col-sm-6">Промо код</div>
+                        <div class="col-sm-6">
+                            <input name="promo_code" type="text" class="input-checkout" id="promo_code_input"
+                            {{-- value="{{ $promoCode }}" --}}
+                            data-productid="{{ $product->id }}"
+                            oninput="cart_promo_code(this)">
+                        </div>
+                    </div>
+                    <div class="row text-center pt-3 fs-5">
                         <div class="col-sm-6">Сума</div>
                         <div class="col-sm-6">
                             <span class="js-cart-product-sum">
