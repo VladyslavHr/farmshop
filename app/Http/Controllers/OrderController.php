@@ -26,9 +26,15 @@ class OrderController extends Controller
 {
     public function index()
     {
+        // if (isset()) {
+        //     # code...
+        // }
+        $promoCode = Cart::getPromoCode();
         return view('orders.index', [
             'products' => Cart::getProducts(),
-            'total_sum_product' => Cart::getTotalSum(),
+            'total_sum_product' => number_format(Cart::getTotalSum(), 2),
+            'totalSumWithoutDiscount' => number_format(Cart::getTotalSumWithoutDiscount(), 2),
+            'promoCode' => $promoCode,
         ]);
     }
 
@@ -37,15 +43,21 @@ class OrderController extends Controller
     {
         $total_sum_product = Cart::getTotalSum();
         $product_count = Cart::getTotalCount();
+        $promoCode = Cart::getPromoCode();
 
         $data = $request->validated();
+
         $data['total'] =  $total_sum_product;
         $data['product_quantity'] =  $product_count;
         $data['payment_status'] = Order::STATUS_PENDING;
         $data['delivery_status'] = Order::STATUS_PREPARING;
+        $data['promo_id'] = $promoCode ? $promoCode->id : null;
+        $data['promo_discount'] = $promoCode ? $promoCode->discount : null;
         // $data['user_id'] = auth()->user()->id;
 
         $order = Order::create($data);
+
+
 
         $products = Cart::getProducts();
 
@@ -75,6 +87,16 @@ class OrderController extends Controller
                 $order_item->product->update([
                     'quantity' => $order_item->product->quantity - $order_item->product_count
                 ]);
+                // if ($order_item->promoCode !== null) {
+                //     $order_item->promoCode->update([
+                //         'amount' => $order_item->promoCode->amount - 1
+                //     ]);
+                //     if ($order_item->promoCode->amount <= 0) {
+                //         $order_item->promoCode->update([
+                //             'active' => 0
+                //         ]);
+                //     }
+                // }
                 if ($order_item->product->quantity <= 0) {
                     $order_item->product->update([
                         'status' => 'out_of_stock'
@@ -148,6 +170,16 @@ class OrderController extends Controller
         $body = $response->json();
         // dd($body);
         if ($body['status'] === "success") {
+            foreach ($order->items as $order_item) {
+                $order_item->product->update([
+                    'quantity' => $order_item->product->quantity - $order_item->product_count
+                ]);
+                if ($order_item->product->quantity <= 0) {
+                    $order_item->product->update([
+                        'status' => 'out_of_stock'
+                    ]);
+                }
+            }
             session()->forget('cart');
             $message = 'Tnahk you';
             $isSuccess = true;

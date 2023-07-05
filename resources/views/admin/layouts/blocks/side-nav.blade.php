@@ -185,6 +185,17 @@
                                 <a class="nav-link" href="{{ route('admin.products.create') }}">Створити товар</a>
                             </nav>
                         </div>
+                        <a class="nav-link collapsed" href="javascript:void(0);"  data-bs-toggle="collapse" data-bs-target="#collapsePromoCode" aria-expanded="false" aria-controls="collapsePromoCode">
+                            <div class="nav-link-icon"><i class="material-icons">discount</i></div>
+                            Промо код
+                            <div class="drawer-collapse-arrow"><i class="material-icons">expand_more</i></div>
+                        </a>
+                        <div class="collapse" id="collapsePromoCode" aria-labelledby="headingOne" data-bs-parent="#drawerAccordion">
+                            <nav class="drawer-menu-nested nav">
+                                <a class="nav-link" href="{{ route('admin.promoCode.index') }}">Список промо кодів</a>
+                                <a class="nav-link" href="{{ route('admin.promoCode.create') }}">Створити промо код</a>
+                            </nav>
+                        </div>
                         <!-- Drawer link (Utilities)-->
                         {{-- <a class="nav-link collapsed" href="javascript:void(0);" data-bs-toggle="collapse" data-bs-target="#collapseUtilities" aria-expanded="false" aria-controls="collapseUtilities">
                             <div class="nav-link-icon"><i class="material-icons">price_change</i></div>
@@ -214,6 +225,7 @@
                                 <a class="nav-link" href="{{ route('admin.users.create') }}">Створити нового користувача</a>
                             </nav>
                         </div>
+
                         {{-- <!-- Drawer link (Code Blocks)-->
                         <a class="nav-link" href="plugins-code-blocks.html">
                             <div class="nav-link-icon"><i class="material-icons">code</i></div>

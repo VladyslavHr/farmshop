@@ -20,11 +20,14 @@ class Payment implements PaymentInterface
         $items = [];
 
         foreach ($order->items as $orderItems) {
+            // dd($orderItems->product->main_img);
             $items[] = [
                 "name"=> $orderItems->product_name,
                 "qty"=> $orderItems->product_count,
-                "sum"=> round($orderItems->product_price * 100 * $orderItems->product_count),
-                "icon"=> "https://kartinkof.club/uploads/posts/2022-04/1649993997_1-kartinkof-club-p-sonya-kartinki-prikolnie-1.jpg",
+                // "sum"=> round($orderItems->product_price * 100 * $orderItems->product_count),
+                "sum"=> round($orderItems->product_price * 100),
+                // "icon"=> "https://kartinkof.club/uploads/posts/2022-04/1649993997_1-kartinkof-club-p-sonya-kartinki-prikolnie-1.jpg",
+                "icon"=> asset($orderItems->product->main_img),
                 // "icon"=> $orderItems->main_img,
                 // "icon"=> "storage/product-img-medium/YkKDE0a6w842TzhREqUWlFnAmfH3j9oP5Wujl2la.jpg",
                 "unit"=> $orderItems->product->price_type,

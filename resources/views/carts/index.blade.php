@@ -142,7 +142,23 @@
             @endforeach
 
             <div class="row mt-1 cart-product-sum align-items-center">
-                <div class="col-lg-8">
+                <div class="col-lg-3">
+                </div>
+                <div class="col-lg-1">
+                    <strong>
+                        Промо код
+                    </strong>
+                </div>
+                <div class="col-lg-2">
+                    <input name="promo_code" type="text" class="input-checkout" id="promo_code_input"
+                        {{-- value="{{ $promoCode }}" --}}
+                        data-productid="{{ $product->id }}"
+                        oninput="cart_promo_code(this)">
+                </div>
+                <div class="col-lg-1">
+                    <span id="discount_value">
+                        Знижка ...
+                    </span>
                 </div>
                 <div class="col-lg-1">
                     <strong>
@@ -150,11 +166,21 @@
                     </strong>
                 </div>
                 <div class="col-lg-1">
-                    <span class="js-cart-total-sum">
+                    <span class="js-cart-total-sum" id="">
                         {{  $total_sum_product_formated }}
+                        {{-- <span>
+
+                        </span> --}}
                     </span>
                     ₴
                 </div>
+                {{-- <div class="col-lg-1">
+                    <span id="total_sum_without_discount">
+                        {{ $totalSumWithoutDiscount }}
+
+                    </span>
+
+                </div> --}}
                 <div class="col-lg-2">
                     <a href="{{ route('orders.index') }}" class="btn send-submit">Оформити замовлення</a>
                 </div>

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProductCategoryController as AdminProductCategory
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
 use App\Http\Controllers\Admin\NoteController as AdminNoteController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\PromoCodeController as AdminPromoCodeController;
 use App\Http\Controllers\{ProductController,CartController,OrderController,CheckoutController,HomeController,ProductTypeController,ContactController};
 /*
 |--------------------------------------------------------------------------
@@ -90,9 +91,16 @@ Route::get('/dostavka-i-oplata', [ContactController::class, 'payAndDelivery'])->
 Route::get('/povernenya-tovaru', [ContactController::class, 'retunrRules'])->name('contacts.retunrRules');
 Route::post('/kontakty/store', [ContactController::class, 'store'])->name('contacts.store');
 
-
-
 Route::get('/mailTest', [App\Http\Controllers\CheckoutController::class, 'mailTest']);
+
+
+
+
+
+
+
+
+
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
@@ -115,10 +123,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post('/products/update/{product}', [AdminProductController::class, 'update'])->name('admin.products.update');
     Route::delete('/products/{id}', [AdminProductController::class, 'delete'])->name('admin.products.delete');
 
+    //Promo Code
+    Route::get('/promo-code', [AdminPromoCodeController::class, 'index'])->name('admin.promoCode.index');
+    Route::get('/promo-code/create', [AdminPromoCodeController::class, 'create'])->name('admin.promoCode.create');
+    Route::get('/promo-code/show/{promoCode}', [AdminPromoCodeController::class, 'show'])->name('admin.promoCode.show');
+    Route::post('/promo-code/store', [AdminPromoCodeController::class, 'store'])->name('admin.promoCode.store');
+    Route::get('/promo-code/edit/{promoCode}', [AdminPromoCodeController::class, 'edit'])->name('admin.promoCode.edit');
+    Route::post('/promo-code/update/{promoCode}', [AdminPromoCodeController::class, 'update'])->name('admin.promoCode.update');
+    Route::delete('/promo-code/{id}', [AdminPromoCodeController::class, 'delete'])->name('admin.promoCode.delete');
 
-
-
-    // PriductTypes
+    // ProductTypes
     Route::get('/products-types', [AdminProductTypeController::class, 'index'])->name('admin.productTypes.index');
 
     Route::get('/products-categories-list/{product_type}', [AdminProductTypeController::class, 'categoriesListToType'])->name('admin.productCategories.categoriesListToType');

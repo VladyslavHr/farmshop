@@ -32,6 +32,9 @@ class Order extends Model
         'client_mail_sended',
         'admin_mail_sended',
         'transaction_id',
+        'promo_id',
+        'promo_discount',
+
     ];
 
     protected $dates = [
@@ -60,6 +63,10 @@ class Order extends Model
     public function getOrderReferenceAttribute()
     {
         return $this->created_at->timestamp . '-' . $this->id;
+    }
+
+    public function promoCode() {
+        return $this->belongsTo(PromoCode::class, 'promo_id')->orderByDesc('created_at');
     }
 
 }

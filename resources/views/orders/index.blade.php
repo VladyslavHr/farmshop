@@ -159,6 +159,20 @@
                         @endforeach
                     </tbody>
                     <tfoot>
+                        @if (isset($promoCode))
+                        <tr>
+                            <td class="fs-4">Без знижки</td>
+                            <td class="fs-4"><b class="total-sum-products">{{ $totalSumWithoutDiscount }}</b> ₴</td>
+                        </tr>
+                        <tr>
+                            <td class="fs-4">Знижка</td>
+                            @if ($promoCode->type == 'percent')
+                                <td class="fs-4"><b class="total-sum-products">{{ $promoCode->discount }} %</b></td>
+                            @elseif ($promoCode->type == 'value')
+                                <td class="fs-4"><b class="total-sum-products">{{ $promoCode->discount }} ₴</b></td>
+                            @endif
+                        </tr>
+                        @endif
                         <tr>
                             <td class="fs-4">До сплати</td>
                             <td class="fs-4"><b class="total-sum-products">{{ $total_sum_product }}</b> ₴</td>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Product,ProductCategory};
+use App\Models\{Product,ProductCategory,PromoCode};
 use Illuminate\Http\Request;
 use Cart;
 // use App\Http\Classes\Cart;
@@ -154,14 +154,6 @@ class ProductController extends Controller
 
     public function removeFromCart(Request $request, $productId)
     {
-
-        // if ($request->has('remove_all_cart')) {
-        //     Cart::clear();
-        //     return[
-        //         'status' => 'ok',
-        //     ];
-        // }
-
         Cart::removeProduct($productId);
 
         return [
@@ -183,14 +175,21 @@ class ProductController extends Controller
 
     public function updateCart(Request $request)
     {
+
+        if (isset($request->promo_code)) {
+            Cart::getPromoCodeToCart($request->promo_code);
+        }
+
         Cart::updateProduct($request->productId, $request->quantity);
 
         Cart::getproductSum($request->productId);
 
         return [
             'status' => 'ok',
+            // 'promo_code' => 'ok',
             'sum' => number_format(Cart::getproductSum($request->productId), 2),
             'cart_total_sum' => number_format(Cart::getTotalSum(), 2),
+            'totalSumWithoutDiscount' => number_format(Cart::getTotalSumWithoutDiscount(), 2),
         ];
     }
 }

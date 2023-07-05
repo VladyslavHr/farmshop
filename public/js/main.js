@@ -27,6 +27,9 @@ toastr.options = {
     })
 
 
+$('#discount_value').hide()
+$('#total_sum_without_discount').hide()
+
 function add_button_cart (button, product_id) {
 
     $(button).attr('disabled', true)
@@ -125,6 +128,22 @@ function clearCart(button) {
 
 }
 
+function savePromoCode(promoCode) {
+    localStorage.setItem('promoCode', promoCode);
+  }
+
+// Функция для восстановления значения промокода из localStorage
+function restorePromoCode() {
+    var promoCode = localStorage.getItem('promoCode');
+    if (promoCode) {
+    $('#promo_code_input').val(promoCode);
+    }
+}
+
+$(document).ready(function() {
+    restorePromoCode();
+});
+
 
 
 function cart_input_quantity() {
@@ -156,7 +175,8 @@ function cart_item_minus(button) {
     var resultValue = Math.max(--quantity, 1)
     $quantityInput.val(resultValue)
     var productId = $quantityInput.data('productid')
-    update_cart(productId, resultValue)
+    var promoCode = $('#promo_code_input').val();
+    update_cart(productId, resultValue, promoCode)
 }
 function cart_item_plus(button) {
     var $quantityInput = $(button).parent().find('.js-cart-item-quantity')
@@ -165,7 +185,8 @@ function cart_item_plus(button) {
     var resultValue = Math.min(++quantity,maxValue)
     $quantityInput.val(resultValue)
     var productId = $quantityInput.data('productid')
-    update_cart(productId, resultValue)
+    var promoCode = $('#promo_code_input').val();
+    update_cart(productId, resultValue, promoCode)
 }
 
 function cart_item_quantity_change(input) {
@@ -176,19 +197,38 @@ function cart_item_quantity_change(input) {
     resultValue = Math.min(resultValue,maxValue)
     $quantityInput.val(resultValue)
     var productId = $quantityInput.data('productid')
-    update_cart(productId, resultValue)
+    var promoCode = $('#promo_code_input').val();
+    update_cart(productId, resultValue, promoCode)
 }
 
-function update_cart(productId, quantity) {
+
+function cart_promo_code(input) {
+    var $promoCodeInput = $(input);
+    var promoCode = $promoCodeInput.val(); // Получаем значение промокода из поля ввода
+    savePromoCode(promoCode); // Сохраняем значение промокода
+    var productId = $promoCodeInput.data('productid') // Получаем значение идентификатора продукта из скрытого поля с id="productId"
+    var quantity = $('.js-cart-item-quantity').val();
+
+    update_cart(productId, quantity, promoCode); // Передаем значения в функцию update_cart()
+}
+
+function update_cart(productId, quantity, promoCode) {
+    log(promoCode),
     $.post('/tovary/updateCart', {
         _token: $('meta[name="csrf-token"]').attr('content'),
         productId,
         quantity,
+        promo_code: promoCode, // Добавляем промокод в запрос
     }, function (data) {
+        log(data)
         if (data.status === 'ok') {
-            log()
             $('.product-' +productId).find('.js-cart-product-sum').text(data.sum)
             $('.js-cart-total-sum').text(data.cart_total_sum)
+
+            $('#total_sum_without_discount').show().text(data.totalSumWithoutDiscount)
+        }
+        if (data.promo_code === 'ok') {
+            $('#discount_value').show()
         }
     }, 'json')
 }
@@ -235,3 +275,4 @@ function check_input_ukr_post() {
         $("#delivery_new_post_choose input").attr('disabled', false).removeClass('disabled')
     }
 }
+

@@ -3,7 +3,7 @@
 namespace  App\Http\Classes;
 
 use Illuminate\Support\ServiceProvider;
-use App\Models\{Product};
+use App\Models\{Product,PromoCode};
 
 
 class Cart extends ServiceProvider
@@ -36,6 +36,8 @@ class Cart extends ServiceProvider
 
     public static function getTotalSum()
     {
+        $cart = session('cart', []);
+
         if (!self::$products) {
             self::getProducts();
         }
@@ -46,7 +48,31 @@ class Cart extends ServiceProvider
             $total += $product->sum;
         }
 
-        return $total;
+        $totalWithoutDiscount = $total;
+        if(isset($cart['promoCode'])){
+            $total = $total - (($total/100) * $cart['promoCodeDiscount']);
+        }
+
+        return  $total;
+    }
+
+    public static function getTotalSumWithoutDiscount()
+    {
+        $cart = session('cart', []);
+
+        if (!self::$products) {
+            self::getProducts();
+        }
+
+        $total = 0;
+
+        foreach (self::$products as $product) {
+            $total += $product->sum;
+        }
+
+        $totalWithoutDiscount = $total;
+
+        return $totalWithoutDiscount;
     }
 
     public static function addProduct($productId, $quantity = 1)
@@ -106,13 +132,29 @@ class Cart extends ServiceProvider
     {
         $cart = session('cart', []);
 
-        $total = 0;
+        $totalCount = 0;
 
-        foreach ($cart as $count) {
-            $total += $count;
+        foreach ($cart as $key => $value) {
+            // dump($cart, $value);
+            if ($key !== 'promoCode' && $key !== 'promoCodeDiscount' && is_numeric($value)) {
+                $totalCount += $value;
+            }
         }
+        // dd($totalCount);
 
-        return $total;
+        // $cart = session('cart', []);
+
+        // // dump($cart);
+        // $totalCount = 0;
+
+        // foreach ($cart as $counts) {
+
+        //     // dump($counts);
+        //     $totalCount += $counts;
+        // }
+
+        // dd($totalCount);
+        return $totalCount;
     }
 
 
@@ -121,10 +163,37 @@ class Cart extends ServiceProvider
         return !session('cart', []) ? $ifTrue : $ifFalse;
     }
 
+    public static function getPromoCodeToCart($promoCode) {
 
+        $cart = session('cart', []);
+        $promo = PromoCode::where('name', $promoCode)->first();
 
+        if ($promo) {
+            $cart['promoCode'] = $promo->id;
+            $cart['promoCodeDiscount'] = $promo->discount;
+        }else{
+            unset($cart['promoCode']);
+            unset($cart['promoCodeDiscount']);
+        }
 
+        session(['cart' => $cart]);
 
+        return $cart;
+    }
 
+    public static function getPromoCode()
+    {
+        $cart = session('cart', []);
+        if (isset($cart['promoCode'])) {
+            $promo = PromoCode::where('id', $cart['promoCode'])->first();
+        }
+
+        if (isset($promo)) {
+            return $promo;
+        }else{
+            return null;
+        }
+
+    }
 
 }
