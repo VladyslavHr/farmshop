@@ -170,16 +170,16 @@ class OrderController extends Controller
         $body = $response->json();
         // dd($body);
         if ($body['status'] === "success") {
-            foreach ($order->items as $order_item) {
-                $order_item->product->update([
-                    'quantity' => $order_item->product->quantity - $order_item->product_count
-                ]);
-                if ($order_item->product->quantity <= 0) {
-                    $order_item->product->update([
-                        'status' => 'out_of_stock'
-                    ]);
-                }
-            }
+            // foreach ($order->items as $order_item) {
+            //     $order_item->product->update([
+            //         'quantity' => $order_item->product->quantity - $order_item->product_count
+            //     ]);
+            //     if ($order_item->product->quantity <= 0) {
+            //         $order_item->product->update([
+            //             'status' => 'out_of_stock'
+            //         ]);
+            //     }
+            // }
             session()->forget('cart');
             $message = 'Tnahk you';
             $isSuccess = true;

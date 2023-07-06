@@ -7,7 +7,7 @@
 <div class="container py-5">
 
     {{-- <h2>{{ $message }}</h2> --}}
-    @if (isset($order))
+    @if (isset($order) || isset($isSuccess))
     <div class="text-center py-5">
         <h1>Д'якуємо за ваше замовлення</h1>
         <h3>Номер вашого замовлення <b>{{ $order->id }}</b></h3>
