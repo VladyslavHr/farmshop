@@ -19,18 +19,11 @@
         <div class="full-cart-small-screen">
             @foreach ($products as $product)
                 <div id="cart_product_item_small" class="cart-product-item-small product-{{ $product->id }}">
-                    <div class="row text-center pt-3">
+                    <div class="row text-center pt-5">
                         <div class="col-sm-12 text-center cart-wrap-img">
                             <a href="{{ route('products.show', $product->slug) }}">
                                 <img class="cart-product-image" src="{{ $product->main_img }}" alt="{{ $product->name }}">
                             </a>
-                            <form class="cart-item-delete-small" action="{{ route('removeFromCart', $product) }}" method="POST"
-                            onsubmit="remove_cart_item(this, event)">
-                            @csrf
-                            <button class="cart-item-remove-btn" type="submit">
-                                X
-                            </button>
-                        </form>
                         </div>
                     </div>
                     <div class="row text-center pt-3 fs-5">
@@ -58,7 +51,14 @@
                             <button class="cart-quantity-control" onclick="cart_item_plus(this)"><i class="bi bi-plus-circle"></i></button>
                         </div>
                     </div>
-
+                    <form class="cart-item-delete-small text-center pt-4" action="{{ route('removeFromCart', $product) }}" method="POST"
+                        onsubmit="remove_cart_item(this, event)">
+                        @csrf
+                        <button class="cart-item-remove-btn " type="submit">
+                            Видалити товар
+                            <i class="bi bi-cart-x text-danger"></i>
+                        </button>
+                    </form>
                     <div class="row text-center pt-3 fs-5">
                         <div class="col-sm-6">Сума</div>
                         <div class="col-sm-6">
@@ -98,6 +98,9 @@
                 </div>
             </div>
         </div>
+
+
+
 
         <div class="full-cart">
             <div class="row mt-3 cart-product-titles">

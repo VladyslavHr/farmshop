@@ -86,10 +86,10 @@ body{
 }
 
 .cart-item-delete-small{
-    position: absolute;
-    top: 40%;
+    /* position: absolute;
+    top: 40%; */
     /* right: 10%; */
-    left: 15%;
+    /* left: 15%; */
 }
 
 .full-cart-small-screen{
