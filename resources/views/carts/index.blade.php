@@ -25,12 +25,12 @@
                                 <img class="cart-product-image" src="{{ $product->main_img }}" alt="{{ $product->name }}">
                             </a>
                             <form class="cart-item-delete-small text-center pt-4" action="{{ route('removeFromCart', $product) }}" method="POST"
-                            onsubmit="remove_cart_item(this, event)">
-                            @csrf
-                            <button class="cart-item-remove-btn " type="submit">
-                                <i class="bi bi-x-lg text-danger"></i>
-                            </button>
-                        </form>
+                                onsubmit="remove_cart_item(this, event)">
+                                @csrf
+                                <button class="cart-item-remove-btn " type="submit">
+                                    <i class="bi bi-x-lg text-danger"></i>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div class="row text-center pt-3 fs-5">

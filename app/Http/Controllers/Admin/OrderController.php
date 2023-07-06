@@ -30,7 +30,8 @@ class OrderController extends Controller
                 ['val' => '?sortingBy=total&sortingDirection=desc', 'lable' => 'Дорогі'],
                 ['val' => '?sortingBy=delivery_status&sortingDirection=asc', 'lable' => 'Статус 🠗'],
                 ['val' => '?sortingBy=delivery_status&sortingDirection=desc', 'lable' => 'Статус 🠕'],
-
+                ['val' => '?sortingBy=payment_status&sortingDirection=asc', 'lable' => 'Статус платежу 🠗'],
+                ['val' => '?sortingBy=payment_status&sortingDirection=desc', 'lable' => 'Статус платежу 🠕'],
             ]
         ]);
     }
