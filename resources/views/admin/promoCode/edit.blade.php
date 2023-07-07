@@ -59,7 +59,7 @@
             </div>
             <div class="mb-3 col-md-4">
                 <label for="" class="form-label">Дійсний до</label>
-                <input type="date" name="end_term" value="{{ $promoCode->end_term->format('Y-m-d') }}" class="form-control">
+                <input type="date" name="end_term" value="{{ $promoCode->end_term ? $promoCode->end_term->format('Y-m-d') : '' }}" class="form-control">
                 <span class="form-text">Будь ласка вкажіть кінець дії</span>
             </div>
         </div>

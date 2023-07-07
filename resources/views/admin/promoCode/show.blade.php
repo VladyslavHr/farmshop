@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="row py-3">
-        <div class="col-lg-3">
+        <div class="col-lg-3 py-3">
             <span>
                 <strong>
                     Назва:
@@ -45,17 +45,24 @@
                 {{ $promoCode->name }}
             </span>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 py-3">
             <span>
                 <strong>
                     Тип:
                 </strong>
             </span>
-            <span>
-                {{ $promoCode->type }}
-            </span>
+            @if ($promoCode->type == 'percent')
+                <span>
+                    Відсоток
+                </span>
+            @else
+                <span>
+                    Сума
+                </span>
+            @endif
+
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 py-3">
             <span>
                 <strong>
                     Знижка:
@@ -63,9 +70,18 @@
             </span>
             <span>
                 {{ $promoCode->discount }}
+                @if ($promoCode->type == 'percent')
+                    <span>
+                        %
+                    </span>
+                @else
+                    <span>
+                        ₴
+                    </span>
+                @endif
             </span>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-3 py-3">
             <span>
                 <strong>
                     Статус:
@@ -76,6 +92,21 @@
             @elseif ($promoCode->active === 1)
                 <span>Активний</span>
             @endif
+        </div>
+        <div class="col-lg-3 py-3">
+            <span>
+                <strong>
+                    Придатен до:
+                </strong>
+            </span>
+            <span>
+                @if ($promoCode->term_date)
+                    {{ $promoCode->term_date }}
+                @else
+                    Необмежений
+                @endif
+                {{-- {{ $promoCode->end_term ? $promoCode->end_term->format('Y-m-d') : '' }} --}}
+            </span>
         </div>
     </div>
 </div>
