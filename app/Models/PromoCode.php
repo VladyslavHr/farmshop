@@ -15,11 +15,13 @@ class PromoCode extends Model
         'type',
         'discount',
         'active',
+        'end_term',
     ];
 
     protected $dates = [
         'created_at',
         'updated_at',
+        'end_term'
     ];
 
     public function user() {

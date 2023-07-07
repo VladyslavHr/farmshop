@@ -167,10 +167,13 @@ class Cart extends ServiceProvider
 
         $cart = session('cart', []);
         $promo = PromoCode::where('name', $promoCode)->first();
+        $now = now();
 
         if ($promo) {
-            $cart['promoCode'] = $promo->id;
-            $cart['promoCodeDiscount'] = $promo->discount;
+            if ($promo->end_term >= $now) {
+                $cart['promoCode'] = $promo->id;
+                $cart['promoCodeDiscount'] = $promo->discount;
+            }
         }else{
             unset($cart['promoCode']);
             unset($cart['promoCodeDiscount']);

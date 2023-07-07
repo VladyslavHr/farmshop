@@ -87,7 +87,7 @@ class ProductTypeController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-type-logo', 'product-type-logo-small', $path));
 
             $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(500);
+            $image->resizeToShortSide(400);
             $image->save($resized_url);
 
 
@@ -174,7 +174,7 @@ class ProductTypeController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-type-logo', 'product-type-logo-small', $path));
 
             $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(500);
+            $image->resizeToShortSide(400);
             $image->save($resized_url);
 
             $resized_url = public_path('/storage/'.str_replace('product-type-logo', 'product-type-logo-medium', $path));

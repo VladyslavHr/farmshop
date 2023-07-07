@@ -48,7 +48,8 @@ class OrderController extends Controller
             $payment_status = 'Відмінено';
         }elseif ($order->payment_status === 'refounded') {
             $payment_status = 'Повернуто';
-
+        }elseif ($order->payment_status === 'cash') {
+            $payment_status = 'Готівка';
         }
 
         return view('admin.orders.show',[

@@ -1,19 +1,26 @@
 {{-- <div class="container"> --}}
 <div>
-    <div class="row pt-3">
-        <div class="col-xl-4 category-page-img-wrap">
+    <div class="row pt-3" style="min-height: 440px">
+        <div class="col-xl-3 category-page-img-wrap">
             @if ($category)
                 @if ($category->main_img == '/images/no-thumb-r.jpg')
-                {{-- <img style="width: 100%;" src="{{ $category->main_img }}" alt=""> --}}
+                {{-- <div class="back-image-standart" style="background-image: url('/images/kram-log.jpeg')"></div> --}}
+                    <img style="width: 100%; max-height: 440px;" src="{{ asset('/images/kram-log.jpg') }}" alt="">
+                @else
+                    <img style="width: 100%; max-height: 440px;" src="{{ str_replace('product-categories-logo', 'product-categories-logo-small', $category->logo) }}" alt="">
+                @endif
+            {{-- @elseif ($product_types)
+                @if ($product_types->main_img == '/images/no-thumb-r.jpg')
                     <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
                 @else
-                    <img style="width: 100%; height: 100%" src="{{ $category->main_img }}" alt="">
-                @endif
+                    <img style="width: 100%; height: 100%" src="{{ str_replace('product-type-logo', 'product-type-logo-small', $product_types->logo) }}" alt="">
+                @endif --}}
             @else
-                <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
+                <img style="width: 100%; max-height: 440px;" src="{{ asset('/images/kram-log.jpg') }}" alt="">
             @endif
+            {{-- <div class="back-image-standart" style="background-image: url('/images/kram-log.jpeg')"></div> --}}
         </div>
-        <div class="col-xl-8 category-page-text-wrap">
+        <div class="col-xl-9 category-page-text-wrap">
             @if ($category)
             <div class="category-page-text-wrap-bg">
                 <div class="category-page-title">

@@ -40,6 +40,7 @@ class PromoCodeController extends Controller
             'type' => 'required',
             'discount' => 'required',
             'active' => 'required',
+            'end_term' => '',
 		];
 
         $message =         [
@@ -78,6 +79,7 @@ class PromoCodeController extends Controller
             'type' => 'required',
             'discount' => 'required',
             'active' => 'required',
+            'end_term' => '',
 		];
 
         $message =         [

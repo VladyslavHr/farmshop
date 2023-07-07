@@ -5,9 +5,9 @@
                 <div class="drawer-menu">
                     <div class="nav">
                         <!-- Drawer section heading (Account)-->
-                        <div class="drawer-menu-heading d-sm-none">Account</div>
+                        {{-- <div class="drawer-menu-heading d-sm-none">Account</div> --}}
                         <!-- Drawer link (Notifications)-->
-                        <a class="nav-link d-sm-none" href="#!">
+                        {{-- <a class="nav-link d-sm-none" href="#!">
                             <div class="nav-link-icon"><i class="material-icons">notifications</i></div>
                             Notifications
                         </a>
@@ -15,7 +15,7 @@
                         <a class="nav-link d-sm-none" href="#!">
                             <div class="nav-link-icon"><i class="material-icons">mail</i></div>
                             Zpravy
-                        </a>
+                        </a> --}}
                         <!-- Divider-->
                         <div class="drawer-menu-divider d-sm-none"></div>
                         <!-- Drawer section heading (Interface)-->

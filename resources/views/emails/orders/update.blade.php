@@ -53,7 +53,9 @@
             <a class="white" href="https://www.wildfarm.com.ua/">Wildfarm.com.ua</a>
         </div>
         <div class="center padding-l">
-            <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px">
+            <img src="{{ $logoUrl }}" alt="Wildfarm.com.ua" width="100px">
+            {{-- <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px"> --}}
+            {{-- <img  src="{{ asset('/logo/logoimg.png') }}" alt="Wildfarm.com.ua" width="100px"> --}}
         </div>
         @if ($order->delivery_status == 'collected')
             <h2 class="center white">Ваше замовлення зібрано!</h2>
@@ -141,7 +143,10 @@
             <a class="white" href="https://www.wildfarm.com.ua/">Wildfarm.com.ua</a>
         </div>
         <div class="center padding-l">
-            <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px">
+            {{-- {{ $logo }} --}}
+            {{-- <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px"> --}}
+            <img src="{{ $logoUrl }}" alt="Wildfarm.com.ua" width="100px">
+            {{-- <img  src="{{ asset('/logo/logoimg.png') }}" alt="Wildfarm.com.ua" width="100px"> --}}
         </div>
         <div class="center white padding">
             Дякуємо за покупку і бажаємо вам усього найкращого! Ваша команда Wildfarm.com.ua.

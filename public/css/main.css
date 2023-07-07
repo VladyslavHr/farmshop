@@ -849,6 +849,32 @@ body{
     content: 'Немає в наявності';
 } */
 
+.back-image-standart{
+    background-image: url('/images/kram-log.jpeg');
+    width: 100%;
+    height: 300px;
+    background-repeat: round;
+}
+
+.back-image-change{
+    width: 100%;
+    height: 300px;
+    background-repeat: round;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Pagination */
 

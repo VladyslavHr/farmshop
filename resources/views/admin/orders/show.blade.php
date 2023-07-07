@@ -78,6 +78,12 @@
             </strong>
             {{ $order->product_quantity }}
         </div>
+        <div class="col-lg-3">
+            <strong>
+                Статус платежа:
+            </strong>
+            {{ $payment_status }}
+        </div>
     </div>
 
     <h4 class="pt-3 pb-1">
@@ -150,7 +156,7 @@
             </strong>
             {{$item->product_old_price}} UAH
         </div>
-        <div class="col-lg-3 py-1">
+        <div class="col-lg-2 py-1">
             <strong>
                 Ціна:
             </strong>
@@ -158,11 +164,17 @@
                 {{$item->product_price}} UAH
             </span>
         </div>
-        <div class="col-lg-3 py-1">
+        <div class="col-lg-2 py-1">
             <strong>
                 Кількість:
             </strong>
             {{$item->product_count}}
+        </div>
+        <div class="col-lg-2 py-1">
+            <strong>
+                Вид ціни:
+            </strong>
+            {{$item->product->price_type}}
         </div>
     </div>
     @endforeach
@@ -171,13 +183,13 @@
         Доставка:
     </h4>
     <div class="row border-devider">
-        <div class="col-lg-4">
+        {{-- <div class="col-lg-4">
             <strong>
                 Статус платежа:
             </strong>
             {{ $payment_status }}
-        </div>
-        <form action="{{ route('admin.orders.update', $order) }}" class="col-lg-8" method="POST">
+        </div> --}}
+        <form action="{{ route('admin.orders.update', $order) }}" class="col-lg-6" method="POST">
             @csrf
             <div class="input-group">
                 @if ($order->self_shipping == 0)

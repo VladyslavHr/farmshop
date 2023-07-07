@@ -44,12 +44,14 @@ class OrderClientStoreAdmin extends Notification
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data_img = file_get_contents($path);
         $logo = 'data:image/' . $type . ';base64,' . base64_encode($data_img);
+        $logoUrl = asset('logo/logoimg.png');
 
         return (new MailMessage)
             ->subject('Замовлення №' . $this->order->id )
             ->markdown('emails.orders.storeAdmin', [
                 'order' => $this->order,
                 'logo' => $logo,
+                'logoUrl' => $logoUrl,
             ]);
     }
 

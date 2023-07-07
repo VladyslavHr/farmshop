@@ -75,11 +75,11 @@ class ProductCategoryController extends Controller
             $image->resizeToShortSide(500);
             $image->save($resized_url);
 
-
             $resized_url = public_path('/storage/'.str_replace('product-categories-img', 'product-categories-img-medium', $path));
 
             $image = new ImageResize($request->file('main_img'));
             $image->resizeToShortSide(1000);
+
             $image->save($resized_url);
 		}else{
 			$data['main_img'] = '/images/no-thumb-r.jpg';
@@ -93,7 +93,7 @@ class ProductCategoryController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-categories-logo', 'product-categories-logo-small', $path));
 
             $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(500);
+            $image->resizeToShortSide(400);
             $image->save($resized_url);
 
 
@@ -186,7 +186,8 @@ class ProductCategoryController extends Controller
             $resized_url = public_path('/storage/'.str_replace('product-categories-logo', 'product-categories-logo-small', $path));
 
             $image = new ImageResize($request->file('logo'));
-            $image->resizeToShortSide(500);
+            $image->resizeToShortSide(400);
+
             $image->save($resized_url);
 
             $resized_url = public_path('/storage/'.str_replace('product-categories-logo', 'product-categories-logo-medium', $path));

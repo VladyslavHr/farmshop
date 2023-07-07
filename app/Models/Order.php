@@ -49,6 +49,8 @@ class Order extends Model
     public const STATUS_REFOUNDED = 'refounded';
 
 
+    public const STATUS_CASH = 'cash';
+
     public const STATUS_PREPARING = 'preparing';
     public const STATUS_DELIVERED = 'delivered';
     public const STATUS_RETURNED = 'returned';

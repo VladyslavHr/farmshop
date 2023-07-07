@@ -42,7 +42,7 @@
             <th class="text-center" scope="col">Статус</th>
             <th class="text-center" scope="col">Перегляд</th>
             <th class="text-center" scope="col">Змінено</th>
-            <th class="text-center" scope="col">Створено</th>
+            <th class="text-center" scope="col">Дійсний до</th>
             <th class="text-center" scope="col">Редагувати</th>
             <th class="text-center" scope="col">Видалити</th>
           </tr>
@@ -68,8 +68,17 @@
                         <i class="bi bi-eye"></i>
                     </a>
                 </td>
-                <td class="text-center">{{ $promo->updated_at->format('Y-m-d H:i') }}</td>
-                <td class="text-center">{{ $promo->created_at->format('Y-m-d H:i') }}</td>
+                <td class="text-center">{{ $promo->updated_at->format('d-m-Y') }}</td>
+                @if ($promo->end_term != null)
+                    @if ($promo->end_term >= now())
+                        <td class="text-center text-success">{{ $promo->end_term->format('d-m-Y') }}</td>
+                    @else
+                        <td class="text-center text-danger">{{ $promo->end_term->format('d-m-Y') }}</td>
+                    @endif
+                @else
+                    <td class="text-center">Необмежений</td>
+                @endif
+                {{-- <td class="text-center">{{ $promo->created_at->format('d-m-Y') }}</td> --}}
                 <td class="text-center">
                     <a href="{{ route('admin.promoCode.edit', $promo) }}"><i class="bi bi-pencil-fill"></i></a>
                 </td>

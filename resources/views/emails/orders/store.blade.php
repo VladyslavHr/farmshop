@@ -53,7 +53,8 @@
             <a class="white" href="https://www.wildfarm.com.ua/">Wildfarm.com.ua</a>
         </div>
         <div class="center padding-l">
-            <img  src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px">
+            {{-- <img  src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px"> --}}
+            <img  src="{{ $logoUrl }}" alt="Wildfarm.com.ua" width="100px">
             {{-- {{ $logo }} --}}
             {{-- /logo/logoimg.png --}}
         </div>
@@ -139,7 +140,9 @@
             <a class="white" href="https://www.wildfarm.com.ua/">Wildfarm.com.ua</a>
         </div>
         <div class="center padding-l">
-            <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px">
+            {{-- <img src="{{ $logo }}" alt="Wildfarm.com.ua" width="100px"> --}}
+            <img src="{{ $logoUrl }}" alt="Wildfarm.com.ua" width="100px">
+            {{-- <img  src="/logo/logoimg.png" alt="Wildfarm.com.ua" width="100px"> --}}
         </div>
         <div class="center white padding">
             Бажаємо вам всього найкращого! Ваша команда Wildfarm.com.ua.

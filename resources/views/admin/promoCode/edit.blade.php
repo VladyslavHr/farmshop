@@ -44,7 +44,7 @@
                 </select>
                 <span class="form-text">Будь ласка напишіть тип промо коду (відсотокб сума).</span>
             </div>
-            <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-4">
                 <label for="" class="form-label">Знижка</label>
                 <input type="num" name="discount" value="{{ $promoCode->discount }}" class="form-control">
                 <span class="form-text">Будь ласка напишіть знижку</span>
@@ -56,6 +56,11 @@
                     <option value="1" {{ $promoCode->active == 1 ? 'selected' : '' }}>Активний</option>
                 </select>
                 <span class="form-text">Будь ласка виберіть статут промо коду (Активний або не активний).</span>
+            </div>
+            <div class="mb-3 col-md-4">
+                <label for="" class="form-label">Дійсний до</label>
+                <input type="date" name="end_term" value="{{ $promoCode->end_term->format('Y-m-d') }}" class="form-control">
+                <span class="form-text">Будь ласка вкажіть кінець дії</span>
             </div>
         </div>
         <button type="submit" class="btn btn-primary col-md-1" >Змінити</button>

@@ -66,6 +66,8 @@
                   <td class="text-center text-danger">Відмінено <i class="bi bi-x"></i> </td>
                 @elseif ($order->payment_status === 'refounded')
                   <td class="text-center text-warning">Повернуто <i class="bi bi-arrow-repeat"></i></td>
+                @elseif ($order->payment_status === 'cash')
+                  <td class="text-center text-info">Готівка <i class="bi bi-cash-coin"></i></td>
                 @endif
                 @if ($order->delivery_status === 'preparing')
                   <td class="text-center text-secondary">Збирається <i class="bi bi-box-seam"></i></td>
@@ -83,7 +85,7 @@
                         <i class="bi bi-eye"></i>
                     </a>
                 </td>
-                <td class="text-center">{{ $order->updated_at->format('Y-m-d') }}</td>
+                <td class="text-center">{{ $order->updated_at->format('m-d') }}</td>
                 <td class="text-center">{{ $order->created_at->format('Y-m-d') }}</td>
               </tr>
             @endforeach

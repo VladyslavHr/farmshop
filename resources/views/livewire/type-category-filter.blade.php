@@ -1,27 +1,29 @@
 {{-- <div class="container"> --}}
     <div>
-        <div class="category-page-wrap mt-3">
-            {{-- category-page-wrap-left --}}
-            <div class="col-lg-6">
+        <div class="row pt-3" style="min-height: 440px">
+            <div class="col-xl-3 category-page-img-wrap">
                 @if ($category)
                     @if ($category->main_img == '/images/no-thumb-r.jpg')
-                    {{-- <img style="width: 100%;" src="{{ $category->main_img }}" alt=""> --}}
-                    <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
+                    {{-- <div class="back-image-standart" style="background-image: url('/images/kram-log.jpeg')"></div> --}}
+                        <img style="width: 100%; max-height: 440px;" src="{{ asset('/images/kram-log.jpg') }}" alt="">
                     @else
-                    <img style="width: 100%; height: 100%" src="{{ $category->main_img }}" alt="">
+                        <img style="width: 100%; max-height: 440px;" src="{{ str_replace('product-categories-logo', 'product-categories-logo-small', $category->logo) }}" alt="">
+                        {{-- <div class="back-image-change" style="background-image: {{ $category->logo }}"></div> --}}
                     @endif
                 @elseif ($product_types)
                     @if ($product_types->main_img == '/images/no-thumb-r.jpg')
-                    <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
+                        {{-- <div class="back-image-standart" style="background-image: url('/images/kram-log.jpeg')"></div> --}}
+                        <img style="width: 100%; max-height: 440px;" src="{{ asset('/images/kram-log.jpg') }}" alt="">
                     @else
-                    <img style="width: 100%; height: 100%" src="{{ $product_types->main_img }}" alt="">
+                        {{-- <div class="back-image-change" style="background-image: {{ $product_types->logo }}"></div> --}}
+                        <img style="width: 100%; max-height: 440px;" src="{{ str_replace('product-type-logo', 'product-type-logo-small', $product_types->logo) }}" alt="">
                     @endif
                 @else
-                    <img style="width: 100%; height: 100%" src="{{ asset('/images/kram-log.jpeg') }}" alt="">
+                {{-- <div class="back-image-standart" style="background-image: url('/images/kram-log.jpeg')"></div> --}}
+                    <img style="width: 100%; max-height: 440px;" src="{{ asset('/images/kram-log.jpg') }}" alt="">
                 @endif
             </div>
-            <div class="col-lg-6">
-                {{-- category-page-wrap-right --}}
+            <div class="col-xl-9 category-page-text-wrap">
                 @if ($category)
                 <div class="category-page-text-wrap-bg">
                     <div class="category-page-title">
@@ -50,7 +52,6 @@
                         Ми дотримуємось екологічних стандартів і гарантуємо якість своїх продуктів.
                         У нашому асортименті ви знайдете свіжі фрукти та овочі, які вирощуються в залежності від сезону.
                         Ми також пропонуємо різноманітні сорти меду, свіжі яйця від курей, які знаходяться на вільному вигулі.
-                        {{-- та молочні продукти від місцевих фермерів --}}
                         У нашому магазині ви зможете знайти також широкий вибір рослин, які підходять для вирощування вдома, на городі чи на балконі.
                         Ми пропонуємо насіння овочів, фруктів та ягід, різноманітні сорти квітів та рослин для декорування вашого саду чи кімнати.
                         Ми прагнемо забезпечити наших клієнтів тільки найкращою якістю продуктів та рослин, а також професійним підходом до обслуговування.

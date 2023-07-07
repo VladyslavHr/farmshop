@@ -49,7 +49,11 @@ class OrderController extends Controller
 
         $data['total'] =  $total_sum_product;
         $data['product_quantity'] =  $product_count;
-        $data['payment_status'] = Order::STATUS_PENDING;
+        if ($request->payment_method == 'card') {
+            $data['payment_status'] = Order::STATUS_PENDING;
+        }else{
+            $data['payment_status'] = Order::STATUS_CASH;
+        }
         $data['delivery_status'] = Order::STATUS_PREPARING;
         $data['promo_id'] = $promoCode ? $promoCode->id : null;
         $data['promo_discount'] = $promoCode ? $promoCode->discount : null;
