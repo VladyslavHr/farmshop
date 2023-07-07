@@ -40,7 +40,7 @@
                 <label for="" class="form-label">Тип промо коду</label>
                 <select name="type" id="" class="form-select">
                     <option value="percent" {{ $promoCode->status == 'percent' ? 'selected' : '' }}>Відсоток</option>
-                    <option value="value" {{ $promoCode->status == 'value' ? 'selected' : '' }}>Сума</option>
+                    {{-- <option value="value" {{ $promoCode->status == 'value' ? 'selected' : '' }}>Сума</option> --}}
                 </select>
                 <span class="form-text">Будь ласка напишіть тип промо коду (відсотокб сума).</span>
             </div>
