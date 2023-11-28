@@ -95,14 +95,28 @@ Route::get('/mailTest', [App\Http\Controllers\CheckoutController::class, 'mailTe
 
 
 
+// Profile
+Route::group(['middleware' => ['auth']], function() {
+
+    Route::get('profile/{user}', [\App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+    Route::get('profile/contact-info/{user}', [\App\Http\Controllers\ProfileController::class, 'info'])->name('profile.info');
+    Route::get('profile/orders/{user}', [\App\Http\Controllers\ProfileController::class, 'orders'])->name('profile.orders');
+    Route::get('profile/return/{user}', [\App\Http\Controllers\ProfileController::class, 'return'])->name('profile.return');
+    Route::get('profile/password/{user}', [\App\Http\Controllers\ProfileController::class, 'password'])->name('profile.password');
+
+    Route::get('profile/orders/{user}/{order}', [\App\Http\Controllers\ProfileController::class, 'orderShow'])->name('profile.orderShow');
+
+    Route::put('profile/contact-info/{user}/update', [\App\Http\Controllers\ProfileController::class, 'infoUpdate'])->name('profile.infoUpdate');
+    Route::put('profile/password/{user}/update', [\App\Http\Controllers\ProfileController::class, 'passwordUpdate'])->name('profile.passwordUpdate');
+
+
+});
 
 
 
 
 
-
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function() {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function() {
 
     // Dashboard
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard.index');

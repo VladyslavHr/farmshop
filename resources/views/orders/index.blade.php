@@ -12,54 +12,57 @@
         @endforeach
         <div class="col-md-6">
             <h2 class="pt-2">Платіжні реквізити</h2>
-            <div class="row">
-                <div class="col-lg-6">
-                    <span class="small-titles-inputs d-block">Ім'я</span>
-                    <input type="text" name="name" value=" {{ old('name') }}" class=" input-checkout @error ('name') is-invalid @enderror">
-                    <div class="invalid-feedback">
-                        @error ('name') {{$message}}@enderror
+            @if (auth()->user())
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Ім'я</span>
+                        <input type="text" name="name" value=" {{ auth()->user()->name }}" class=" input-checkout @error ('name') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('name') {{$message}}@enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Прізвище</span>
+                        <input type="text" name="last_name" value=" {{ auth()->user()->last_name }}" class=" input-checkout @error ('last_name') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('last_name') {{$message}}@enderror
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <span class="small-titles-inputs d-block">Прізвище</span>
-                    <input type="text" name="last_name" value=" {{ old('last_name') }}" class=" input-checkout @error ('last_name') is-invalid @enderror">
-                    <div class="invalid-feedback">
-                        @error ('last_name') {{$message}}@enderror
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Електронна пошта</span>
+                        <input type="email" name="email" value=" {{  auth()->user()->email }}" class=" input-checkout @error ('email') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('email') {{$message}}@enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Мобільний телефон</span>
+                        <input type="tel" name="phone" value=" {{  auth()->user()->phone }}" class=" input-checkout @error ('phone') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('phone') {{$message}}@enderror
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <span class="small-titles-inputs d-block">Електронна пошта</span>
-                    <input type="email" name="email" value=" {{ old('email') }}" class=" input-checkout @error ('email') is-invalid @enderror">
-                    <div class="invalid-feedback">
-                        @error ('email') {{$message}}@enderror
+                <div class="selfshipping-wrap" >
+                    <div class="form-check self-shipping-check pt-4" >
+                        <input class="form-check-input self-shipping-input" type="checkbox" id="check_self_shipping" name="self_shipping"
+                        {{ old('self_shipping', auth()->user()->selfship) ? 'checked' : '' }}
+                        value="1"  onclick="choose_self_shipping()">
+                        <div class="invalid-feedback">
+                            @error ('self_shipping') {{$message}}@enderror
+                        </div>
+                        <label class="form-check-label" for="check_self_shipping">
+                            Самовивіз
+                        </label>
+                    </div>
+                    <div class="self-shipping pt-4">
+                        Самовивіз можливий кожень день з 8:00 до 18:00
+                        За адресою с.Соколово дн-району Дніпропетровської обл.
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <span class="small-titles-inputs d-block">Мобільний телефон</span>
-                    <input type="tel" name="phone" value=" {{ old('phone') }}" class=" input-checkout @error ('phone') is-invalid @enderror">
-                    <div class="invalid-feedback">
-                        @error ('phone') {{$message}}@enderror
-                    </div>
-                </div>
-            </div>
 
-            <div class="selfshipping-wrap" >
-            <div class="form-check self-shipping-check pt-4" >
-                <input class="form-check-input self-shipping-input" type="checkbox" id="check_self_shipping" name="self_shipping" value="1"  onclick="choose_self_shipping()">
-                <div class="invalid-feedback">
-                    @error ('self_shipping') {{$message}}@enderror
-                </div>
-                <label class="form-check-label" for="check_self_shipping">
-                  Самовивіз
-                </label>
-              </div>
-            <div class="self-shipping pt-4">
-                Самовивіз можливий кожень день з 8:00 до 18:00
-                За адресою с.Соколово дн-району Дніпропетровської обл.
-            </div>
-            </div>
             <div class="delivery-new-post-wrap" id="delivery_new_post_choose" >
                 <div class="delivery-title d-flex py-5">
                     <h2>
@@ -68,68 +71,33 @@
                     <div class="ms-3 delivery-logo-newpost">
                         <img style="width: 100%" src="/logo/noa_posta_logo.svg.png" alt="Нова Пошта">
                     </div>
-                    {{-- <div class="invalid-feedback">
-                        @error ('new_post_num') {{$message}}@enderror
-                    </div> --}}
                 </div>
 
                 <div class="row">
                     <div class="col-lg-3">
                         <span class="small-titles-inputs d-block">Населенний пункт</span>
-                        <input type="text" name="new_post_city" value="{{ old('new_post_city') }}" class=" input-checkout @error ('new_post_city') is-invalid @enderror" oninput="check_input_new_post(this)">
+                        <input type="text" name="new_post_city" value="{{ old('new_post_city', auth()->user()->new_post_city) }}" class=" input-checkout @error ('new_post_city') is-invalid @enderror" oninput="check_input_new_post(this)">
                         <div class="invalid-feedback">
                             @error ('new_post_city') {{$message}}@enderror
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <span class="small-titles-inputs d-block">№ відділення</span>
-                        <input type="number" name="new_post_num" value="{{ old('new_post_num') }}" class="input-checkout @error ('new_post_num') is-invalid @enderror" oninput="check_input_new_post(this)">
+                        <input type="number" name="new_post_num" value="{{ old('new_post_num', auth()->user()->new_post_num) }}" class="input-checkout @error ('new_post_num') is-invalid @enderror" oninput="check_input_new_post(this)">
                         <div class="invalid-feedback">
                             @error ('new_post_num') {{$message}}@enderror
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <span class="small-titles-inputs d-block">Адреса відділення</span>
-                        <input type="text" name="new_post_adress" value="{{ old('new_post_adress') }}" class=" input-checkout @error ('new_post_adress') is-invalid @enderror" oninput="check_input_new_post(this)">
+                        <input type="text" name="new_post_adress" value="{{ old('new_post_adress', auth()->user()->new_post_adress) }}" class=" input-checkout @error ('new_post_adress') is-invalid @enderror" oninput="check_input_new_post(this)">
                         <div class="invalid-feedback">
                             @error ('new_post_adress') {{$message}}@enderror
                         </div>
                     </div>
                 </div>
             </div>
-            {{-- <div class="delivery-ukr-post-wrap" id="delivery_ukr_post_choose">
-                <div class="delivery-title d-flex py-5">
-                    <h2>
-                        Доставка з Укрпошта
-                    </h2>
-                    <div class="ms-3 delivery-logo-ukrpost">
-                        <img style="width: 100%" src="/logo/ukrposta-icon.png" alt="Укрпошта">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <span class="small-titles-inputs d-block">Населенний пункт</span>
-                        <input type="text" name="post_locality" value="{{ old('post_locality') }}" class=" input-checkout @error ('post_locality') is-invalid @enderror" oninput="check_input_ukr_post(this)">
-                        <div class="invalid-feedback">
-                            @error ('post_locality') {{$message}}@enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <span class="small-titles-inputs d-block">№ відділення</span>
-                        <input type="number" name="post_num" value="{{ old('post_num') }}" class=" input-checkout @error ('post_num') is-invalid @enderror" oninput="check_input_ukr_post(this)">
-                        <div class="invalid-feedback">
-                            @error ('post_num') {{$message}}@enderror
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <span class="small-titles-inputs d-block">Адреса відділення</span>
-                        <input type="text" name="post_adress" value="{{ old('post_adress') }}" class=" input-checkout @error ('post_adress') is-invalid @enderror" oninput="check_input_ukr_post(this)">
-                        <div class="invalid-feedback">
-                            @error ('post_adress') {{$message}}@enderror
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+
             <div class="row pt-5">
                 <div class="col-lg-12">
                     <h2 lass="small-titles-inputs d-block">Коментар до замовлення</h2>
@@ -138,6 +106,136 @@
             </div>
 
         </div>
+            @else
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Ім'я</span>
+                        <input type="text" name="name" value=" {{ old('name') }}" class=" input-checkout @error ('name') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('name') {{$message}}@enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Прізвище</span>
+                        <input type="text" name="last_name" value=" {{ old('last_name') }}" class=" input-checkout @error ('last_name') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('last_name') {{$message}}@enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Електронна пошта</span>
+                        <input type="email" name="email" value=" {{ old('email') }}" class=" input-checkout @error ('email') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('email') {{$message}}@enderror
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <span class="small-titles-inputs d-block">Мобільний телефон</span>
+                        <input type="tel" name="phone" value=" {{ old('phone') }}" class=" input-checkout @error ('phone') is-invalid @enderror">
+                        <div class="invalid-feedback">
+                            @error ('phone') {{$message}}@enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="selfshipping-wrap" >
+                    <div class="form-check self-shipping-check pt-4" >
+                        <input class="form-check-input self-shipping-input" type="checkbox" id="check_self_shipping" name="self_shipping" value="1"  onclick="choose_self_shipping()">
+                        <div class="invalid-feedback">
+                            @error ('self_shipping') {{$message}}@enderror
+                        </div>
+                        <label class="form-check-label" for="check_self_shipping">
+                        Самовивіз
+                        </label>
+                    </div>
+                    <div class="self-shipping pt-4">
+                        Самовивіз можливий кожень день з 8:00 до 18:00
+                        За адресою с.Соколово дн-району Дніпропетровської обл.
+                    </div>
+                </div>
+                <div class="delivery-new-post-wrap" id="delivery_new_post_choose" >
+                    <div class="delivery-title d-flex py-5">
+                        <h2>
+                            Доставка з Нова Пошта
+                        </h2>
+                        <div class="ms-3 delivery-logo-newpost">
+                            <img style="width: 100%" src="/logo/noa_posta_logo.svg.png" alt="Нова Пошта">
+                        </div>
+                        {{-- <div class="invalid-feedback">
+                            @error ('new_post_num') {{$message}}@enderror
+                        </div> --}}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <span class="small-titles-inputs d-block">Населенний пункт</span>
+                            <input type="text" name="new_post_city" value="{{ old('new_post_city') }}" class=" input-checkout @error ('new_post_city') is-invalid @enderror" oninput="check_input_new_post(this)">
+                            <div class="invalid-feedback">
+                                @error ('new_post_city') {{$message}}@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <span class="small-titles-inputs d-block">№ відділення</span>
+                            <input type="number" name="new_post_num" value="{{ old('new_post_num') }}" class="input-checkout @error ('new_post_num') is-invalid @enderror" oninput="check_input_new_post(this)">
+                            <div class="invalid-feedback">
+                                @error ('new_post_num') {{$message}}@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <span class="small-titles-inputs d-block">Адреса відділення</span>
+                            <input type="text" name="new_post_adress" value="{{ old('new_post_adress') }}" class=" input-checkout @error ('new_post_adress') is-invalid @enderror" oninput="check_input_new_post(this)">
+                            <div class="invalid-feedback">
+                                @error ('new_post_adress') {{$message}}@enderror
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="delivery-ukr-post-wrap" id="delivery_ukr_post_choose">
+                    <div class="delivery-title d-flex py-5">
+                        <h2>
+                            Доставка з Укрпошта
+                        </h2>
+                        <div class="ms-3 delivery-logo-ukrpost">
+                            <img style="width: 100%" src="/logo/ukrposta-icon.png" alt="Укрпошта">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <span class="small-titles-inputs d-block">Населенний пункт</span>
+                            <input type="text" name="post_locality" value="{{ old('post_locality') }}" class=" input-checkout @error ('post_locality') is-invalid @enderror" oninput="check_input_ukr_post(this)">
+                            <div class="invalid-feedback">
+                                @error ('post_locality') {{$message}}@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <span class="small-titles-inputs d-block">№ відділення</span>
+                            <input type="number" name="post_num" value="{{ old('post_num') }}" class=" input-checkout @error ('post_num') is-invalid @enderror" oninput="check_input_ukr_post(this)">
+                            <div class="invalid-feedback">
+                                @error ('post_num') {{$message}}@enderror
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <span class="small-titles-inputs d-block">Адреса відділення</span>
+                            <input type="text" name="post_adress" value="{{ old('post_adress') }}" class=" input-checkout @error ('post_adress') is-invalid @enderror" oninput="check_input_ukr_post(this)">
+                            <div class="invalid-feedback">
+                                @error ('post_adress') {{$message}}@enderror
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="row pt-5">
+                    <div class="col-lg-12">
+                        <h2 lass="small-titles-inputs d-block">Коментар до замовлення</h2>
+                        <textarea class="text-chekout" name="order_note" id="" cols="30" rows="10"></textarea>
+                    </div>
+                </div>
+
+            </div>
+
+            @endif
+
+
 
         <div class="col-md-6">
             <h2>Ваше замовлення</h2>

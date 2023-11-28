@@ -24,6 +24,23 @@ class User extends Authenticatable
         'phone',
         'password',
         'public',
+        'admin',
+        'cart',
+        'post_number',
+        'street',
+        'city',
+        'region',
+        'role',
+        'sex',
+        'new_post_num',
+        'new_post_city',
+        'new_post_adress',
+        'post_num',
+        'post_city',
+        'post_adress',
+        'discount',
+        'selfship',
+
     ];
 
     /**
@@ -77,5 +94,9 @@ class User extends Authenticatable
 		}
 		$this->cart = json_encode($cart);
 		$this->save();
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class)->orderBy('created_at', 'desc');
     }
 }

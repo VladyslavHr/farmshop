@@ -199,6 +199,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Http\Classes\Cart::class,
+        App\Http\Classes\UserCrypt::class,
 
     ],
 
@@ -215,6 +216,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'Cart' => App\Http\Classes\Cart::class,
+        'UserCrypt' => App\Http\Classes\UserCrypt::class,
     ])->toArray(),
 
 ];

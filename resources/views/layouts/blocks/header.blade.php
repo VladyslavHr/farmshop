@@ -11,12 +11,27 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('products.index') }}">
+            <ul class="navbar-nav me-auto align-items-center">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-shop"></i>
                             Крамниця
                         </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownShop">
+                            <a class="dropdown-item drop-item
+                            {{ request()->routeIs('products.index') ? 'active-link' : '' }}"
+                            href="{{ route('products.index') }}">
+                                Крамниця
+                            </a>
+                            @foreach ($productsType as $type)
+                                <a class="dropdown-item drop-item
+                                {{ request()->routeIs('productTypes.show') && request()->slug == $type->slug ? 'active-link' : '' }}"
+                                href="{{ route('productTypes.show', $type->slug) }}">
+                                    {{$type->name}}
+                                </a>
+                            @endforeach
+                        </div>
+
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('contacts.index') }}">
@@ -30,10 +45,10 @@
                             Довідка
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('contacts.payAndDelivery') }}">
+                            <a class="dropdown-item drop-item" href="{{ route('contacts.payAndDelivery') }}">
                                 Доставка та оплата
                             </a>
-                            <a class="dropdown-item" href="{{ route('contacts.retunrRules') }}">
+                            <a class="dropdown-item drop-item" href="{{ route('contacts.retunrRules') }}">
                                 Повернення товару
                             </a>
                         </div>
@@ -45,12 +60,14 @@
                     Кошик (<b id="cart_total_count" class="cart-count">{{ Cart::getTotalCount() }}</b>)
                 </a>
                 @if (Auth::check())
-                    {{-- <a class="nav-link me-3" href="{{ route('parsers.agriculture') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
-                        Agriculture
-                    </a> --}}
+                    @if (auth()->user()->admin == 1)
                     <a class="nav-link me-3" href="{{ route('admin.dashboard.index') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                         Admin
                     </a>
+                    @endif
+                    {{-- <a class="nav-link me-3" href="{{ route('parsers.agriculture') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
+                        Agriculture
+                    </a> --}}
                 @endif
             </div>
 
@@ -58,18 +75,15 @@
             <ul class="navbar-nav ms-auto">
                 <!-- Authentication Links -->
                 @guest
-                @if (Auth::check())
                     @if (Route::has('login'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">Увійти</a>
                         </li>
                     @endif
-                @endif
-
 
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link" href="{{ route('register') }}">Зареєструватись</a>
                         </li>
                     @endif
                 @else
@@ -78,10 +92,13 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('logout') }}"
+                            <a href="{{ route('profile.show', UserCrypt::encryptedId(Auth::user()->id) ) }}" class="dropdown-item drop-item {{ request()->routeIs('profile.show') ? 'active-link' : '' }}">
+                                Мій профіль
+                            </a>
+                            <a class="dropdown-item drop-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                                 document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
+                                Вийти
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

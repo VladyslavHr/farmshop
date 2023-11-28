@@ -61,6 +61,16 @@ body{
     background-color: #222b33!important;
 }
 
+.drop-item:hover{
+    background-color: #678199!important;
+    color: #fff;
+}
+
+.active-link{
+    background-color: #222b33;
+    color: #fff;
+}
+
 /* home */
 
 .home-link-map{
@@ -862,15 +872,75 @@ body{
     background-repeat: round;
 }
 
+/* Profile */
+.nav-link-bs{
+    border-radius: 0;
+    color: #686868!important;
+}
 
+.nav-link-bs.active-bs{
+    border-radius: 0;
+    color: #fff!important;
+    border-radius: 0;
 
+}
 
+.nav-link-bs:hover{
+    background-color: #678199!important;
+    border-color: #678199!important;
+    transition: 0.4s;
+    color: black!important;
+    border-radius: 0;
+}
 
+.active-bs{
+    background-color: #222b33!important;
+    border-color: #222b33!important;
+    color: #fff!important;
+    border-radius: 0;
+}
 
+.active-bs:hover{
+    background-color: #678199!important;
+    border-color: #678199!important;
+    transition: 0.4s;
+    color: black!important;
+    border-radius: 0;
+}
 
+.profile-order-link{
+    color: #678199;
+}
 
+.profile-order-link:hover{
+    color: #555555;
+    transition: 0.4s;
+}
 
+.label-for-checkbox{
+    font-size: 22px;
+}
 
+.wrap-chekbox{
+    display: flex;
+    align-items: center;
+}
+
+.selfship-checkbox{
+    height: 23px;
+    width: 23px;
+}
+
+.selfship-checkbox:checked{
+    background-color: #678199!important;
+    border-color: #678199!important;
+}
+
+.selfship-checkbox:focus{
+    border-color: #678199;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(103 129 153 / 25%);
+}
 
 
 

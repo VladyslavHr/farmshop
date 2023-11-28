@@ -34,6 +34,7 @@ class Order extends Model
         'transaction_id',
         'promo_id',
         'promo_discount',
+        'user_id'
 
     ];
 
@@ -71,4 +72,7 @@ class Order extends Model
         return $this->belongsTo(PromoCode::class, 'promo_id')->orderByDesc('created_at');
     }
 
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

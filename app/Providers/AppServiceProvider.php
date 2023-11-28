@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Classes\Payment;
+use App\View\Composers\HeaderComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
         // Schema::defaultStringLength(191);
         Paginator::useBootstrapFive();
         // Paginator::useBootstrapFive();
+        View::composer('layouts.blocks.header', HeaderComposer::class);
     }
 }

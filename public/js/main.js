@@ -262,6 +262,16 @@ function check_input_new_post() {
     }
 }
 
+$(document).ready(function() {
+    // Проверка и инициализация при загрузке страницы
+    if ("{{ auth()->user()->selfship }}" == "1") {
+        $('#check_self_shipping').prop('checked', true);
+    }
+    choose_self_shipping(); // Вызов функции для установления начального состояния
+
+    // Другие инициализации или обработчики событий
+});
+
 function check_input_ukr_post() {
     var inputValues = $('#delivery_ukr_post_choose input').map(function(){
         return this.value
