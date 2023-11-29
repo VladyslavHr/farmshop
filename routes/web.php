@@ -189,3 +189,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function(
 });
 
 
+// Auth::routes();

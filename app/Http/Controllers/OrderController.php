@@ -58,7 +58,6 @@ class OrderController extends Controller
         $data['promo_id'] = $promoCode ? $promoCode->id : null;
         $data['promo_discount'] = $promoCode ? $promoCode->discount : null;
         $data['user_id'] = auth()->user()->id;
-        // $data['user_id'] = auth()->user()->id;
 
         $order = Order::create($data);
 
