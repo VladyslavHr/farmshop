@@ -7,6 +7,9 @@
 
     @include('profile.blocks.nav')
 
+    @if (!count($user->orders))
+        <h3 class="text-center">У ввас ще немає замовлень</h3>
+    @else
     <table class="table">
         <thead>
           <tr>
@@ -82,6 +85,7 @@
             @endforeach
         </tbody>
     </table>
+    @endif
 
     <h3 class="py-3">Контактна інформація</h3>
     <div class="row">

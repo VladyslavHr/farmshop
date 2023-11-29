@@ -19,14 +19,18 @@ class ProfileController extends Controller
         ]);
     }
 
-    public function info(User $user) {
+    public function info($encrypted) {
+        $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
+
         return view('profile.info',[
             'user' => $user,
         ]);
     }
 
-    public function infoUpdate(UpdateUserRequest $request, User $user){
+    public function infoUpdate(UpdateUserRequest $request, $encrypted){
         // dd($request->all());
+        $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
+
         $user->update([
             'name' => $request->name,
             'last_name' => $request->last_name,
@@ -47,29 +51,34 @@ class ProfileController extends Controller
         return redirect()->back()->with('status', 'Ваш профіль успішно оновлено!');
     }
 
-    public function orders(User $user) {
+    public function orders($encrypted) {
+        $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
 
         return view('profile.orders',[
             'user' => $user,
         ]);
     }
 
-    public function return(Request $request, User $user) {
+    public function return(Request $request, $encrypted) {
+        $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
 
         return view('profile.return',[
             'user' => $user,
         ]);
     }
 
-    public function password(User $user) {
+    public function password($encrypted) {
+        $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
 
         return view('profile.password',[
             'user' => $user,
         ]);
     }
 
-    public function passwordUpdate(Request $request, User $user) {
+    public function passwordUpdate(Request $request, $encrypted) {
         // Валидация входных данных
+        $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
+
         $request->validate([
             'old_password' => 'required',
             'new_password' => 'required|string|min:8|confirmed',
@@ -90,7 +99,8 @@ class ProfileController extends Controller
         return redirect()->back();
     }
 
-    public function orderShow(User $user, Order $order) {
+    public function orderShow($encrypted, Order $order) {
+        $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
 
         return view('profile.orderShow',[
             'user' => $user,
