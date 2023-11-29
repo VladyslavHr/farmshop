@@ -1,13 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-
+@if (session('status'))
+<div class="alert alert-success" role="alert">
+    {{ session('status') }}
+</div>
+@elseif (session('error'))
+<div class="alert alert-danger" role="alert">
+    {{ session('error') }}
+</div>
+@endif
 <div class="container py-5">
     <h1 class="text-center">Ласкаво просимо до вашого профілю {{ $user->name }} {{ $user->last_name }}</h1>
 
     @include('profile.blocks.nav')
 
-    <form action="{{ route('profile.infoUpdate', $user) }}" method="POST" >
+    <form action="{{ route('profile.infoUpdate', UserCrypt::encryptedId($user->id)) }}" method="POST" >
         @csrf
         @method('PUT')
 
