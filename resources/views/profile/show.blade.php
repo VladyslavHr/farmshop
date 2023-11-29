@@ -8,7 +8,9 @@
     @include('profile.blocks.nav')
 
     @if (!count($user->orders))
-        <h3 class="text-center">У ввас ще немає замовлень</h3>
+        <h3 class="text-center">У вас ще немає замовлень
+            <a class="link-to-shop" href="{{ route('products.index') }}">перейдіть до крамниці</a>
+        </h3>
     @else
     <table class="table">
         <thead>

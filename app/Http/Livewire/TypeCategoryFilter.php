@@ -19,8 +19,8 @@ class TypeCategoryFilter extends Component
     public $choosenCategorySlug = 'all';
     public $productTypeSlug;
     public $sortingSelectValue = null;
-    public $sortingBy = 'name';
-    public $sortingDirection = 'asc';
+    public $sortingBy = 'quantity';
+    public $sortingDirection = 'desc';
     public $queryParams = [];
 
     public function updatedSortingSelectValue()
@@ -79,8 +79,8 @@ class TypeCategoryFilter extends Component
     {
         $this->queryParams = $_GET;
         $this->productTypeSlug = request('slug');
-        $this->sortingBy = request('sortingBy') ?? 'name';
-        $this->sortingDirection = request('sortingDirection') ?? 'asc';
+        $this->sortingBy = request('sortingBy') ?? 'quantity';
+        $this->sortingDirection = request('sortingDirection') ?? 'desc';
         $this->sortingSelectValue = $this->sortingBy . '_' . $this->sortingDirection;
     }
 
