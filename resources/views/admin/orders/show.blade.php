@@ -92,13 +92,19 @@
     </h4>
     <div class="row border-devider">
         @if ($order->post_num && $order->post_adress != null)
-            <div class="col-lg-6">
+            <div class="col-lg-4">
                 <strong>
                     Номер поштового відділення:
                 </strong>
                 {{ $order->post_num }}
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-4">
+                <strong>
+                    Населенний пункт:
+                </strong>
+                {{ $order->post_num }}
+            </div>
+            <div class="col-lg-4">
                 <strong>
                     Адреса поштового відділення:
                 </strong>
@@ -111,6 +117,12 @@
                 Номер відділення Нової Пошти:
             </strong>
             {{ $order->new_post_num }}
+        </div>
+        <div class="col-lg-6">
+            <strong>
+                Населенний пункт Нової Пошти:
+            </strong>
+            {{ $order->new_post_city }}
         </div>
         <div class="col-lg-6">
             <strong>

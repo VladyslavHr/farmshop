@@ -28,7 +28,7 @@ class ProfileController extends Controller
     }
 
     public function infoUpdate(UpdateUserRequest $request, $encrypted){
-        // dd($request->all());
+
         $user = user::where('id', UserCrypt::decriptedId($encrypted))->first();
 
         $user->update([
@@ -42,12 +42,6 @@ class ProfileController extends Controller
             'new_post_adress' => $request->new_post_adress,
         ]);
 
-        // if ($user->save()) {
-        //     toastr()->success('Your profile updated success!');
-        // }else{
-        //     toastr()->error('An error has occurred please try again later.');
-        // }
-        // toastr()->success('Your profile has been updated success!');
         return redirect()->back()->with('status', 'Ваш профіль успішно оновлено!');
     }
 
