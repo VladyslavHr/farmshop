@@ -28,7 +28,7 @@
             @foreach ($user->orders as $order)
                 <tr>
                     <th class="text-center" scope="row">
-                        <a class="profile-order-link" href="{{ route('profile.orderShow', ['user' => $user, 'order' => $order]) }}">
+                        <a class="profile-order-link" href="{{ route('profile.orderShow', ['user' => UserCrypt::encryptedId(Auth::user()->id), 'order' => $order]) }}">
                             {{ $order->id }}
                         </a>
                     </th>
