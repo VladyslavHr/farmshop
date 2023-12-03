@@ -30,7 +30,7 @@
                 <div class="sub-color">Дата замовлення: {{ $order->created_at->format('d-m-Y') }}</div>
             </div>
             <div class="col-lg-6 text-end">
-                <a href="{{ route('profile.orderShow', ['user' => $user, 'order' => $order]) }}" class="btn send-submit">
+                <a href="{{ route('profile.orderShow', ['user' => UserCrypt::encryptedId(Auth::user()->id), 'order' => $order]) }}" class="btn send-submit">
                     Більше
                     <i class="bi bi-arrow-right"></i>
                 </a>
@@ -38,7 +38,7 @@
         </div>
         <div class="row">
             @foreach ($order->items as $item)
-                <a class="col-lg-2" href="{{ route('profile.orderShow', ['user' => $user, 'order' => $order]) }}">
+                <a class="col-lg-2" href="{{ route('profile.orderShow', ['user' => UserCrypt::encryptedId(Auth::user()->id), 'order' => $order]) }}">
                     <img src="{{ $item->product->main_img }}" alt="" style="width: 100%">
                 </a>
             @endforeach
