@@ -58,7 +58,8 @@ class CheckoutController extends Controller
     {
 
 
-        $order = Order::findOrFail(2);
+        return view('emails.test.test');
+        // $order = Order::findOrFail(2);
 
         // foreach ($order->items as $item) {
         //     $season = Season::where('date_from', '<=', $item->date)
@@ -75,22 +76,22 @@ class CheckoutController extends Controller
 
 
 
-        $path = 'logo/logoimg.png';
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data_img = file_get_contents($path);
-        $logo = 'data:image/' . $type . ';base64,' . base64_encode($data_img);
-        return view('emails.orders.store', [
-            'order' => $order,
-            'logo' => $logo,
-            // 'payment_method' => $payment_method,
-            // 'self_shipping' => $self_shipping,
-            // 'new_post_num' => $new_post_num,
-            // 'new_post_city' => $new_post_city,
-            // 'new_post_adress' => $new_post_adress,
-            // 'product_quantity' => $order->product_quantity,
-            // 'note' => $this->order->order_note,
-            // 'total_price' => number_format($order->total, 0, '.', ' '),
-        ]);
+        // $path = 'logo/logoimg.png';
+        // $type = pathinfo($path, PATHINFO_EXTENSION);
+        // $data_img = file_get_contents($path);
+        // $logo = 'data:image/' . $type . ';base64,' . base64_encode($data_img);
+        // return view('emails.orders.store', [
+        //     // 'order' => $order,
+        //     // 'logo' => $logo,
+        //     // 'payment_method' => $payment_method,
+        //     // 'self_shipping' => $self_shipping,
+        //     // 'new_post_num' => $new_post_num,
+        //     // 'new_post_city' => $new_post_city,
+        //     // 'new_post_adress' => $new_post_adress,
+        //     // 'product_quantity' => $order->product_quantity,
+        //     // 'note' => $this->order->order_note,
+        //     // 'total_price' => number_format($order->total, 0, '.', ' '),
+        // ]);
     }
 
     /**
